@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://windows-sandbox-builder/schemas/profile.schema.json",
+  "title": "Windows Sandbox Builder profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "sandbox", "apps"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "sandbox": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "memoryMB": { "type": "integer", "minimum": 1024, "default": 4096 },
+        "networking": { "type": "boolean", "default": true },
+        "clipboard": { "type": "boolean", "default": true },
+        "vGpu": { "type": "boolean", "default": false },
+        "audioInput": { "type": "boolean", "default": false },
+        "videoInput": { "type": "boolean", "default": false },
+        "printerRedirection": { "type": "boolean", "default": false },
+        "protectedClient": { "type": "boolean", "default": false }
+      }
+    },
+    "features": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "toolbox": { "type": "boolean", "default": false },
+        "hideBootstrapConsole": { "type": "boolean", "default": true },
+        "desktopShortcuts": { "type": "boolean", "default": true },
+        "systemShortcuts": { "type": "boolean", "default": false },
+        "edgeManagedFavorites": { "type": "boolean", "default": false },
+        "hideEdgeFirstRun": { "type": "boolean", "default": false },
+        "customWallpaper": { "type": "boolean", "default": false }
+      }
+    },
+    "apps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "mappedFolders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["hostFolder", "sandboxFolder", "readOnly"],
+        "properties": {
+          "hostFolder": { "type": "string" },
+          "sandboxFolder": { "type": "string" },
+          "readOnly": { "type": "boolean" }
+        }
+      },
+      "default": []
+    }
+  }
+}
