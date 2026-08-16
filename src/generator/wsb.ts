@@ -1,7 +1,10 @@
 import type { SandboxProfile } from '../types.js';
 
-const boolSetting = (value: boolean | undefined, enabled: string, disabled: string) =>
-  value === false ? disabled : enabled;
+const enabledByDefault = (value: boolean | undefined) =>
+  value === false ? 'Disable' : 'Enable';
+
+const disabledByDefault = (value: boolean | undefined) =>
+  value === true ? 'Enable' : 'Disable';
 
 const escapeXml = (value: string) =>
   value
@@ -13,9 +16,9 @@ const escapeXml = (value: string) =>
 
 export function generateWsb(profile: SandboxProfile): string {
   const memory = profile.sandbox.memoryMB ?? 4096;
-  const networking = boolSetting(profile.sandbox.networking, 'Enable', 'Disable');
-  const clipboard = boolSetting(profile.sandbox.clipboard, 'Enable', 'Disable');
-  const vGpu = boolSetting(profile.sandbox.vGpu, 'Enable', 'Disable');
+  const networking = enabledByDefault(profile.sandbox.networking);
+  const clipboard = enabledByDefault(profile.sandbox.clipboard);
+  const vGpu = disabledByDefault(profile.sandbox.vGpu);
 
   const mappedFolders = (profile.mappedFolders ?? []).length
     ? `\n  <MappedFolders>\n${(profile.mappedFolders ?? [])
