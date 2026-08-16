@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "powershell7",
+  "name": "PowerShell 7",
+  "description": "Modern cross-platform PowerShell edition.",
+  "publisher": "Microsoft",
+  "homepage": "https://github.com/PowerShell/PowerShell",
+  "category": "development",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "msi",
+    "url": "https://github.com/PowerShell/PowerShell/releases/download/v7.6.2/PowerShell-7.6.2-win-x64.msi",
+    "fileName": "PowerShell-7.6.2-win-x64.msi",
+    "silentArgs": "/qn /norestart"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"
+  },
+  "ui": { "recommended": true }
+}
