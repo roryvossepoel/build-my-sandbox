@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "cmtrace-open",
+  "name": "CMTrace Open",
+  "description": "Modern CMTrace-inspired log viewer for Windows troubleshooting.",
+  "publisher": "Adam Gell",
+  "homepage": "https://cmtrace.dev",
+  "category": "troubleshooting",
+  "architectures": ["x64"],
+  "dependencies": ["webview2"],
+  "install": {
+    "type": "portable",
+    "url": "https://win.cmtrace.net",
+    "fileName": "CMTraceOpen.exe",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\CMTraceOpen"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\CMTraceOpen\\CMTraceOpen.exe"
+  },
+  "ui": { "recommended": true }
+}
