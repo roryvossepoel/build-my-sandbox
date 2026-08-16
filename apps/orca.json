@@ -1,0 +1,23 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "orca",
+  "name": "Orca MSI Editor",
+  "description": "MSI database table editor used for installer inspection and packaging.",
+  "publisher": "Microsoft",
+  "homepage": "https://learn.microsoft.com/windows/win32/msi/orca-exe",
+  "category": "packaging",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://www.technipages.com/downloads/OrcaMSI.zip",
+    "fileName": "OrcaMSI.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\OrcaInstaller",
+    "postInstall": ["Install Orca.msi silently"]
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Program Files (x86)\\Orca\\Orca.exe"
+  },
+  "ui": { "recommended": true }
+}
