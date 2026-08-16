@@ -1,0 +1,43 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: TypeScript check
+        run: npm run check
+
+      - name: Validate app catalog and profiles
+        run: python3 scripts/validate_catalog.py
+
+      - name: Validate JSON syntax
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for folder in ('apps', 'profiles', 'schemas'):
+              for path in Path(folder).glob('*.json'):
+                  json.loads(path.read_text(encoding='utf-8'))
+                  print(f'OK {path}')
+          PY
