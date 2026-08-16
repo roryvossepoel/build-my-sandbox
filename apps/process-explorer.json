@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "process-explorer",
+  "name": "Process Explorer",
+  "description": "Advanced process viewer and troubleshooting utility.",
+  "publisher": "Microsoft Sysinternals",
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/process-explorer",
+  "category": "troubleshooting",
+  "architectures": ["x64", "arm64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://download.sysinternals.com/files/ProcessExplorer.zip",
+    "fileName": "ProcessExplorer.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\ProcessExplorer"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\ProcessExplorer\\procexp64.exe"
+  },
+  "ui": { "recommended": true }
+}
