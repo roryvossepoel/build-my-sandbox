@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "webview2",
+  "name": "Microsoft Edge WebView2 Runtime",
+  "description": "Evergreen WebView2 Runtime used by applications that embed Edge web content.",
+  "publisher": "Microsoft",
+  "homepage": "https://developer.microsoft.com/microsoft-edge/webview2/",
+  "category": "runtime",
+  "architectures": ["x64", "arm64"],
+  "dependencies": [],
+  "install": {
+    "type": "exe",
+    "url": "https://go.microsoft.com/fwlink/p/?LinkId=2124703",
+    "fileName": "MicrosoftEdgeWebview2Setup.exe",
+    "silentArgs": "/silent /install"
+  },
+  "detection": {
+    "type": "registry",
+    "value": "Microsoft EdgeUpdate WebView2 client pv"
+  },
+  "ui": { "badge": "dependency" }
+}
