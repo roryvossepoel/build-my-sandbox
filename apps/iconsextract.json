@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "iconsextract",
+  "name": "IconsExtract",
+  "description": "Extract icons and cursors from executable files and libraries.",
+  "publisher": "NirSoft",
+  "homepage": "https://www.nirsoft.net/utils/iconsext.html",
+  "category": "utilities",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://www.nirsoft.net/utils/iconsext.zip",
+    "fileName": "iconsext.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\IconsExtract"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\IconsExtract\\iconsext.exe"
+  },
+  "ui": { "recommended": false }
+}
