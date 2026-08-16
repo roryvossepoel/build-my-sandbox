@@ -15,7 +15,7 @@ const catalog = new Map(apps.map((app) => [app.id, app]));
 let profile = structuredClone(profiles.find((item) => item.id === 'sandbox-elite') ?? profiles[0]);
 let activeTab: 'summary' | 'wsb' | 'powershell' = 'summary';
 
-const root = document.querySelector<HTMLDivElement>('#app');
+const root = document.querySelector<HTMLDivElement>('#app')!;
 if (!root || !profile) throw new Error('Windows Sandbox Builder could not initialize.');
 
 const safeName = (value: string) => value.trim().replace(/[^a-z0-9-_]+/gi, '-').replace(/^-+|-+$/g, '') || 'Windows-Sandbox';
