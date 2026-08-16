@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "pstools",
+  "name": "PsTools / PsExec",
+  "description": "Microsoft Sysinternals command-line utilities including PsExec.",
+  "publisher": "Microsoft Sysinternals",
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/pstools",
+  "category": "troubleshooting",
+  "architectures": ["x64", "arm64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://download.sysinternals.com/files/PSTools.zip",
+    "fileName": "PSTools.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\PsTools"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe"
+  },
+  "ui": { "recommended": true }
+}
