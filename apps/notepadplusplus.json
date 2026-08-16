@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "notepadplusplus",
+  "name": "Notepad++",
+  "description": "Lightweight source code and text editor.",
+  "publisher": "Notepad++",
+  "homepage": "https://notepad-plus-plus.org/",
+  "category": "development",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "exe",
+    "url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.9.7/npp.8.9.7.Installer.x64.exe",
+    "fileName": "npp.8.9.7.Installer.x64.exe",
+    "silentArgs": "/S"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Program Files\\Notepad++\\notepad++.exe"
+  },
+  "ui": { "recommended": true }
+}
