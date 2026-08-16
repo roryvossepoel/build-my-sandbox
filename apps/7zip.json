@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "7zip",
+  "name": "7-Zip",
+  "description": "File archiver and archive manager.",
+  "publisher": "7-Zip",
+  "homepage": "https://www.7-zip.org/",
+  "category": "utilities",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "exe",
+    "url": "https://github.com/ip7z/7zip/releases/download/26.02/7z2602-x64.exe",
+    "fileName": "7z2602-x64.exe",
+    "silentArgs": "/S"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Program Files\\7-Zip\\7zFM.exe"
+  },
+  "ui": { "recommended": true }
+}
