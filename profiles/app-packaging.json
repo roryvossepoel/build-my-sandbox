@@ -1,0 +1,38 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "app-packaging",
+  "name": "App Packaging",
+  "description": "A disposable environment for inspecting installers, comparing changes and building application packages.",
+  "sandbox": {
+    "memoryMB": 8192,
+    "networking": true,
+    "clipboard": true,
+    "vGpu": false,
+    "audioInput": false,
+    "videoInput": false,
+    "printerRedirection": false,
+    "protectedClient": false
+  },
+  "features": {
+    "toolbox": true,
+    "hideBootstrapConsole": true,
+    "desktopShortcuts": true,
+    "systemShortcuts": true,
+    "edgeManagedFavorites": false,
+    "hideEdgeFirstRun": true,
+    "customWallpaper": false
+  },
+  "apps": [
+    "7zip",
+    "notepadplusplus",
+    "powershell7",
+    "vscode",
+    "procmon",
+    "process-explorer",
+    "regshot",
+    "uninstallview",
+    "orca",
+    "pstools"
+  ],
+  "mappedFolders": []
+}
