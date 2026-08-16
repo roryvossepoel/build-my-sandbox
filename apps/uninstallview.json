@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "uninstallview",
+  "name": "UninstallView",
+  "description": "Displays installed application information and uninstall commands.",
+  "publisher": "NirSoft",
+  "homepage": "https://www.nirsoft.net/utils/uninstall_view.html",
+  "category": "packaging",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://www.nirsoft.net/utils/uninstallview-x64.zip",
+    "fileName": "uninstallview-x64.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\UninstallView"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\UninstallView\\UninstallView.exe"
+  },
+  "ui": { "recommended": true }
+}
