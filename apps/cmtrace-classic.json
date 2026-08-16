@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "cmtrace-classic",
+  "name": "CMTrace Classic",
+  "description": "Classic CMTrace log viewer for Configuration Manager and Intune troubleshooting.",
+  "publisher": "Microsoft",
+  "homepage": "https://learn.microsoft.com/intune/configmgr/core/support/cmtrace",
+  "category": "troubleshooting",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "portable",
+    "url": "https://patchmypc.com/cmtrace",
+    "fileName": "cmtrace.exe",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\CMTraceClassic"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\CMTraceClassic\\cmtrace.exe"
+  },
+  "ui": { "recommended": true }
+}
