@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "procmon",
+  "name": "Process Monitor",
+  "description": "Real-time file system, Registry and process/thread activity monitoring.",
+  "publisher": "Microsoft Sysinternals",
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/procmon",
+  "category": "troubleshooting",
+  "architectures": ["x64", "arm64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://download.sysinternals.com/files/ProcessMonitor.zip",
+    "fileName": "ProcessMonitor.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\ProcessMonitor"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\ProcessMonitor\\Procmon.exe"
+  },
+  "ui": { "recommended": true }
+}
