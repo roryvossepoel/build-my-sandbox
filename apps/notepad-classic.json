@@ -1,0 +1,21 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "notepad-classic",
+  "name": "Notepad Classic",
+  "description": "Classic Notepad build used in the Sandbox Elite reference environment.",
+  "publisher": "Microsoft",
+  "category": "utilities",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://msintune.blob.core.windows.net/sandbox/notepad.zip",
+    "fileName": "notepad.zip",
+    "extractTo": "C:\\Windows\\NotepadClassic"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Windows\\NotepadClassic\\notepad.exe"
+  },
+  "ui": { "recommended": false }
+}
