@@ -1,0 +1,27 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "minimal",
+  "name": "Minimal",
+  "description": "A clean Windows Sandbox with sensible defaults and no additional applications.",
+  "sandbox": {
+    "memoryMB": 4096,
+    "networking": true,
+    "clipboard": true,
+    "vGpu": false,
+    "audioInput": false,
+    "videoInput": false,
+    "printerRedirection": false,
+    "protectedClient": false
+  },
+  "features": {
+    "toolbox": false,
+    "hideBootstrapConsole": true,
+    "desktopShortcuts": false,
+    "systemShortcuts": false,
+    "edgeManagedFavorites": false,
+    "hideEdgeFirstRun": true,
+    "customWallpaper": false
+  },
+  "apps": [],
+  "mappedFolders": []
+}
