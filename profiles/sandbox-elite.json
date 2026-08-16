@@ -1,0 +1,42 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "sandbox-elite",
+  "name": "Sandbox Elite",
+  "description": "Full Modern Workplace troubleshooting and packaging environment used as the reference implementation for Windows Sandbox Builder.",
+  "sandbox": {
+    "memoryMB": 8192,
+    "networking": true,
+    "clipboard": true,
+    "vGpu": false,
+    "audioInput": false,
+    "videoInput": false,
+    "printerRedirection": false,
+    "protectedClient": false
+  },
+  "features": {
+    "toolbox": true,
+    "hideBootstrapConsole": true,
+    "desktopShortcuts": true,
+    "systemShortcuts": true,
+    "edgeManagedFavorites": true,
+    "hideEdgeFirstRun": true,
+    "customWallpaper": true
+  },
+  "apps": [
+    "iconsextract",
+    "uninstallview",
+    "regshot",
+    "7zip",
+    "notepad-classic",
+    "process-explorer",
+    "procmon",
+    "pstools",
+    "orca",
+    "notepadplusplus",
+    "cmtrace-classic",
+    "powershell7",
+    "vscode",
+    "cmtrace-open"
+  ],
+  "mappedFolders": []
+}
