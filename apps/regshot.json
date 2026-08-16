@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "regshot",
+  "name": "Regshot",
+  "description": "Registry snapshot and comparison utility.",
+  "publisher": "Regshot project",
+  "homepage": "https://github.com/Seabreg/Regshot",
+  "category": "packaging",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "portable",
+    "url": "https://github.com/Seabreg/Regshot/raw/master/Regshot-x64-Unicode.exe",
+    "fileName": "RegShot.exe",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\Regshot"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\Regshot\\RegShot.exe"
+  },
+  "ui": { "recommended": true }
+}
