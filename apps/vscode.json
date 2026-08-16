@@ -1,0 +1,23 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "vscode",
+  "name": "Visual Studio Code",
+  "description": "Portable Visual Studio Code stable build.",
+  "publisher": "Microsoft",
+  "homepage": "https://code.visualstudio.com/",
+  "category": "development",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://update.code.visualstudio.com/latest/win32-x64-archive/stable",
+    "fileName": "VSCode-win32-x64.zip",
+    "extractTo": "C:\\SandboxToolbox\\VSCode",
+    "postInstall": ["Create C:\\SandboxToolbox\\VSCode\\data to enable portable mode"]
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\VSCode\\Code.exe"
+  },
+  "ui": { "recommended": true }
+}
