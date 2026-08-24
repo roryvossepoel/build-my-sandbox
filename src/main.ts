@@ -1,5 +1,6 @@
 import JSZip from 'jszip';
 import './styles.css';
+import './playground.css';
 import type { AppManifest, SandboxProfile } from './types.js';
 import { resolveAppDependencies } from './generator/dependencies.js';
 import { generateRunner } from './generator/runner.js';
@@ -13,14 +14,16 @@ const profiles = Object.values(profileModules).sort((a, b) => a.name.localeCompa
 const catalog = new Map(apps.map((app) => [app.id, app]));
 
 let profile = structuredClone(profiles.find((item) => item.id === 'sandbox-elite') ?? profiles[0]);
+let advancedMode = false;
 let activeTab: 'summary' | 'wsb' | 'powershell' = 'summary';
+let draggedAppId: string | null = null;
 
 const root = document.querySelector<HTMLDivElement>('#app')!;
 if (!root || !profile) throw new Error('Windows Sandbox Builder could not initialize.');
 
 const safeName = (value: string) => value.trim().replace(/[^a-z0-9-_]+/gi, '-').replace(/^-+|-+$/g, '') || 'Windows-Sandbox';
 const cloneProfile = (value: SandboxProfile) => structuredClone(value);
-const boolText = (value: boolean | undefined) => (value === false ? 'Disabled' : 'Enabled');
+const boolText = (value: boolean | undefined) => (value === false ? 'Off' : 'On');
 
 function resolvedApps() {
   const ids = resolveAppDependencies(profile.apps, catalog);
@@ -68,20 +71,39 @@ function appInitials(name: string) {
     .join('');
 }
 
+function addApp(id: string) {
+  if (!catalog.has(id) || profile.apps.includes(id)) return;
+  profile.apps = [...profile.apps, id];
+}
+
+function removeApp(id: string) {
+  profile.apps = profile.apps.filter((item) => item !== id);
+}
+
+function categoryEmoji(category: string) {
+  const name = category.toLowerCase();
+  if (name.includes('develop')) return '🧩';
+  if (name.includes('trouble')) return '🧰';
+  if (name.includes('pack')) return '📦';
+  if (name.includes('runtime')) return '⚙️';
+  if (name.includes('windows')) return '🪟';
+  return '✨';
+}
+
 function summaryMarkup(selectedApps: AppManifest[]) {
   const dependencyCount = selectedApps.filter((app) => !profile.apps.includes(app.id)).length;
   return `
-    <div class="summary-grid">
+    <div class="summary-grid playful-summary">
       <div class="summary-card"><span>Memory</span><strong>${profile.sandbox.memoryMB ?? 4096} MB</strong></div>
       <div class="summary-card"><span>Networking</span><strong>${boolText(profile.sandbox.networking)}</strong></div>
       <div class="summary-card"><span>Clipboard</span><strong>${boolText(profile.sandbox.clipboard)}</strong></div>
       <div class="summary-card"><span>vGPU</span><strong>${boolText(profile.sandbox.vGpu)}</strong></div>
     </div>
     <div class="summary-list">
-      <div><span>Selected applications</span><strong>${profile.apps.length}</strong></div>
-      <div><span>Auto dependencies</span><strong>${dependencyCount}</strong></div>
-      <div><span>Total provisioned apps</span><strong>${selectedApps.length}</strong></div>
-      <div><span>Generation</span><strong>100% browser-side</strong></div>
+      <div><span>Tools you picked</span><strong>${profile.apps.length}</strong></div>
+      <div><span>Helpful dependencies</span><strong>${dependencyCount}</strong></div>
+      <div><span>Total tools in the sandbox</span><strong>${selectedApps.length}</strong></div>
+      <div><span>Built where?</span><strong>Right here in your browser</strong></div>
     </div>
   `;
 }
@@ -90,122 +112,175 @@ function render() {
   const { selectedApps, runner, wsb } = artifactSet();
   const resolvedIds = new Set(selectedApps.map((app) => app.id));
   const categories = [...new Set(apps.map((app) => app.category))];
+  const dependencyApps = selectedApps.filter((app) => !profile.apps.includes(app.id));
 
   root.innerHTML = `
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="Windows Sandbox Builder home">
-        <span class="brand-mark">WSB</span>
-        <span><strong>Windows Sandbox Builder</strong><small>Disposable Windows environments, built your way.</small></span>
+    <div class="playground-decor decor-a"></div>
+    <div class="playground-decor decor-b"></div>
+    <div class="playground-decor decor-c"></div>
+
+    <header class="topbar playground-topbar">
+      <a class="brand" href="#playground" aria-label="Windows Sandbox Builder home">
+        <span class="brand-mark sand-logo">🏖️</span>
+        <span><strong>Windows Sandbox Builder</strong><small>Build a Windows playground worth playing in.</small></span>
       </a>
-      <a class="github-link" href="https://github.com/roryvossepoel/windows-sandbox-builder" target="_blank" rel="noreferrer">Open source on GitHub ↗</a>
+      <div class="topbar-actions">
+        <div class="mode-switch" role="group" aria-label="Builder mode">
+          <button class="${advancedMode ? '' : 'active'}" data-mode="basic">Play mode</button>
+          <button class="${advancedMode ? 'active' : ''}" data-mode="advanced">Advanced</button>
+        </div>
+        <a class="github-link" href="https://github.com/roryvossepoel/windows-sandbox-builder" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </div>
     </header>
 
-    <main class="layout">
-      <aside class="sidebar panel">
-        <div class="eyebrow">BUILD</div>
-        <nav>
-          <a class="nav-item active" href="#preset">Preset <span>01</span></a>
-          <a class="nav-item" href="#sandbox">Sandbox <span>02</span></a>
-          <a class="nav-item" href="#applications">Applications <span>03</span></a>
-          <a class="nav-item" href="#review">Review <span>04</span></a>
-        </nav>
-        <div class="sidebar-note">
-          <strong>No backend. No account.</strong>
-          <p>Your configuration stays in this browser and is generated locally.</p>
+    <main id="playground" class="playground-shell">
+      <section class="hero-playground">
+        <div class="hero-copy">
+          <span class="hero-kicker">PICK · DROP · BUILD · PLAY</span>
+          <h1>Build your perfect<br><span>Windows Sandbox.</span></h1>
+          <p>Choose a starting point, toss in your favorite tools and generate a disposable Windows playground in seconds.</p>
+          <div class="hero-actions">
+            <button class="hero-primary" data-scroll-to="builder-zone">Start playing ↓</button>
+            <button class="hero-secondary" data-profile-shortcut="sandbox-elite">Load Sandbox Elite ✨</button>
+          </div>
         </div>
-      </aside>
-
-      <section class="builder">
-        <section id="preset" class="section-block">
-          <div class="section-heading">
-            <div><span class="eyebrow">STARTING POINT</span><h1>Build your Sandbox</h1><p>Choose a preset or customize every option yourself.</p></div>
+        <div class="sandbox-illustration" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="cloud cloud-one"></div>
+          <div class="cloud cloud-two"></div>
+          <div class="floating-tool tool-one">PS</div>
+          <div class="floating-tool tool-two">7Z</div>
+          <div class="floating-tool tool-three">VS</div>
+          <div class="sandpit">
+            <span class="bucket">🪣</span>
+            <span class="spade">🛠️</span>
+            <strong>YOUR<br>SANDBOX</strong>
           </div>
-          <div class="preset-grid">
-            ${profiles
-              .map(
-                (item) => `
-                <button class="preset-card ${item.id === profile.id ? 'selected' : ''}" data-profile="${item.id}">
-                  <span class="preset-badge">${item.id === 'sandbox-elite' ? 'SHOWCASE' : 'PRESET'}</span>
-                  <strong>${item.name}</strong>
-                  <p>${item.description ?? 'Ready-to-use Windows Sandbox configuration.'}</p>
-                  <small>${item.apps.length} selected apps</small>
-                </button>`,
-              )
-              .join('')}
-          </div>
-        </section>
-
-        <section id="sandbox" class="section-block">
-          <div class="section-heading"><div><span class="eyebrow">SANDBOX</span><h2>Runtime settings</h2><p>Control the resources and host integrations available to the Sandbox.</p></div></div>
-          <div class="settings-grid">
-            <label class="setting-card memory-setting"><span><strong>Memory</strong><small>RAM available to Windows Sandbox</small></span><select id="memory">${[4096, 6144, 8192, 12288, 16384].map((value) => `<option value="${value}" ${value === (profile.sandbox.memoryMB ?? 4096) ? 'selected' : ''}>${value / 1024} GB</option>`).join('')}</select></label>
-            ${[
-              ['networking', 'Networking', 'Allow network connectivity'],
-              ['clipboard', 'Clipboard', 'Share clipboard with the host'],
-              ['vGpu', 'vGPU', 'Enable virtualized GPU acceleration'],
-            ]
-              .map(([key, title, description]) => `<label class="setting-card toggle-setting"><span><strong>${title}</strong><small>${description}</small></span><input type="checkbox" data-setting="${key}" ${(profile.sandbox as Record<string, unknown>)[key] !== false ? 'checked' : ''}><span class="switch"></span></label>`)
-              .join('')}
-          </div>
-        </section>
-
-        <section id="applications" class="section-block">
-          <div class="section-heading"><div><span class="eyebrow">APPLICATIONS</span><h2>Choose your tools</h2><p>Dependencies are detected and added automatically.</p></div><div class="app-count">${profile.apps.length} selected</div></div>
-          ${categories
-            .map(
-              (category) => `
-              <div class="category-block">
-                <h3>${category}</h3>
-                <div class="apps-grid">
-                  ${apps
-                    .filter((app) => app.category === category)
-                    .map((app) => {
-                      const selected = profile.apps.includes(app.id);
-                      const automatic = resolvedIds.has(app.id) && !selected;
-                      return `<label class="app-card ${selected || automatic ? 'selected' : ''} ${automatic ? 'automatic' : ''}">
-                        <input type="checkbox" data-app="${app.id}" ${selected ? 'checked' : ''}>
-                        <span class="app-icon">${appInitials(app.name)}</span>
-                        <span class="app-copy"><strong>${app.name}</strong><small>${app.publisher ?? app.category}</small></span>
-                        ${automatic ? '<span class="dependency-badge">DEPENDENCY</span>' : '<span class="checkmark">✓</span>'}
-                      </label>`;
-                    })
-                    .join('')}
-                </div>
-              </div>`,
-            )
-            .join('')}
-        </section>
-
-        <section id="review" class="section-block review-block">
-          <div class="section-heading"><div><span class="eyebrow">REVIEW</span><h2>Generated configuration</h2><p>Inspect exactly what will be downloaded before you launch it.</p></div></div>
-          <div class="tabs">
-            <button data-tab="summary" class="${activeTab === 'summary' ? 'active' : ''}">Summary</button>
-            <button data-tab="wsb" class="${activeTab === 'wsb' ? 'active' : ''}">WSB</button>
-            <button data-tab="powershell" class="${activeTab === 'powershell' ? 'active' : ''}">PowerShell</button>
-          </div>
-          <div class="preview-panel">
-            ${activeTab === 'summary' ? summaryMarkup(selectedApps) : `<pre><code>${escapeHtml(activeTab === 'wsb' ? wsb : runner)}</code></pre>`}
-          </div>
-        </section>
+        </div>
       </section>
 
-      <aside class="summary panel">
-        <div class="summary-sticky">
-          <span class="eyebrow">YOUR SANDBOX</span>
-          <h2>${profile.name}</h2>
-          <p>${profile.description ?? 'Custom Windows Sandbox configuration.'}</p>
-          <div class="summary-list compact">
-            <div><span>Memory</span><strong>${(profile.sandbox.memoryMB ?? 4096) / 1024} GB</strong></div>
-            <div><span>Networking</span><strong>${boolText(profile.sandbox.networking)}</strong></div>
-            <div><span>Clipboard</span><strong>${boolText(profile.sandbox.clipboard)}</strong></div>
-            <div><span>Applications</span><strong>${selectedApps.length}</strong></div>
-          </div>
-          <div class="output-note"><span class="status-dot"></span><div><strong>Ready to generate</strong><small>Self-contained WSB · no server required</small></div></div>
-          <button id="download-wsb" class="primary-action">Download .WSB</button>
-          <button id="download-bundle" class="secondary-action">Download Bundle</button>
-          <small class="bundle-note">Bundle includes .wsb, runner.ps1 and configuration.json.</small>
+      <section class="preset-strip">
+        <div class="strip-copy"><span>CHOOSE A STARTING POINT</span><strong>Pick a preset, then make it yours.</strong></div>
+        <div class="preset-pills">
+          ${profiles.map((item, index) => `
+            <button class="preset-pill color-${(index % 4) + 1} ${item.id === profile.id ? 'selected' : ''}" data-profile="${item.id}">
+              <span>${item.id === 'sandbox-elite' ? '✨' : index === 0 ? '🌱' : '🧱'}</span>
+              <strong>${item.name}</strong>
+              <small>${item.apps.length} tools</small>
+            </button>`).join('')}
         </div>
-      </aside>
+      </section>
+
+      <section id="builder-zone" class="builder-playground">
+        <aside class="toybox-card">
+          <div class="play-section-title">
+            <span class="step-bubble">1</span>
+            <div><span class="mini-kicker">THE TOY BOX</span><h2>Pick your tools</h2><p>Drag them into your sandbox — or just tap one.</p></div>
+          </div>
+          <div class="toybox-search-wrap"><span>⌕</span><input id="tool-search" placeholder="Find a tool..." autocomplete="off"></div>
+          <div class="toybox-categories">
+            ${categories.map((category) => `
+              <div class="toy-category" data-category="${escapeHtml(category)}">
+                <h3>${categoryEmoji(category)} ${category}</h3>
+                <div class="toy-grid">
+                  ${apps.filter((app) => app.category === category).map((app, index) => {
+                    const selected = profile.apps.includes(app.id);
+                    return `<button class="toy-card ${selected ? 'in-sandbox' : ''} toy-color-${(index % 5) + 1}" draggable="true" data-drag-app="${app.id}" data-app-add="${app.id}" data-search="${escapeHtml(`${app.name} ${app.publisher ?? ''} ${app.category}`.toLowerCase())}">
+                      <span class="toy-icon">${appInitials(app.name)}</span>
+                      <span class="toy-copy"><strong>${app.name}</strong><small>${app.publisher ?? app.category}</small></span>
+                      <span class="toy-add">${selected ? '✓' : '+'}</span>
+                    </button>`;
+                  }).join('')}
+                </div>
+              </div>`).join('')}
+          </div>
+        </aside>
+
+        <section class="sandbox-stage-card">
+          <div class="play-section-title">
+            <span class="step-bubble coral">2</span>
+            <div><span class="mini-kicker">MY SANDBOX</span><h2>Drop your tools here</h2><p>This is your disposable Windows playground.</p></div>
+          </div>
+
+          <div id="sandbox-dropzone" class="sandbox-dropzone ${profile.apps.length ? 'has-tools' : 'empty'}">
+            <div class="sand-texture"></div>
+            ${profile.apps.length === 0 ? `
+              <div class="empty-sandbox">
+                <div class="empty-bucket">🪣</div>
+                <strong>Your sandbox is waiting.</strong>
+                <span>Drag in a few tools and make some sandcastles.</span>
+              </div>` : `
+              <div class="sandbox-tools">
+                ${profile.apps.map((id, index) => {
+                  const app = catalog.get(id);
+                  if (!app) return '';
+                  return `<article class="sandbox-tool tool-color-${(index % 5) + 1}" draggable="true">
+                    <span class="sandbox-tool-icon">${appInitials(app.name)}</span>
+                    <span><strong>${app.name}</strong><small>${app.publisher ?? app.category}</small></span>
+                    <button data-app-remove="${app.id}" aria-label="Remove ${escapeHtml(app.name)}">×</button>
+                  </article>`;
+                }).join('')}
+              </div>`}
+          </div>
+
+          ${dependencyApps.length ? `<div class="dependency-shelf"><span>🧩 We quietly added:</span>${dependencyApps.map((app) => `<span class="dependency-chip">${app.name}</span>`).join('')}</div>` : ''}
+
+          <div class="quick-settings">
+            <label class="quick-card"><span class="quick-icon">🧠</span><span><strong>Memory</strong><small>Room to play</small></span><select id="memory">${[4096, 6144, 8192, 12288, 16384].map((value) => `<option value="${value}" ${value === (profile.sandbox.memoryMB ?? 4096) ? 'selected' : ''}>${value / 1024} GB</option>`).join('')}</select></label>
+            ${[
+              ['networking', '🌐', 'Networking', 'Let it explore the web'],
+              ['clipboard', '📋', 'Clipboard', 'Copy & paste with the host'],
+            ].map(([key, icon, title, description]) => `<label class="quick-card toggle-setting"><span class="quick-icon">${icon}</span><span><strong>${title}</strong><small>${description}</small></span><input type="checkbox" data-setting="${key}" ${(profile.sandbox as Record<string, unknown>)[key] !== false ? 'checked' : ''}><span class="switch"></span></label>`).join('')}
+          </div>
+
+          ${advancedMode ? `
+            <div class="advanced-drawer">
+              <div class="advanced-heading"><div><span>🧪 ADVANCED PLAYGROUND</span><strong>More knobs. More switches. More fun.</strong></div><small>For builders who want to peek behind the curtain.</small></div>
+              <div class="advanced-grid">
+                ${[
+                  ['vGpu', '🎮', 'vGPU', 'Virtualized GPU acceleration'],
+                  ['audioInput', '🎙️', 'Audio input', 'Share microphone input'],
+                  ['videoInput', '📷', 'Video input', 'Share camera input'],
+                  ['printerRedirection', '🖨️', 'Printers', 'Redirect host printers'],
+                  ['protectedClient', '🛡️', 'Protected client', 'Extra isolation mode'],
+                ].map(([key, icon, title, description]) => `<label class="advanced-option toggle-setting"><span>${icon}</span><div><strong>${title}</strong><small>${description}</small></div><input type="checkbox" data-setting="${key}" ${(profile.sandbox as Record<string, unknown>)[key] === true ? 'checked' : ''}><span class="switch"></span></label>`).join('')}
+              </div>
+            </div>` : ''}
+        </section>
+
+        <aside class="build-card">
+          <div class="play-section-title compact-title">
+            <span class="step-bubble mint">3</span>
+            <div><span class="mini-kicker">PACK IT UP</span><h2>Ready to play?</h2></div>
+          </div>
+          <div class="sandbox-name"><span>Current build</span><strong>${profile.name}</strong><p>${profile.description ?? 'A custom Windows Sandbox playground.'}</p></div>
+          <div class="build-stats">
+            <div><span>🧸 Tools</span><strong>${selectedApps.length}</strong></div>
+            <div><span>🧩 Dependencies</span><strong>${dependencyApps.length}</strong></div>
+            <div><span>🧠 Memory</span><strong>${(profile.sandbox.memoryMB ?? 4096) / 1024} GB</strong></div>
+            <div><span>🌐 Network</span><strong>${boolText(profile.sandbox.networking)}</strong></div>
+          </div>
+          <div class="ready-card"><span>✓</span><div><strong>Your sandbox is ready to play.</strong><small>No backend. No account. Built locally in your browser.</small></div></div>
+          <button id="download-wsb" class="big-play-button">🏖️ Build my .WSB</button>
+          <button id="download-bundle" class="bundle-play-button">📦 Take the whole bundle</button>
+          <small class="bundle-note">Includes the .wsb, runner.ps1 and configuration.json.</small>
+        </aside>
+      </section>
+
+      <section class="review-playground">
+        <div class="play-section-title">
+          <span class="step-bubble violet">4</span>
+          <div><span class="mini-kicker">PEEK UNDER THE HOOD</span><h2>What’s in your sandbox?</h2><p>Curious builders can inspect everything before launch.</p></div>
+        </div>
+        <div class="tabs playful-tabs">
+          <button data-tab="summary" class="${activeTab === 'summary' ? 'active' : ''}">Quick look</button>
+          <button data-tab="wsb" class="${activeTab === 'wsb' ? 'active' : ''}">WSB</button>
+          <button data-tab="powershell" class="${activeTab === 'powershell' ? 'active' : ''}">PowerShell</button>
+        </div>
+        <div class="preview-panel playful-preview">
+          ${activeTab === 'summary' ? summaryMarkup(selectedApps) : `<pre><code>${escapeHtml(activeTab === 'wsb' ? wsb : runner)}</code></pre>`}
+        </div>
+      </section>
     </main>
   `;
 
@@ -217,34 +292,93 @@ function escapeHtml(value: string) {
 }
 
 function wireEvents() {
-  document.querySelectorAll<HTMLButtonElement>('[data-profile]').forEach((button) => {
+  document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((button) => {
     button.addEventListener('click', () => {
-      const next = profiles.find((item) => item.id === button.dataset.profile);
+      advancedMode = button.dataset.mode === 'advanced';
+      render();
+      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-profile], [data-profile-shortcut]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const profileId = button.dataset.profile ?? button.dataset.profileShortcut;
+      const next = profiles.find((item) => item.id === profileId);
       if (!next) return;
       profile = cloneProfile(next);
       render();
+      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-scroll-to]').forEach((button) => {
+    button.addEventListener('click', () => document.querySelector(`#${button.dataset.scrollTo}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  });
+
+  document.querySelector<HTMLInputElement>('#tool-search')?.addEventListener('input', (event) => {
+    const query = (event.currentTarget as HTMLInputElement).value.trim().toLowerCase();
+    document.querySelectorAll<HTMLElement>('[data-search]').forEach((card) => {
+      card.hidden = Boolean(query) && !(card.dataset.search ?? '').includes(query);
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-app-add]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.appAdd;
+      if (!id) return;
+      if (profile.apps.includes(id)) removeApp(id); else addApp(id);
+      render();
+      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-drag-app]').forEach((card) => {
+    card.addEventListener('dragstart', (event) => {
+      draggedAppId = card.dataset.dragApp ?? null;
+      if (draggedAppId) event.dataTransfer?.setData('text/plain', draggedAppId);
+      event.dataTransfer?.setDragImage(card, 24, 24);
+    });
+    card.addEventListener('dragend', () => { draggedAppId = null; });
+  });
+
+  const dropzone = document.querySelector<HTMLElement>('#sandbox-dropzone');
+  dropzone?.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    dropzone.classList.add('drag-over');
+  });
+  dropzone?.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
+  dropzone?.addEventListener('drop', (event) => {
+    event.preventDefault();
+    dropzone.classList.remove('drag-over');
+    const id = event.dataTransfer?.getData('text/plain') || draggedAppId;
+    if (!id) return;
+    addApp(id);
+    render();
+    document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-app-remove]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.appRemove;
+      if (!id) return;
+      removeApp(id);
+      render();
+      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
     });
   });
 
   document.querySelector<HTMLSelectElement>('#memory')?.addEventListener('change', (event) => {
     profile.sandbox.memoryMB = Number((event.currentTarget as HTMLSelectElement).value);
     render();
+    document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
   });
 
   document.querySelectorAll<HTMLInputElement>('[data-setting]').forEach((input) => {
     input.addEventListener('change', () => {
-      const key = input.dataset.setting as 'networking' | 'clipboard' | 'vGpu';
-      profile.sandbox[key] = input.checked;
+      const key = input.dataset.setting as keyof SandboxProfile['sandbox'];
+      (profile.sandbox[key] as boolean | undefined) = input.checked;
       render();
-    });
-  });
-
-  document.querySelectorAll<HTMLInputElement>('[data-app]').forEach((input) => {
-    input.addEventListener('change', () => {
-      const id = input.dataset.app;
-      if (!id) return;
-      profile.apps = input.checked ? [...new Set([...profile.apps, id])] : profile.apps.filter((item) => item !== id);
-      render();
+      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
     });
   });
 
@@ -252,7 +386,7 @@ function wireEvents() {
     button.addEventListener('click', () => {
       activeTab = button.dataset.tab as typeof activeTab;
       render();
-      document.querySelector('#review')?.scrollIntoView({ block: 'start' });
+      document.querySelector('.review-playground')?.scrollIntoView({ block: 'start' });
     });
   });
 
