@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "google-chrome",
+  "name": "Google Chrome",
+  "description": "Google Chrome browser for testing websites, browser behavior and web-based applications inside Windows Sandbox.",
+  "publisher": "Google",
+  "homepage": "https://chromeenterprise.google/download/",
+  "category": "development",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "msi",
+    "url": "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi",
+    "fileName": "GoogleChromeStandaloneEnterprise64.msi",
+    "silentArgs": "/qn /norestart"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "ui": { "recommended": false }
+}
