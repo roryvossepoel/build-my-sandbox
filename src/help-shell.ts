@@ -96,14 +96,12 @@ async function importConfiguration(file: File) {
 
   const desiredApps = [...new Set(candidate.apps.filter((id): id is string => typeof id === 'string'))];
 
-  // Remove tools that are currently selected but not present in the imported configuration.
   for (const id of selectedAppIds()) {
     if (desiredApps.includes(id)) continue;
     document.querySelector<HTMLButtonElement>(`[data-app-remove="${CSS.escape(id)}"]`)?.click();
     await waitForRender();
   }
 
-  // Add imported tools. Unknown IDs are skipped so older/shared configurations remain usable.
   const unknown: string[] = [];
   for (const id of desiredApps) {
     if (selectedAppIds().includes(id)) continue;
@@ -128,11 +126,6 @@ async function importConfiguration(file: File) {
   await setCheckbox('clipboard', candidate.sandbox.clipboard !== false);
 
   const advancedValues = ['vGpu', 'audioInput', 'videoInput', 'printerRedirection', 'protectedClient'] as const;
-  const needsAdvanced = advancedValues.some((key) => typeof candidate.sandbox?.[key] === 'boolean');
-  if (needsAdvanced && !document.querySelector(`[data-setting="vGpu"]`)) {
-    document.querySelector<HTMLButtonElement>('[data-mode="advanced"]')?.click();
-    await waitForRender();
-  }
   for (const key of advancedValues) {
     const value = candidate.sandbox[key];
     if (typeof value === 'boolean') await setCheckbox(key, value);
@@ -159,7 +152,14 @@ function ensureImportInput() {
   return input;
 }
 
+function ensureAdvancedVisible() {
+  if (document.querySelector('.advanced-drawer')) return;
+  document.querySelector<HTMLButtonElement>('[data-mode="advanced"]')?.click();
+}
+
 function enhanceProductShell() {
+  ensureAdvancedVisible();
+
   const actions = document.querySelector<HTMLElement>('.topbar-actions');
   if (actions && !actions.querySelector('.wsb-product-nav')) {
     const existingGithub = actions.querySelector<HTMLAnchorElement>('.github-link');
@@ -168,8 +168,8 @@ function enhanceProductShell() {
     nav.setAttribute('aria-label', 'Product navigation');
     nav.innerHTML = `
       <button type="button" data-nav-build>Build</button>
-      <button type="button" data-nav-import>Import</button>
-      <button type="button" data-nav-export>Export</button>
+      <button type="button" data-nav-import>⇧ Import</button>
+      <button type="button" data-nav-export>⇩ Export</button>
       <button type="button" data-nav-help>Help</button>
       <a href="https://github.com/roryvossepoel/windows-sandbox-builder" target="_blank" rel="noreferrer">GitHub ↗</a>
     `;
