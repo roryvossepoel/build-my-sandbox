@@ -1,0 +1,24 @@
+/* Flat Toy Box: categories remain metadata, but are not shown as UI sections. */
+.toybox-categories {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  align-content: start;
+}
+
+.toy-category,
+.toy-grid {
+  display: contents !important;
+}
+
+.toy-category h3 {
+  display: none !important;
+}
+
+.toy-category + .toy-category {
+  margin-top: 0 !important;
+}
+
+.toy-card {
+  margin: 0 !important;
+}
