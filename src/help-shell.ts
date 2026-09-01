@@ -55,6 +55,7 @@ function exportConfiguration() {
   anchor.download = 'windows-sandbox-builder-config.json';
   anchor.click();
   URL.revokeObjectURL(url);
+  showConfigNotice('Configuration exported.');
 }
 
 function showConfigNotice(message: string, kind: 'success' | 'warning' = 'success') {
@@ -157,8 +158,35 @@ function ensureAdvancedVisible() {
   document.querySelector<HTMLButtonElement>('[data-mode="advanced"]')?.click();
 }
 
+function ensureConfigActions() {
+  const buildCard = document.querySelector<HTMLElement>('.build-card');
+  const bundleButton = document.querySelector<HTMLButtonElement>('#download-bundle');
+  if (!buildCard || !bundleButton || buildCard.querySelector('.wsb-config-actions')) return;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'wsb-config-actions';
+  wrapper.innerHTML = `
+    <div class="wsb-config-actions-heading">
+      <strong>Save your setup</strong>
+      <span>Keep building later or share it with someone else.</span>
+    </div>
+    <div class="wsb-config-actions-buttons">
+      <button type="button" data-card-import><span>⇧</span> Import config</button>
+      <button type="button" data-card-export><span>⇩</span> Export config</button>
+    </div>
+  `;
+
+  const bundleNote = buildCard.querySelector('.bundle-note');
+  if (bundleNote) buildCard.insertBefore(wrapper, bundleNote);
+  else bundleButton.insertAdjacentElement('afterend', wrapper);
+
+  wrapper.querySelector<HTMLButtonElement>('[data-card-import]')?.addEventListener('click', () => ensureImportInput().click());
+  wrapper.querySelector<HTMLButtonElement>('[data-card-export]')?.addEventListener('click', exportConfiguration);
+}
+
 function enhanceProductShell() {
   ensureAdvancedVisible();
+  ensureConfigActions();
 
   const actions = document.querySelector<HTMLElement>('.topbar-actions');
   if (actions && !actions.querySelector('.wsb-product-nav')) {
@@ -167,20 +195,12 @@ function enhanceProductShell() {
     nav.className = 'wsb-product-nav';
     nav.setAttribute('aria-label', 'Product navigation');
     nav.innerHTML = `
-      <button type="button" data-nav-build>Build</button>
-      <button type="button" data-nav-import>⇧ Import</button>
-      <button type="button" data-nav-export>⇩ Export</button>
       <button type="button" data-nav-help>Help</button>
       <a href="https://github.com/roryvossepoel/windows-sandbox-builder" target="_blank" rel="noreferrer">GitHub ↗</a>
     `;
     if (existingGithub) existingGithub.hidden = true;
     actions.appendChild(nav);
 
-    nav.querySelector<HTMLButtonElement>('[data-nav-build]')?.addEventListener('click', () => {
-      document.querySelector('#builder-zone')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-    nav.querySelector<HTMLButtonElement>('[data-nav-import]')?.addEventListener('click', () => ensureImportInput().click());
-    nav.querySelector<HTMLButtonElement>('[data-nav-export]')?.addEventListener('click', exportConfiguration);
     nav.querySelector<HTMLButtonElement>('[data-nav-help]')?.addEventListener('click', () => {
       const details = document.querySelector<HTMLDetailsElement>('.wsb-walkthrough');
       if (!details) return;
