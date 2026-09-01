@@ -1,0 +1,16 @@
+/* Use the same Windows Sandbox Builder mark in the header, footer and favicon. */
+.playground-topbar .sand-logo {
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: 0 8px 20px rgba(82, 94, 198, .16);
+}
+
+.playground-topbar .sand-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
