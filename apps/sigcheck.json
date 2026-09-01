@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "sigcheck",
+  "name": "Sigcheck",
+  "description": "Inspect file versions, timestamps, hashes and digital signature details from the command line.",
+  "publisher": "Microsoft Sysinternals",
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/sigcheck",
+  "category": "troubleshooting",
+  "architectures": ["x64", "arm64", "x86"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://download.sysinternals.com/files/Sigcheck.zip",
+    "fileName": "Sigcheck.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\Sigcheck"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\Sigcheck\\sigcheck64.exe"
+  },
+  "ui": { "recommended": true }
+}
