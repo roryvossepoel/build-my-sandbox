@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "firefox",
+  "name": "Mozilla Firefox",
+  "description": "Mozilla Firefox browser for testing websites, browser behavior and web-based applications inside Windows Sandbox.",
+  "publisher": "Mozilla",
+  "homepage": "https://www.mozilla.org/firefox/",
+  "category": "development",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "msi",
+    "url": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US",
+    "fileName": "Firefox-latest-x64.msi",
+    "silentArgs": "/qn /norestart"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+  },
+  "ui": { "recommended": false }
+}
