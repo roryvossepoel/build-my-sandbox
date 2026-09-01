@@ -184,9 +184,24 @@ function ensureConfigActions() {
   wrapper.querySelector<HTMLButtonElement>('[data-card-export]')?.addEventListener('click', exportConfiguration);
 }
 
+function ensureToolRequestLink() {
+  const toybox = document.querySelector<HTMLElement>('.toybox-card');
+  const search = toybox?.querySelector<HTMLElement>('.toybox-search-wrap');
+  if (!toybox || !search || toybox.querySelector('.wsb-tool-request')) return;
+
+  const request = document.createElement('div');
+  request.className = 'wsb-tool-request';
+  request.innerHTML = `
+    <span>Missing a tool?</span>
+    <a href="https://github.com/roryvossepoel/windows-sandbox-builder/issues/new?template=tool-request.yml" target="_blank" rel="noreferrer">Request a tool ↗</a>
+  `;
+  search.insertAdjacentElement('afterend', request);
+}
+
 function enhanceProductShell() {
   ensureAdvancedVisible();
   ensureConfigActions();
+  ensureToolRequestLink();
 
   const actions = document.querySelector<HTMLElement>('.topbar-actions');
   if (actions && !actions.querySelector('.wsb-product-nav')) {
