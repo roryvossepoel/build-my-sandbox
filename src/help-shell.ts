@@ -198,10 +198,28 @@ function ensureToolRequestLink() {
   search.insertAdjacentElement('afterend', request);
 }
 
+function ensureDependencyOnlyTools() {
+  // Runtime components such as WebView2 are not user-selectable tools. They are
+  // pulled in by the dependency resolver when a selected application needs them.
+  document.querySelector<HTMLElement>('[data-app-add="webview2"]')?.remove();
+
+  const shelf = document.querySelector<HTMLElement>('.dependency-shelf');
+  if (!shelf) return;
+
+  shelf.classList.add('dependency-auto');
+  const label = shelf.querySelector<HTMLElement>('span:first-child');
+  if (label) label.textContent = '🧩 Added automatically because a selected tool needs it:';
+
+  shelf.querySelectorAll<HTMLElement>('.dependency-chip').forEach((chip) => {
+    chip.setAttribute('title', 'Automatically included dependency');
+  });
+}
+
 function enhanceProductShell() {
   ensureAdvancedVisible();
   ensureConfigActions();
   ensureToolRequestLink();
+  ensureDependencyOnlyTools();
 
   const actions = document.querySelector<HTMLElement>('.topbar-actions');
   if (actions && !actions.querySelector('.wsb-product-nav')) {
