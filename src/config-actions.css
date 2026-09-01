@@ -1,0 +1,79 @@
+/* Configuration import/export actions belong with the generated outputs. */
+.wsb-config-actions {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed #e6ddcf;
+}
+
+.wsb-config-actions-heading strong,
+.wsb-config-actions-heading span {
+  display: block;
+}
+
+.wsb-config-actions-heading strong {
+  color: #344159;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.wsb-config-actions-heading span {
+  margin-top: 4px;
+  color: #8992a1;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.wsb-config-actions-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.wsb-config-actions-buttons button {
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #ded6c9;
+  border-radius: 13px;
+  background: #fff;
+  color: #4a5870;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  transition: border-color .16s ease, background .16s ease, color .16s ease, transform .16s ease;
+}
+
+.wsb-config-actions-buttons button span {
+  margin-right: 5px;
+  color: #7367ea;
+  font-weight: 900;
+}
+
+.wsb-config-actions-buttons button:hover {
+  border-color: #bcb2f6;
+  background: #f8f6ff;
+  color: #6156da;
+}
+
+.wsb-config-actions-buttons button:active {
+  transform: translateY(1px);
+}
+
+/* Header now contains only product help and GitHub. */
+.wsb-product-nav {
+  padding: 4px;
+}
+
+.wsb-product-nav button,
+.wsb-product-nav a {
+  min-height: 38px;
+  padding-inline: 14px;
+  font-size: 12px;
+}
+
+@media (max-width: 520px) {
+  .wsb-config-actions-buttons {
+    grid-template-columns: 1fr;
+  }
+}
