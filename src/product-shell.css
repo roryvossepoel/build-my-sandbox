@@ -33,13 +33,27 @@
 .wsb-walkthrough[open] > summary { animation: none; }
 
 .wsb-walkthrough-panel {
+  position: relative;
   clear: both;
-  margin-top: 12px;
+  margin-top: 24px;
   padding: 22px;
   border: 1px solid #e7dfd2;
   border-radius: 22px;
   background: rgba(255, 255, 255, .98);
   box-shadow: 0 22px 55px rgba(42, 50, 72, .18);
+}
+
+.wsb-walkthrough-panel::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 42px;
+  width: 18px;
+  height: 18px;
+  transform: rotate(45deg);
+  border-top: 1px solid #e7dfd2;
+  border-left: 1px solid #e7dfd2;
+  background: rgba(255,255,255,.98);
 }
 
 .wsb-walkthrough-panel > span {
@@ -127,21 +141,22 @@
 .wsb-footer-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   margin-bottom: 16px;
 }
 
 .wsb-footer-logo {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #8b7cf6, #5ea8ff);
-  color: white;
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: .06em;
+  flex: 0 0 58px;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #ffd45f, #f2bd58);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  box-shadow: 0 10px 24px rgba(225, 163, 61, .18);
 }
 
 .wsb-footer-brand strong,
@@ -196,6 +211,7 @@
 
 @media (max-width: 620px) {
   .wsb-walkthrough { right: 16px; bottom: 16px; }
+  .wsb-walkthrough-panel { margin-top: 20px; }
   .wsb-footer-inner { width: min(100% - 32px, 600px); }
   .wsb-footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .wsb-footer-grid > :first-child { grid-column: 1; }
