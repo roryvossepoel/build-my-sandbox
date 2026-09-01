@@ -60,6 +60,34 @@
   transform: translateY(1px);
 }
 
+/* Small contribution path directly under the Toy Box search field. */
+.wsb-tool-request {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -8px 2px 18px;
+  padding: 0 4px;
+  color: #8a92a0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.wsb-tool-request a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #675be0;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wsb-tool-request a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Header now contains only product help and GitHub. */
 .wsb-product-nav {
   padding: 4px;
@@ -75,5 +103,11 @@
 @media (max-width: 520px) {
   .wsb-config-actions-buttons {
     grid-template-columns: 1fr;
+  }
+
+  .wsb-tool-request {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
 }
