@@ -123,6 +123,40 @@
   line-height: 1.55;
 }
 
+/* Quick look: keep labels and values visually together instead of spanning the full panel. */
+.playful-preview > .summary-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.playful-preview > .summary-list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 68px;
+  padding: 16px 18px;
+  border: 1px solid #e7dfd2;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, .72);
+}
+
+.playful-preview > .summary-list span {
+  color: #748096;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.playful-preview > .summary-list strong {
+  flex: 0 0 auto;
+  color: #2f405c;
+  font-size: 16px;
+  font-weight: 850;
+  text-align: right;
+}
+
 @media (max-width: 1600px) {
   .build-card {
     min-width: 340px;
@@ -141,5 +175,11 @@
 @media (max-width: 1420px) {
   .build-card {
     min-width: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .playful-preview > .summary-list {
+    grid-template-columns: 1fr;
   }
 }
