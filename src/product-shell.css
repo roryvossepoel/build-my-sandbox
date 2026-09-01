@@ -226,22 +226,27 @@
 .wsb-footer-brand {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   margin-bottom: 16px;
 }
 
 .wsb-footer-logo {
   display: grid;
   place-items: center;
-  flex: 0 0 58px;
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #8b7cf6, #5ea8ff);
-  color: #fff;
-  font-size: 25px;
-  line-height: 1;
-  box-shadow: 0 10px 24px rgba(82, 94, 198, .18);
+  flex: 0 0 68px;
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 10px 24px rgba(82, 94, 198, .14);
+}
+
+.wsb-footer-logo img {
+  display: block;
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
 }
 
 .wsb-footer-brand strong,
