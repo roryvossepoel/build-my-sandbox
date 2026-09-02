@@ -206,12 +206,16 @@ function ensureDependencyOnlyTools() {
   const shelf = document.querySelector<HTMLElement>('.dependency-shelf');
   if (!shelf) return;
 
-  shelf.classList.add('dependency-auto');
+  if (!shelf.classList.contains('dependency-auto')) shelf.classList.add('dependency-auto');
+
   const label = shelf.querySelector<HTMLElement>('span:first-child');
-  if (label) label.textContent = '🧩 Added automatically because a selected tool needs it:';
+  const nextLabel = '🧩 Added automatically because a selected tool needs it:';
+  if (label && label.textContent !== nextLabel) label.textContent = nextLabel;
 
   shelf.querySelectorAll<HTMLElement>('.dependency-chip').forEach((chip) => {
-    chip.setAttribute('title', 'Automatically included dependency');
+    if (chip.getAttribute('title') !== 'Automatically included dependency') {
+      chip.setAttribute('title', 'Automatically included dependency');
+    }
   });
 }
 
