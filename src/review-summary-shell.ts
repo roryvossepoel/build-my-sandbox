@@ -1,3 +1,5 @@
+export {};
+
 const advancedKeys = ['vGpu', 'audioInput', 'videoInput', 'printerRedirection', 'protectedClient'] as const;
 
 function updateQuickLookAdvancedSummary() {
