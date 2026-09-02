@@ -1,3 +1,5 @@
+export {};
+
 function unifyBrandIcon() {
   const headerMark = document.querySelector<HTMLElement>('.playground-topbar .sand-logo');
   if (!headerMark || headerMark.querySelector('img')) return;
@@ -8,5 +10,5 @@ unifyBrandIcon();
 
 const brandRoot = document.querySelector('#app');
 if (brandRoot) {
-  new MutationObserver(() => unifyBrandIcon()).observe(brandRoot, { childList: true, subtree: true });
+  new MutationObserver(() => unifyBrandIcon()).observe(brandRoot, { childList: true });
 }
