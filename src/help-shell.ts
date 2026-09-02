@@ -1,3 +1,5 @@
+export {};
+
 type ExportedSandboxConfig = {
   version: 1;
   exportedAt: string;
@@ -199,8 +201,6 @@ function ensureToolRequestLink() {
 }
 
 function ensureDependencyOnlyTools() {
-  // Runtime components such as WebView2 are not user-selectable tools. They are
-  // pulled in by the dependency resolver when a selected application needs them.
   document.querySelector<HTMLElement>('[data-app-add="webview2"]')?.remove();
 
   const shelf = document.querySelector<HTMLElement>('.dependency-shelf');
