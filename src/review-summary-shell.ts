@@ -14,8 +14,13 @@ function updateQuickLookAdvancedSummary() {
   const card = summaryCards[3];
   const label = card.querySelector<HTMLElement>('span');
   const value = card.querySelector<HTMLElement>('strong');
-  if (label) label.textContent = 'Advanced options';
-  if (value) value.textContent = `${enabled} enabled`;
+  const nextLabel = 'Advanced options';
+  const nextValue = `${enabled} enabled`;
+
+  // Do not rewrite identical text. This observer watches #app, so unnecessary
+  // textContent writes would trigger the observer again and create a render loop.
+  if (label && label.textContent !== nextLabel) label.textContent = nextLabel;
+  if (value && value.textContent !== nextValue) value.textContent = nextValue;
 }
 
 updateQuickLookAdvancedSummary();
