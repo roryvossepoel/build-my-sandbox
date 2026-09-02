@@ -17,8 +17,6 @@ function updateQuickLookAdvancedSummary() {
   const nextLabel = 'Advanced options';
   const nextValue = `${enabled} enabled`;
 
-  // Do not rewrite identical text. This observer watches #app, so unnecessary
-  // textContent writes would trigger the observer again and create a render loop.
   if (label && label.textContent !== nextLabel) label.textContent = nextLabel;
   if (value && value.textContent !== nextValue) value.textContent = nextValue;
 }
@@ -27,5 +25,7 @@ updateQuickLookAdvancedSummary();
 
 const appRoot = document.querySelector('#app');
 if (appRoot) {
-  new MutationObserver(() => updateQuickLookAdvancedSummary()).observe(appRoot, { childList: true, subtree: true });
+  // main.ts replaces the direct children of #app on every render. Watching only
+  // that level avoids reacting to text/style changes made by this helper itself.
+  new MutationObserver(() => updateQuickLookAdvancedSummary()).observe(appRoot, { childList: true });
 }
