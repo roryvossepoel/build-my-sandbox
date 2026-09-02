@@ -259,5 +259,7 @@ ensureImportInput();
 
 const appRoot = document.querySelector('#app');
 if (appRoot) {
-  new MutationObserver(() => enhanceProductShell()).observe(appRoot, { childList: true, subtree: true });
+  // main.ts rewrites the direct children of #app for every render. Observing only
+  // that level prevents this helper from reacting to its own DOM changes.
+  new MutationObserver(() => enhanceProductShell()).observe(appRoot, { childList: true });
 }
