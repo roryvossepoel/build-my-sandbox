@@ -157,7 +157,17 @@ function ensureImportInput() {
 
 function ensureAdvancedVisible() {
   if (document.querySelector('.advanced-drawer')) return;
-  document.querySelector<HTMLButtonElement>('[data-mode="advanced"]')?.click();
+
+  const advancedButton = document.querySelector<HTMLButtonElement>('[data-mode="advanced"]');
+  if (!advancedButton) return;
+
+  // Enabling the permanently visible advanced section uses the existing mode
+  // handler, which also scrolls to the builder. Preserve the user's current
+  // position so the page stays at the hero on initial load.
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
+  advancedButton.click();
+  window.scrollTo({ left: scrollX, top: scrollY, behavior: 'auto' });
 }
 
 function ensureConfigActions() {
