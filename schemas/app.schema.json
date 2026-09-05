@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://windows-sandbox-builder/schemas/app.schema.json",
-  "title": "Windows Sandbox Builder application manifest",
+  "$id": "https://buildmysandbox.com/schemas/app.schema.json",
+  "title": "Build My Sandbox application manifest",
   "type": "object",
   "additionalProperties": false,
   "required": ["id", "name", "category", "install", "detection"],
@@ -48,6 +48,39 @@
         "type": { "enum": ["file", "registry", "command"] },
         "value": { "type": "string" }
       }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "type": { "enum": ["app", "command", "folder"] },
+          "path": { "type": "string" },
+          "command": { "type": "string" },
+          "arguments": { "type": "string" },
+          "elevated": { "type": "boolean", "default": false },
+          "startMenu": { "type": "boolean", "default": true },
+          "ui": { "type": "boolean", "default": true }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "app" } } },
+            "then": { "required": ["path"] }
+          },
+          {
+            "if": { "properties": { "type": { "const": "folder" } } },
+            "then": { "required": ["path"] }
+          },
+          {
+            "if": { "properties": { "type": { "const": "command" } } },
+            "then": { "required": ["command"] }
+          }
+        ]
+      },
+      "default": []
     },
     "ui": {
       "type": "object",
