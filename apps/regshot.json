@@ -18,5 +18,17 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\Regshot\\RegShot.exe"
   },
+  "actions": [
+    {
+      "name": "RegShot",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\Regshot\\RegShot.exe"
+    },
+    {
+      "name": "Open RegShot folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Tools\\Regshot"
+    }
+  ],
   "ui": { "recommended": true }
 }
