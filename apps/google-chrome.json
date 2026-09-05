@@ -18,5 +18,18 @@
     "type": "file",
     "value": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
   },
+  "actions": [
+    {
+      "name": "Google Chrome",
+      "type": "app",
+      "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+    },
+    {
+      "name": "Google Chrome - Incognito",
+      "type": "app",
+      "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "arguments": "--incognito"
+    }
+  ],
   "ui": { "recommended": false }
 }
