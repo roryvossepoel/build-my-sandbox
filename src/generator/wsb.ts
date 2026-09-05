@@ -50,17 +50,19 @@ export function generateWsb(profile: SandboxProfile, runner?: string): string {
   const mappedFolders = [...(profile.mappedFolders ?? [])];
   if (readFlag('bms.map.hostDownloads')) {
     mappedFolders.push({
-      hostFolder: '%USERPROFILE%\\Downloads',
-      sandboxFolder: 'C:\\Users\\WDAGUtilityAccount\\Downloads\\Host Downloads',
+      hostFolder: 'C:\\Users\\%username%\\Downloads',
       readOnly: !readFlag('bms.map.hostDownloadsWrite'),
     });
   }
 
   const mappedFoldersXml = mappedFolders.length
     ? `\n  <MappedFolders>\n${mappedFolders
-        .map(
-          (folder) => `    <MappedFolder>\n      <HostFolder>${escapeXml(folder.hostFolder)}</HostFolder>\n      <SandboxFolder>${escapeXml(folder.sandboxFolder)}</SandboxFolder>\n      <ReadOnly>${folder.readOnly ? 'true' : 'false'}</ReadOnly>\n    </MappedFolder>`,
-        )
+        .map((folder) => {
+          const sandboxFolderXml = folder.sandboxFolder
+            ? `\n      <SandboxFolder>${escapeXml(folder.sandboxFolder)}</SandboxFolder>`
+            : '';
+          return `    <MappedFolder>\n      <HostFolder>${escapeXml(folder.hostFolder)}</HostFolder>${sandboxFolderXml}\n      <ReadOnly>${folder.readOnly ? 'true' : 'false'}</ReadOnly>\n    </MappedFolder>`;
+        })
         .join('\n')}\n  </MappedFolders>`
     : '';
 
