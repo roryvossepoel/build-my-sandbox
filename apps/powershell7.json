@@ -18,5 +18,24 @@
     "type": "file",
     "value": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"
   },
+  "actions": [
+    {
+      "name": "PowerShell 7",
+      "type": "app",
+      "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"
+    },
+    {
+      "name": "PowerShell 7 - Admin",
+      "type": "app",
+      "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "elevated": true
+    },
+    {
+      "name": "PowerShell 7 - SandboxToolbox",
+      "type": "app",
+      "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "arguments": "-NoExit -Command Set-Location 'C:\\SandboxToolbox'"
+    }
+  ],
   "ui": { "recommended": true }
 }
