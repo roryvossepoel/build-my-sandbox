@@ -57,9 +57,9 @@ $Rows = @{}
 $window = New-Object System.Windows.Window
 $window.Title = 'Build My Sandbox'
 $window.Width = 650
-$window.Height = 560
+$window.Height = [Math]::Min(760, [Math]::Max(455, 300 + ($Names.Count * 78)))
 $window.MinWidth = 540
-$window.MinHeight = 500
+$window.MinHeight = 420
 $window.WindowStartupLocation = 'CenterScreen'
 $window.Background = '#FFF9EF'
 $window.Foreground = '#26344D'
@@ -150,9 +150,14 @@ $counter.VerticalAlignment = 'Center'
 [System.Windows.Controls.Grid]::SetColumn($counter, 1)
 $progressGrid.Children.Add($counter) | Out-Null
 
+$scroll = New-Object System.Windows.Controls.ScrollViewer
+$scroll.VerticalScrollBarVisibility = 'Auto'
+$scroll.HorizontalScrollBarVisibility = 'Disabled'
+[System.Windows.Controls.Grid]::SetRow($scroll, 2)
+$root.Children.Add($scroll) | Out-Null
+
 $stack = New-Object System.Windows.Controls.StackPanel
-[System.Windows.Controls.Grid]::SetRow($stack, 2)
-$root.Children.Add($stack) | Out-Null
+$scroll.Content = $stack
 
 foreach ($name in $Names) {
     $card = New-Object System.Windows.Controls.Border
@@ -206,7 +211,7 @@ foreach ($name in $Names) {
 }
 
 $footer = New-Object System.Windows.Controls.TextBlock
-$footer.Text = 'Build My Sandbox · standalone test'
+$footer.Text = 'Build My Sandbox - standalone test'
 $footer.Foreground = '#9A96A8'
 $footer.FontSize = 11
 $footer.Margin = '0,6,0,0'
