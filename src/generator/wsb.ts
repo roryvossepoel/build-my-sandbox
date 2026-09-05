@@ -65,7 +65,7 @@ export function generateWsb(profile: SandboxProfile, runner?: string): string {
     : '';
 
   const command = runner
-    ? `cmd /c powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -Command "${buildBootstrap(runner).replaceAll('"', '\\"')}"`
+    ? `powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -Command "${buildBootstrap(runner)}"`
     : 'powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File C:\\SandboxBuilder\\runner.ps1';
 
   return `<Configuration>\n  <MemoryInMB>${memory}</MemoryInMB>\n  <Networking>${networking}</Networking>\n  <ClipboardRedirection>${clipboard}</ClipboardRedirection>\n  <VGpu>${vGpu}</VGpu>${mappedFoldersXml}\n  <LogonCommand>\n    <Command>${escapeXml(command)}</Command>\n  </LogonCommand>\n</Configuration>\n`;
