@@ -161,9 +161,6 @@ function ensureAdvancedVisible() {
   const advancedButton = document.querySelector<HTMLButtonElement>('[data-mode="advanced"]');
   if (!advancedButton) return;
 
-  // Enabling the permanently visible advanced section uses the existing mode
-  // handler, which also scrolls to the builder. Preserve the user's current
-  // position so the page stays at the hero on initial load.
   const scrollX = window.scrollX;
   const scrollY = window.scrollY;
   advancedButton.click();
@@ -205,7 +202,7 @@ function ensureToolRequestLink() {
   request.className = 'wsb-tool-request';
   request.innerHTML = `
     <span>Missing a tool?</span>
-    <a href="https://github.com/roryvossepoel/windows-sandbox-builder/issues/new?template=tool-request.yml" target="_blank" rel="noreferrer">Request a tool ↗</a>
+    <a href="https://github.com/roryvossepoel/build-my-sandbox/issues/new?template=tool-request.yml" target="_blank" rel="noreferrer">Request a tool ↗</a>
   `;
   search.insertAdjacentElement('afterend', request);
 }
@@ -243,7 +240,9 @@ function enhanceProductShell() {
     nav.setAttribute('aria-label', 'Product navigation');
     nav.innerHTML = `
       <button type="button" data-nav-help>Help</button>
-      <a href="https://github.com/roryvossepoel/windows-sandbox-builder" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href="./learn.html">Learn</a>
+      <a href="./faq.html">FAQ</a>
+      <a href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer">GitHub ↗</a>
     `;
     if (existingGithub) existingGithub.hidden = true;
     actions.appendChild(nav);
@@ -269,7 +268,5 @@ ensureImportInput();
 
 const appRoot = document.querySelector('#app');
 if (appRoot) {
-  // main.ts rewrites the direct children of #app for every render. Observing only
-  // that level prevents this helper from reacting to its own DOM changes.
   new MutationObserver(() => enhanceProductShell()).observe(appRoot, { childList: true });
 }
