@@ -18,5 +18,25 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\ProcessMonitor\\Procmon.exe"
   },
+  "actions": [
+    {
+      "name": "Process Monitor",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\ProcessMonitor\\Procmon.exe",
+      "arguments": "/AcceptEula"
+    },
+    {
+      "name": "Process Monitor - Admin",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\ProcessMonitor\\Procmon.exe",
+      "arguments": "/AcceptEula",
+      "elevated": true
+    },
+    {
+      "name": "Open Process Monitor folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Tools\\ProcessMonitor"
+    }
+  ],
   "ui": { "recommended": true }
 }
