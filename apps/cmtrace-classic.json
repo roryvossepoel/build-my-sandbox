@@ -18,5 +18,23 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\CMTraceClassic\\cmtrace.exe"
   },
+  "actions": [
+    {
+      "name": "CMTrace Classic",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\CMTraceClassic\\cmtrace.exe"
+    },
+    {
+      "name": "Open Build My Sandbox log in CMTrace",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\CMTraceClassic\\cmtrace.exe",
+      "arguments": "C:\\SandboxToolbox\\Logs\\BuildMySandbox.log"
+    },
+    {
+      "name": "Open Logs folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Logs"
+    }
+  ],
   "ui": { "recommended": true }
 }
