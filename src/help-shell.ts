@@ -157,10 +157,8 @@ function ensureImportInput() {
 
 function ensureAdvancedVisible() {
   if (document.querySelector('.advanced-drawer')) return;
-
   const advancedButton = document.querySelector<HTMLButtonElement>('[data-mode="advanced"]');
   if (!advancedButton) return;
-
   const scrollX = window.scrollX;
   const scrollY = window.scrollY;
   advancedButton.click();
@@ -209,21 +207,24 @@ function ensureToolRequestLink() {
 
 function ensureDependencyOnlyTools() {
   document.querySelector<HTMLElement>('[data-app-add="webview2"]')?.remove();
-
   const shelf = document.querySelector<HTMLElement>('.dependency-shelf');
   if (!shelf) return;
-
   if (!shelf.classList.contains('dependency-auto')) shelf.classList.add('dependency-auto');
-
   const label = shelf.querySelector<HTMLElement>('span:first-child');
   const nextLabel = '🧩 Added automatically because a selected tool needs it:';
   if (label && label.textContent !== nextLabel) label.textContent = nextLabel;
-
   shelf.querySelectorAll<HTMLElement>('.dependency-chip').forEach((chip) => {
-    if (chip.getAttribute('title') !== 'Automatically included dependency') {
-      chip.setAttribute('title', 'Automatically included dependency');
-    }
+    if (chip.getAttribute('title') !== 'Automatically included dependency') chip.setAttribute('title', 'Automatically included dependency');
   });
+}
+
+function toggleHelp(forceOpen?: boolean) {
+  const details = document.querySelector<HTMLDetailsElement>('.wsb-walkthrough');
+  if (!details) return;
+  details.open = forceOpen ?? !details.open;
+  const button = document.querySelector<HTMLButtonElement>('[data-nav-help]');
+  button?.classList.toggle('active', details.open);
+  if (details.open) details.querySelector<HTMLElement>('.wsb-walkthrough-panel')?.focus();
 }
 
 function enhanceProductShell() {
@@ -242,24 +243,25 @@ function enhanceProductShell() {
       <button type="button" data-nav-help>Help</button>
       <a href="./learn.html">Learn</a>
       <a href="./faq.html">FAQ</a>
-      <a href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a class="wsb-github-icon" href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer" aria-label="Build My Sandbox on GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.22c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.59-.29-5.31-1.29-5.31-5.75 0-1.27.45-2.31 1.2-3.12-.12-.3-.52-1.48.11-3.08 0 0 .98-.31 3.16 1.19A10.9 10.9 0 0 1 12 6c.98 0 1.96.13 2.88.38 2.18-1.5 3.16-1.19 3.16-1.19.63 1.6.23 2.78.11 3.08.75.81 1.2 1.85 1.2 3.12 0 4.47-2.73 5.45-5.33 5.74.42.36.79 1.08.79 2.18v3.24c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+      </a>
     `;
     if (existingGithub) existingGithub.hidden = true;
     actions.appendChild(nav);
-
-    nav.querySelector<HTMLButtonElement>('[data-nav-help]')?.addEventListener('click', () => {
-      const details = document.querySelector<HTMLDetailsElement>('.wsb-walkthrough');
-      if (!details) return;
-      details.open = !details.open;
-      if (details.open) details.querySelector<HTMLElement>('.wsb-walkthrough-panel')?.focus();
-    });
+    nav.querySelector<HTMLButtonElement>('[data-nav-help]')?.addEventListener('click', () => toggleHelp());
   }
 
   const details = document.querySelector<HTMLDetailsElement>('.wsb-walkthrough');
   const close = document.querySelector<HTMLButtonElement>('[data-help-close]');
   if (details && close && !close.dataset.bound) {
     close.dataset.bound = 'true';
-    close.addEventListener('click', () => { details.open = false; });
+    close.addEventListener('click', () => toggleHelp(false));
+  }
+
+  if (window.location.hash === '#help') {
+    toggleHelp(true);
+    history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
   }
 }
 
@@ -267,6 +269,4 @@ enhanceProductShell();
 ensureImportInput();
 
 const appRoot = document.querySelector('#app');
-if (appRoot) {
-  new MutationObserver(() => enhanceProductShell()).observe(appRoot, { childList: true });
-}
+if (appRoot) new MutationObserver(() => enhanceProductShell()).observe(appRoot, { childList: true });
