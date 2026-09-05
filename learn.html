@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Learn how Windows Sandbox works, how to install and configure it, and explore official Microsoft documentation." />
+    <meta name="theme-color" content="#fffaf2" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./src/learn.css" />
+    <title>Learn Windows Sandbox — Build My Sandbox</title>
+  </head>
+  <body>
+    <header class="learn-topbar">
+      <a class="learn-brand" href="./index.html">
+        <span class="learn-brand-mark"><img src="./favicon.svg" alt="" /></span>
+        <span><strong>Build My Sandbox</strong><small>Learn Windows Sandbox</small></span>
+      </a>
+      <nav>
+        <a href="./index.html">Builder</a>
+        <a class="active" href="./learn.html">Learn</a>
+        <a href="./faq.html">FAQ</a>
+        <a href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </nav>
+    </header>
+
+    <main class="learn-shell">
+      <section class="learn-hero">
+        <span class="learn-kicker">WINDOWS SANDBOX · EXPLAINED</span>
+        <h1>Know the playground<br><span>before you play.</span></h1>
+        <p>Windows Sandbox is Microsoft's lightweight, isolated and disposable Windows environment. Use this page as a practical starting point, then jump straight into the official Microsoft documentation for the details.</p>
+        <div class="learn-hero-actions">
+          <a class="primary" href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer">Official Windows Sandbox docs ↗</a>
+          <a href="./index.html#builder-zone">Build a sandbox</a>
+        </div>
+      </section>
+
+      <section class="learn-grid learn-basics">
+        <article class="learn-card feature-card">
+          <span class="card-icon">🪟</span>
+          <h2>What is Windows Sandbox?</h2>
+          <p>A clean Windows desktop that runs separately from the host by using hardware-based virtualization. Close the Sandbox and the software, files and state inside it are discarded.</p>
+        </article>
+        <article class="learn-card feature-card">
+          <span class="card-icon">🧪</span>
+          <h2>What is it useful for?</h2>
+          <p>Testing applications, troubleshooting installers, opening unfamiliar files, trying development tools, validating scripts and creating short-lived test environments without maintaining a full VM.</p>
+        </article>
+        <article class="learn-card feature-card">
+          <span class="card-icon">🛡️</span>
+          <h2>Disposable, not magic</h2>
+          <p>Isolation reduces risk, but configuration still matters. Networking, clipboard sharing and writable mapped folders connect the Sandbox to resources outside the isolated environment.</p>
+        </article>
+      </section>
+
+      <section class="learn-section">
+        <div class="section-heading">
+          <span>GET STARTED</span>
+          <h2>Install Windows Sandbox</h2>
+          <p>Windows Sandbox is available on supported Windows editions and requires virtualization support. Microsoft recommends at least 4 GB RAM, 1 GB free disk space and two CPU cores; more memory and cores improve the experience.</p>
+        </div>
+        <div class="install-flow">
+          <div><b>1</b><span><strong>Check prerequisites</strong><small>Supported Windows edition, virtualization enabled and sufficient hardware.</small></span></div>
+          <div><b>2</b><span><strong>Enable Windows Sandbox</strong><small>Open Windows Features, enable Windows Sandbox and restart if requested.</small></span></div>
+          <div><b>3</b><span><strong>Launch it</strong><small>Open Windows Sandbox normally, or double-click a custom .wsb configuration.</small></span></div>
+        </div>
+        <a class="learn-doc-link" href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer">Microsoft: Install Windows Sandbox ↗</a>
+      </section>
+
+      <section class="learn-section">
+        <div class="section-heading">
+          <span>WSB CONFIGURATION</span>
+          <h2>What can a .wsb file control?</h2>
+          <p>A Windows Sandbox configuration file is XML with the <code>.wsb</code> extension. It can control the most useful Sandbox settings without requiring a separate VM definition.</p>
+        </div>
+        <div class="config-grid">
+          <article><strong>Memory</strong><span>Assign memory in MB.</span></article>
+          <article><strong>Networking</strong><span>Enable or disable network access.</span></article>
+          <article><strong>Mapped folders</strong><span>Share host folders read-only or read-write.</span></article>
+          <article><strong>Clipboard</strong><span>Allow copy and paste between host and Sandbox.</span></article>
+          <article><strong>vGPU</strong><span>Enable or disable virtualized GPU acceleration.</span></article>
+          <article><strong>Audio & video</strong><span>Control microphone and camera redirection.</span></article>
+          <article><strong>Printers</strong><span>Control host printer redirection.</span></article>
+          <article><strong>Protected client</strong><span>Use additional RDP-session isolation settings.</span></article>
+          <article><strong>Logon command</strong><span>Run a command automatically when the Sandbox starts.</span></article>
+        </div>
+        <a class="learn-doc-link" href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file" target="_blank" rel="noreferrer">Microsoft: Configure Windows Sandbox with .wsb files ↗</a>
+      </section>
+
+      <section class="learn-section split-section">
+        <article class="security-panel">
+          <span>SECURITY NOTES</span>
+          <h2>Think about what you redirect.</h2>
+          <p>Networking is enabled by default. Microsoft specifically notes that network access can expose untrusted applications to the internal network. Mapped folders can also expose host data, particularly when write access is enabled.</p>
+          <p>For suspicious content, a useful pattern is to disable networking and map only the required folder as read-only.</p>
+        </article>
+        <article class="example-panel">
+          <span>EXAMPLE</span>
+          <pre><code>&lt;Configuration&gt;
+  &lt;Networking&gt;Disable&lt;/Networking&gt;
+  &lt;MappedFolders&gt;
+    &lt;MappedFolder&gt;
+      &lt;HostFolder&gt;C:\Samples&lt;/HostFolder&gt;
+      &lt;ReadOnly&gt;true&lt;/ReadOnly&gt;
+    &lt;/MappedFolder&gt;
+  &lt;/MappedFolders&gt;
+&lt;/Configuration&gt;</code></pre>
+        </article>
+      </section>
+
+      <section class="learn-section">
+        <div class="section-heading">
+          <span>OFFICIAL DOCUMENTATION</span>
+          <h2>Go deeper with Microsoft Learn</h2>
+          <p>These are the primary references worth bookmarking. Build My Sandbox links to them rather than trying to duplicate Microsoft's full documentation.</p>
+        </div>
+        <div class="docs-grid">
+          <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer"><span>Overview</span><strong>Windows Sandbox</strong><small>Concepts, capabilities, use cases and security notes.</small><b>↗</b></a>
+          <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer"><span>Setup</span><strong>Install Windows Sandbox</strong><small>Prerequisites and installation guidance.</small><b>↗</b></a>
+          <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file" target="_blank" rel="noreferrer"><span>Configuration</span><strong>Use .wsb files</strong><small>All supported configuration settings and examples.</small><b>↗</b></a>
+          <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-faq" target="_blank" rel="noreferrer"><span>Reference</span><strong>Windows Sandbox FAQ</strong><small>Common questions about concepts and usage.</small><b>↗</b></a>
+          <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-cli" target="_blank" rel="noreferrer"><span>Automation</span><strong>Windows Sandbox CLI</strong><small>Start, list and manage Sandbox sessions from the command line.</small><b>↗</b></a>
+          <a href="https://learn.microsoft.com/windows/client-management/mdm/policy-csp-windowssandbox" target="_blank" rel="noreferrer"><span>Management</span><strong>WindowsSandbox Policy CSP</strong><small>Device-management controls for Sandbox capabilities.</small><b>↗</b></a>
+        </div>
+      </section>
+
+      <section class="learn-callout">
+        <div><span>READY TO BUILD?</span><h2>Turn the docs into a working .wsb.</h2><p>Choose the tools and settings you want, inspect the generated configuration and launch your disposable Windows playground.</p></div>
+        <a href="./index.html#builder-zone">Open the builder →</a>
+      </section>
+    </main>
+
+    <footer class="learn-footer">
+      <span>© 2026 Build My Sandbox</span>
+      <nav><a href="./index.html">Builder</a><a href="./learn.html">Learn</a><a href="./faq.html">FAQ</a><a href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+    </footer>
+  </body>
+</html>
