@@ -1,5 +1,17 @@
 export type Architecture = 'x64' | 'arm64' | 'x86';
 export type InstallType = 'exe' | 'msi' | 'zip' | 'portable' | 'script';
+export type AppActionType = 'app' | 'command' | 'folder';
+
+export interface AppAction {
+  name: string;
+  type: AppActionType;
+  path?: string;
+  command?: string;
+  arguments?: string;
+  elevated?: boolean;
+  startMenu?: boolean;
+  ui?: boolean;
+}
 
 export interface AppManifest {
   id: string;
@@ -22,6 +34,7 @@ export interface AppManifest {
     type: 'file' | 'registry' | 'command';
     value: string;
   };
+  actions?: AppAction[];
 }
 
 export interface SandboxProfile {
@@ -42,7 +55,7 @@ export interface SandboxProfile {
   apps: string[];
   mappedFolders?: Array<{
     hostFolder: string;
-    sandboxFolder: string;
+    sandboxFolder?: string;
     readOnly: boolean;
   }>;
 }
