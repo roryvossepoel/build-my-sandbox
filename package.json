@@ -1,5 +1,5 @@
 {
-  "name": "windows-sandbox-builder",
+  "name": "build-my-sandbox",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "jszip": "^3.10.1"
+    "jszip": "^3.10.1",
+    "prismjs": "^1.30.0"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.5",
     "typescript": "^5.9.2",
     "vite": "^7.1.2"
   }
