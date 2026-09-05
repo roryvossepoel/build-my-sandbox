@@ -18,5 +18,23 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\CMTraceOpen\\CMTraceOpen.exe"
   },
+  "actions": [
+    {
+      "name": "CMTrace Open",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\CMTraceOpen\\CMTraceOpen.exe"
+    },
+    {
+      "name": "Open Build My Sandbox log",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\CMTraceOpen\\CMTraceOpen.exe",
+      "arguments": "C:\\SandboxToolbox\\Logs\\BuildMySandbox.log"
+    },
+    {
+      "name": "Open Logs folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Logs"
+    }
+  ],
   "ui": { "recommended": true }
 }
