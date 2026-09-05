@@ -335,7 +335,7 @@ function Invoke-ProvisionStep {
   param([string]$Name,[scriptblock]$Action)
   Write-StepState -Name $Name -Status 'INSTALLING'
   try { & $Action; Write-StepState -Name $Name -Status 'READY' }
-  catch { $script:Failures += "$Name: $($_.Exception.Message)"; Write-StepState -Name $Name -Status 'FAILED'; Write-Warning "$Name failed: $($_.Exception.Message)" }
+  catch { $script:Failures += "${Name}: $($_.Exception.Message)"; Write-StepState -Name $Name -Status 'FAILED'; Write-Warning "${Name} failed: $($_.Exception.Message)" }
 }
 function Test-MicrosoftDnsProbe {
   try { return [bool](Resolve-DnsName 'www.microsoft.com' -Type A -QuickTimeout -ErrorAction Stop) } catch { return $false }
