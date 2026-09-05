@@ -18,5 +18,12 @@
     "type": "file",
     "value": "C:\\Program Files\\Notepad++\\notepad++.exe"
   },
+  "actions": [
+    {
+      "name": "Notepad++",
+      "type": "app",
+      "path": "C:\\Program Files\\Notepad++\\notepad++.exe"
+    }
+  ],
   "ui": { "recommended": true }
 }
