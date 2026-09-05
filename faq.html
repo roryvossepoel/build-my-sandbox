@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Build My Sandbox FAQ and troubleshooting." />
+  <meta name="theme-color" content="#fffaf2" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./src/faq.css" />
+  <title>FAQ — Build My Sandbox</title>
+</head>
+<body>
+  <header class="faq-topbar">
+    <a class="faq-brand" href="./"><img src="./favicon.svg" alt="" /><span><strong>Build My Sandbox</strong><small>FAQ & troubleshooting</small></span></a>
+    <nav><a href="./">← Back to builder</a><a href="https://github.com/roryvossepoel/windows-sandbox-builder" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+  </header>
+
+  <main class="faq-shell">
+    <section class="faq-hero">
+      <span>HELP · FIX · PLAY</span>
+      <h1>Sandbox questions?<br><em>Dig in.</em></h1>
+      <p>Short answers about Windows Sandbox, Build My Sandbox, dependencies, host sharing and the optional fixes.</p>
+    </section>
+
+    <section class="faq-grid">
+      <article class="faq-card"><span class="faq-icon">🏖️</span><div><h2>What is Windows Sandbox?</h2><p>Windows Sandbox is a lightweight, isolated and disposable Windows environment. Software, files and state inside it are discarded when you close the Sandbox.</p><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer">Microsoft documentation ↗</a></div></article>
+
+      <article class="faq-card"><span class="faq-icon">🪟</span><div><h2>How do I install Windows Sandbox?</h2><p>On a supported Windows edition, open <strong>Turn Windows features on or off</strong>, enable <strong>Windows Sandbox</strong> and restart if prompted.</p><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer">Installation guide ↗</a></div></article>
+
+      <article class="faq-card"><span class="faq-icon">🧩</span><div><h2>Why are some tools added automatically?</h2><p>Some applications need another component to run. Those components are dependencies. CMTrace Open, for example, requires Microsoft Edge WebView2 Runtime, so WebView2 is added automatically rather than being selectable as a normal tool.</p></div></article>
+
+      <article class="faq-card"><span class="faq-icon">📂</span><div><h2>Can I access my host Downloads folder?</h2><p>Yes. Enable <strong>Map host Downloads</strong> in the advanced sandbox options. It maps <code>%USERPROFILE%\Downloads</code> into the Sandbox. The mapping is read-only by default. You can separately enable writes when you need to copy files back to the host.</p><p class="faq-note">Writable mappings expose host files to processes running in the Sandbox, so only enable write access when you need it.</p></div></article>
+
+      <article id="fixes" class="faq-card faq-card-wide accent"><span class="faq-icon">🩹</span><div><h2>What are the optional fixes?</h2><p>They are targeted workarounds for problems that can occur in some Windows Sandbox environments. Both are off by default and only run when you explicitly enable them.</p></div></article>
+
+      <article id="dns-fix" class="faq-card faq-fix-card"><span class="faq-icon">🌐</span><div><h2>DNS recovery</h2><p><strong>Use this when:</strong> the Sandbox has networking but DNS resolution is broken and downloads fail.</p><p>The fix first checks Microsoft's NCSI DNS probe at <code>dns.msftncsi.com</code>. If DNS already works, nothing is changed. Otherwise it configures <code>8.8.8.8</code> with PowerShell networking cmdlets. If those cmdlets fail, it falls back to <code>netsh</code> for the Sandbox Ethernet adapter, then waits for the Microsoft probe to resolve.</p><p class="faq-note">Azure's <code>168.63.129.16</code> address is not a general public DNS resolver; it is intended for Azure virtual networks, so Build My Sandbox does not use it here.</p><a href="https://learn.microsoft.com/windows-server/networking/ncsi/ncsi-frequently-asked-questions" target="_blank" rel="noreferrer">Microsoft NCSI FAQ ↗</a></div></article>
+
+      <article id="app-control-fix" class="faq-card faq-fix-card"><span class="faq-icon">⚡</span><div><h2>App Control performance fix</h2><p><strong>Use this when:</strong> installations inside Windows Sandbox become extremely slow while App Control / Smart App Control is active.</p><p>The fix sets <code>VerifiedAndReputablePolicyState</code> to <code>0</code> inside the disposable Sandbox and calls <code>CiTool.exe -r</code> to refresh Code Integrity before provisioning applications.</p><p class="faq-warning"><strong>Sandbox only.</strong> This deliberately reduces an application-control protection inside the disposable test environment. Do not copy this workaround to normal managed endpoints.</p></div></article>
+
+      <article class="faq-card"><span class="faq-icon">🎨</span><div><h2>What is the provisioning window?</h2><p>Generated Sandboxes open a small playful status window while provisioning runs. Each selected tool and optional fix shows Pending, Installing, Ready or Failed, so you can immediately see what is happening.</p></div></article>
+
+      <article class="faq-card"><span class="faq-icon">🔒</span><div><h2>Does Build My Sandbox upload my configuration?</h2><p>No. The core builder generates the .WSB, PowerShell and bundle locally in your browser. No account or application backend is required.</p></div></article>
+
+      <article class="faq-card"><span class="faq-icon">🧰</span><div><h2>What happens if one tool fails?</h2><p>Provisioning isolates installation steps. A failed item is shown as Failed while the remaining tools continue. You can inspect the generated PowerShell before launch to see exactly what will run.</p></div></article>
+
+      <article class="faq-card"><span class="faq-icon">➕</span><div><h2>Can I request another tool?</h2><p>Yes. Use <strong>Request a tool</strong> below the Toy Box search field. It opens a GitHub issue form. Requests are reviewed before anything is added to the catalog.</p><a href="https://github.com/roryvossepoel/windows-sandbox-builder/issues/new?template=tool-request.yml" target="_blank" rel="noreferrer">Request a tool ↗</a></div></article>
+    </section>
+  </main>
+
+  <footer class="faq-footer"><span>© 2026 Build My Sandbox</span><a href="./">Back to the playground ↑</a></footer>
+</body>
+</html>
