@@ -338,22 +338,87 @@ function Invoke-ProvisionStep {
   catch { $script:Failures += "$Name: $($_.Exception.Message)"; Write-StepState -Name $Name -Status 'FAILED'; Write-Warning "$Name failed: $($_.Exception.Message)" }
 }
 function Test-MicrosoftDnsProbe {
-  try { return [bool](Resolve-DnsName 'dns.msftncsi.com' -Type A -ErrorAction Stop) } catch { return $false }
+  try { return [bool](Resolve-DnsName 'www.microsoft.com' -Type A -QuickTimeout -ErrorAction Stop) } catch { return $false }
+}
+function Test-GoogleDnsDirect {
+  try { return [bool](Resolve-DnsName 'www.microsoft.com' -Server '8.8.8.8' -Type A -QuickTimeout -ErrorAction Stop) } catch { return $false }
 }
 function Invoke-DnsRecovery {
-  if (Test-MicrosoftDnsProbe) { Write-Host 'Microsoft DNS probe already resolves; no DNS change is needed.'; return }
-  $dnsServer = '8.8.8.8'
-  try {
-    $adapter = Get-NetAdapter -ErrorAction Stop | Where-Object { $_.Status -eq 'Up' } | Select-Object -First 1
-    if (-not $adapter) { throw 'No active adapter found.' }
-    Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses $dnsServer -ErrorAction Stop
-  } catch {
-    & netsh.exe interface ipv4 set dnsservers name='Ethernet' source=static address=$dnsServer validate=no | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "netsh DNS fallback failed with exit code $LASTEXITCODE." }
+  if (Test-MicrosoftDnsProbe) {
+    Write-Host 'Microsoft DNS probe already resolves; no DNS change is needed.'
+    return
   }
-  $deadline = (Get-Date).AddSeconds(30)
-  do { if (Test-MicrosoftDnsProbe) { return }; Start-Sleep -Seconds 2 } while ((Get-Date) -lt $deadline)
-  throw 'DNS was changed, but the Microsoft DNS probe still does not resolve.'
+
+  $dnsServer = '8.8.8.8'
+  if (-not (Test-GoogleDnsDirect)) {
+    throw 'The current DNS resolver is broken and a direct query to 8.8.8.8 also failed. This looks like a wider networking problem.'
+  }
+
+  $configured = $false
+
+  try {
+    $adapter = Get-NetAdapter -ErrorAction Stop |
+      Where-Object { $_.Status -eq 'Up' } |
+      Select-Object -First 1
+
+    if (-not $adapter) { throw 'No active adapter found.' }
+
+    Write-Host "Trying PowerShell DNS recovery on $($adapter.Name), ifIndex $($adapter.ifIndex)."
+    Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses $dnsServer -ErrorAction Stop
+    ipconfig /flushdns | Out-Null
+    Start-Sleep -Seconds 1
+
+    if (Test-MicrosoftDnsProbe) {
+      Write-Host 'DNS recovery succeeded with PowerShell network cmdlets.'
+      $configured = $true
+    } else {
+      Write-Warning 'PowerShell DNS configuration completed, but DNS still does not resolve. Trying netsh fallback.'
+    }
+  } catch {
+    Write-Warning "PowerShell DNS recovery failed: $($_.Exception.Message). Trying netsh fallback."
+  }
+
+  if (-not $configured) {
+    $rawInterfaces = netsh interface ipv4 show interfaces 2>&1
+    $candidateIndexes = @()
+
+    foreach ($line in $rawInterfaces) {
+      if ($line -match '^\\s*(\\d+)\\s+\\d+\\s+\\d+\\s+connected\\s+(.+)$') {
+        $idx = [int]$Matches[1]
+        $name = $Matches[2].Trim()
+        if ($idx -gt 1 -and $name -notmatch 'Loopback' -and $candidateIndexes -notcontains $idx) {
+          $candidateIndexes += $idx
+        }
+      }
+    }
+
+    if ($candidateIndexes.Count -eq 0) {
+      throw 'netsh could not identify a connected non-loopback IPv4 interface.'
+    }
+
+    foreach ($idx in $candidateIndexes) {
+      Write-Host "Trying netsh DNS recovery on interface index $idx."
+      & netsh.exe interface ipv4 set dnsservers name="$idx" source=static address=$dnsServer validate=no | Out-Null
+
+      if ($LASTEXITCODE -ne 0) {
+        Write-Warning "netsh returned exit code $LASTEXITCODE for interface $idx."
+        continue
+      }
+
+      ipconfig /flushdns | Out-Null
+      Start-Sleep -Seconds 1
+
+      if (Test-MicrosoftDnsProbe) {
+        Write-Host "DNS recovery succeeded with netsh on interface index $idx."
+        $configured = $true
+        break
+      }
+    }
+  }
+
+  if (-not $configured) {
+    throw 'DNS recovery failed with both PowerShell network cmdlets and netsh.'
+  }
 }
 function Disable-SandboxSmartAppControl {
   # Disposable Sandbox only. Do not apply this workaround to normal managed endpoints.
