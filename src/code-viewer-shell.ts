@@ -26,6 +26,13 @@ function copyText(text: string, button: HTMLButtonElement) {
   });
 }
 
+function resetCodeScroll(pre: HTMLPreElement) {
+  pre.scrollLeft = 0;
+  requestAnimationFrame(() => {
+    pre.scrollLeft = 0;
+  });
+}
+
 function enhanceCodeViewer() {
   const language = activeLanguage();
   if (!language) return;
@@ -60,6 +67,7 @@ function enhanceCodeViewer() {
   pre.replaceWith(viewer);
   viewer.appendChild(toolbar);
   viewer.appendChild(pre);
+  resetCodeScroll(pre);
 }
 
 enhanceCodeViewer();
@@ -68,3 +76,12 @@ const appRoot = document.querySelector('#app');
 if (appRoot) {
   new MutationObserver(() => enhanceCodeViewer()).observe(appRoot, { childList: true });
 }
+
+document.addEventListener('click', (event) => {
+  const target = event.target as HTMLElement | null;
+  if (!target?.closest('.playful-tabs [data-tab]')) return;
+  requestAnimationFrame(() => {
+    const pre = document.querySelector<HTMLPreElement>('.bms-code-viewer pre');
+    if (pre) resetCodeScroll(pre);
+  });
+});
