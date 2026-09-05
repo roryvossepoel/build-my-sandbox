@@ -18,5 +18,18 @@
     "type": "file",
     "value": "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
   },
+  "actions": [
+    {
+      "name": "Mozilla Firefox",
+      "type": "app",
+      "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+    },
+    {
+      "name": "Mozilla Firefox - Private",
+      "type": "app",
+      "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+      "arguments": "-private-window"
+    }
+  ],
   "ui": { "recommended": false }
 }
