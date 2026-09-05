@@ -18,5 +18,18 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\Sigcheck\\sigcheck64.exe"
   },
+  "actions": [
+    {
+      "name": "Sigcheck - Command Prompt",
+      "type": "command",
+      "command": "cmd.exe",
+      "arguments": "/k \"cd /d C:\\SandboxToolbox\\Tools\\Sigcheck && echo Try: sigcheck64.exe -accepteula -h -i -nobanner ^<file^>\""
+    },
+    {
+      "name": "Open Sigcheck folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Tools\\Sigcheck"
+    }
+  ],
   "ui": { "recommended": true }
 }
