@@ -18,5 +18,25 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\ProcessExplorer\\procexp64.exe"
   },
+  "actions": [
+    {
+      "name": "Process Explorer",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\ProcessExplorer\\procexp64.exe",
+      "arguments": "-accepteula"
+    },
+    {
+      "name": "Process Explorer - Admin",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\ProcessExplorer\\procexp64.exe",
+      "arguments": "-accepteula",
+      "elevated": true
+    },
+    {
+      "name": "Open Process Explorer folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Tools\\ProcessExplorer"
+    }
+  ],
   "ui": { "recommended": true }
 }
