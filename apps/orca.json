@@ -13,11 +13,25 @@
     "url": "https://www.technipages.com/downloads/OrcaMSI.zip",
     "fileName": "OrcaMSI.zip",
     "extractTo": "C:\\SandboxToolbox\\Tools\\OrcaInstaller",
-    "postInstall": ["Install Orca.msi silently"]
+    "postInstall": [
+      "$orcaMsi = Get-ChildItem -Path 'C:\\SandboxToolbox\\Tools\\OrcaInstaller' -Filter '*.msi' -Recurse -File | Select-Object -First 1; if (-not $orcaMsi) { throw 'No Orca MSI was found after extraction.' }; $p = Start-Process -FilePath 'msiexec.exe' -ArgumentList @('/i', $orcaMsi.FullName, '/qn', '/norestart') -Wait -PassThru; if ($p.ExitCode -notin @(0,3010)) { throw \"Orca MSI installer failed with exit code $($p.ExitCode).\" }"
+    ]
   },
   "detection": {
     "type": "file",
     "value": "C:\\Program Files (x86)\\Orca\\Orca.exe"
   },
+  "actions": [
+    {
+      "name": "Orca MSI Editor",
+      "type": "app",
+      "path": "C:\\Program Files (x86)\\Orca\\Orca.exe"
+    },
+    {
+      "name": "Open Sandbox downloads",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Downloads"
+    }
+  ],
   "ui": { "recommended": true }
 }
