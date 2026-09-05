@@ -131,10 +131,9 @@ function updateBuildSummary() {
 
 function ensureFaqLinks() {
   const nav = document.querySelector<HTMLElement>('.wsb-product-nav');
-  if (nav && !nav.querySelector('[data-bms-faq]')) {
+  if (nav && ![...nav.querySelectorAll('a')].some((link) => link.getAttribute('href') === './faq.html')) {
     const faq = document.createElement('a');
     faq.href = './faq.html';
-    faq.dataset.bmsFaq = 'true';
     faq.textContent = 'FAQ';
     const github = [...nav.querySelectorAll('a')].find((link) => link.textContent?.includes('GitHub'));
     if (github) nav.insertBefore(faq, github); else nav.appendChild(faq);
@@ -142,10 +141,9 @@ function ensureFaqLinks() {
 
   const footerColumn = [...document.querySelectorAll<HTMLElement>('.wsb-footer-column')]
     .find((column) => column.querySelector('h3')?.textContent === 'Builder');
-  if (footerColumn && !footerColumn.querySelector('[data-bms-faq-footer]')) {
+  if (footerColumn && ![...footerColumn.querySelectorAll('a')].some((link) => link.getAttribute('href') === './faq.html')) {
     const faq = document.createElement('a');
     faq.href = './faq.html';
-    faq.dataset.bmsFaqFooter = 'true';
     faq.textContent = 'FAQ & fixes';
     const github = [...footerColumn.querySelectorAll('a')].find((link) => link.textContent?.includes('GitHub'));
     if (github) footerColumn.insertBefore(faq, github); else footerColumn.appendChild(faq);
