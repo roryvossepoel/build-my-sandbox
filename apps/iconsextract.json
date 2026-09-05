@@ -18,5 +18,17 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\IconsExtract\\iconsext.exe"
   },
+  "actions": [
+    {
+      "name": "IconsExtract",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\IconsExtract\\iconsext.exe"
+    },
+    {
+      "name": "Open IconsExtract folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Tools\\IconsExtract"
+    }
+  ],
   "ui": { "recommended": false }
 }
