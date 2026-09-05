@@ -11,6 +11,14 @@ const escapeXml = (value: string) =>
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&apos;');
 
+function readFlag(key: string): boolean {
+  try {
+    return globalThis.localStorage?.getItem(key) === 'true';
+  } catch {
+    return false;
+  }
+}
+
 function encodePowerShell(script: string): string {
   const bytes = new Uint8Array(script.length * 2);
   for (let index = 0; index < script.length; index += 1) {
@@ -30,8 +38,17 @@ export function generateWsb(profile: SandboxProfile, runner?: string): string {
   const clipboard = boolSetting(profile.sandbox.clipboard, 'Enable', 'Disable');
   const vGpu = boolSetting(profile.sandbox.vGpu, 'Enable', 'Disable');
 
-  const mappedFolders = (profile.mappedFolders ?? []).length
-    ? `\n  <MappedFolders>\n${(profile.mappedFolders ?? [])
+  const mappedFolders = [...(profile.mappedFolders ?? [])];
+  if (readFlag('bms.map.hostDownloads')) {
+    mappedFolders.push({
+      hostFolder: '%USERPROFILE%\\Downloads',
+      sandboxFolder: 'C:\\Users\\WDAGUtilityAccount\\Downloads\\Host Downloads',
+      readOnly: !readFlag('bms.map.hostDownloadsWrite'),
+    });
+  }
+
+  const mappedFoldersXml = mappedFolders.length
+    ? `\n  <MappedFolders>\n${mappedFolders
         .map(
           (folder) => `    <MappedFolder>\n      <HostFolder>${escapeXml(folder.hostFolder)}</HostFolder>\n      <SandboxFolder>${escapeXml(folder.sandboxFolder)}</SandboxFolder>\n      <ReadOnly>${folder.readOnly ? 'true' : 'false'}</ReadOnly>\n    </MappedFolder>`,
         )
@@ -42,5 +59,5 @@ export function generateWsb(profile: SandboxProfile, runner?: string): string {
     ? `powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -EncodedCommand ${encodePowerShell(runner)}`
     : 'powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File C:\\SandboxBuilder\\runner.ps1';
 
-  return `<Configuration>\n  <MemoryInMB>${memory}</MemoryInMB>\n  <Networking>${networking}</Networking>\n  <ClipboardRedirection>${clipboard}</ClipboardRedirection>\n  <VGpu>${vGpu}</VGpu>${mappedFolders}\n  <LogonCommand>\n    <Command>${escapeXml(command)}</Command>\n  </LogonCommand>\n</Configuration>\n`;
+  return `<Configuration>\n  <MemoryInMB>${memory}</MemoryInMB>\n  <Networking>${networking}</Networking>\n  <ClipboardRedirection>${clipboard}</ClipboardRedirection>\n  <VGpu>${vGpu}</VGpu>${mappedFoldersXml}\n  <LogonCommand>\n    <Command>${escapeXml(command)}</Command>\n  </LogonCommand>\n</Configuration>\n`;
 }
