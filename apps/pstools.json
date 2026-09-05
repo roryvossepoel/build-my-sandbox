@@ -18,5 +18,38 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe"
   },
+  "actions": [
+    {
+      "name": "PsExec - Command Prompt",
+      "type": "command",
+      "command": "cmd.exe",
+      "arguments": "/k \"C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe -accepteula cmd.exe\""
+    },
+    {
+      "name": "PsExec - PowerShell",
+      "type": "command",
+      "command": "powershell.exe",
+      "arguments": "-NoExit -Command \"& 'C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe' -accepteula powershell.exe\""
+    },
+    {
+      "name": "PsExec - SYSTEM Command Prompt",
+      "type": "command",
+      "command": "C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe",
+      "arguments": "-accepteula -s -i cmd.exe",
+      "elevated": true
+    },
+    {
+      "name": "PsExec - SYSTEM PowerShell",
+      "type": "command",
+      "command": "C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe",
+      "arguments": "-accepteula -s -i powershell.exe -NoExit",
+      "elevated": true
+    },
+    {
+      "name": "Open PsTools folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Tools\\PsTools"
+    }
+  ],
   "ui": { "recommended": true }
 }
