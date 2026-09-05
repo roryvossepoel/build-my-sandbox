@@ -6,7 +6,7 @@
     <meta name="description" content="Build disposable Windows Sandbox environments from your browser." />
     <meta name="theme-color" content="#fffaf2" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <title>Windows Sandbox Builder</title>
+    <title>Build My Sandbox — Windows Sandbox Builder</title>
   </head>
   <body>
     <div id="app"></div>
@@ -31,6 +31,7 @@
           <h4>How do I install it?</h4>
           <p>On a supported Windows edition, open <strong>Turn Windows features on or off</strong>, enable <strong>Windows Sandbox</strong> and restart if prompted.</p>
           <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer">Microsoft installation guide ↗</a>
+          <a href="./faq.html">FAQ & troubleshooting ↗</a>
         </div>
       </div>
     </details>
@@ -41,7 +42,7 @@
           <section>
             <div class="wsb-footer-brand">
               <span class="wsb-footer-logo" aria-hidden="true"><img src="./favicon.svg" alt="" /></span>
-              <div><strong>Windows Sandbox Builder</strong><span>Pick · Drop · Build · Play</span></div>
+              <div><strong>Build My Sandbox</strong><span>Pick · Drop · Build · Play</span></div>
             </div>
             <p class="wsb-footer-copy">A browser-based playground for building disposable Windows Sandbox configurations. Pick the tools you need, inspect exactly what will run and export a ready-to-use .WSB without an account or backend.</p>
           </section>
@@ -49,6 +50,7 @@
             <h3>Builder</h3>
             <a href="#builder-zone">Build a sandbox</a>
             <a href="#playground">Back to top</a>
+            <a href="./faq.html">FAQ & fixes</a>
             <a href="https://github.com/roryvossepoel/windows-sandbox-builder" target="_blank" rel="noreferrer">GitHub ↗</a>
           </section>
           <section class="wsb-footer-column">
@@ -66,7 +68,7 @@
           </section>
         </div>
         <div class="wsb-footer-bottom">
-          <span>© 2026 Windows Sandbox Builder</span>
+          <span>© 2026 Build My Sandbox</span>
           <span>Disposable Windows playgrounds, made practical.</span>
         </div>
       </div>
@@ -76,6 +78,7 @@
     <script type="module" src="/src/help-shell.ts"></script>
     <script type="module" src="/src/brand-shell.ts"></script>
     <script type="module" src="/src/review-summary-shell.ts"></script>
+    <script type="module" src="/src/sandbox-options-shell.ts"></script>
     <link rel="stylesheet" href="/src/playground-scale.css" />
     <link rel="stylesheet" href="/src/playground-scale-v2.css" />
     <link rel="stylesheet" href="/src/summary-scale.css" />
@@ -87,5 +90,6 @@
     <link rel="stylesheet" href="/src/dependency-ui.css" />
     <link rel="stylesheet" href="/src/review-summary-polish.css" />
     <link rel="stylesheet" href="/src/responsive-builder.css" />
+    <link rel="stylesheet" href="/src/sandbox-options.css" />
   </body>
 </html>
