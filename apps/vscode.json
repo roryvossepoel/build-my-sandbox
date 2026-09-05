@@ -13,11 +13,31 @@
     "url": "https://update.code.visualstudio.com/latest/win32-x64-archive/stable",
     "fileName": "VSCode-win32-x64.zip",
     "extractTo": "C:\\SandboxToolbox\\VSCode",
-    "postInstall": ["Create C:\\SandboxToolbox\\VSCode\\data to enable portable mode"]
+    "postInstall": [
+      "New-Item -Path 'C:\\SandboxToolbox\\VSCode\\data' -ItemType Directory -Force | Out-Null"
+    ]
   },
   "detection": {
     "type": "file",
     "value": "C:\\SandboxToolbox\\VSCode\\Code.exe"
   },
+  "actions": [
+    {
+      "name": "Visual Studio Code",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\VSCode\\Code.exe"
+    },
+    {
+      "name": "Open SandboxToolbox in VS Code",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\VSCode\\Code.exe",
+      "arguments": "C:\\SandboxToolbox"
+    },
+    {
+      "name": "Open VS Code folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\VSCode"
+    }
+  ],
   "ui": { "recommended": true }
 }
