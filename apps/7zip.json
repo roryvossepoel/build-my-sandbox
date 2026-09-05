@@ -18,5 +18,12 @@
     "type": "file",
     "value": "C:\\Program Files\\7-Zip\\7zFM.exe"
   },
+  "actions": [
+    {
+      "name": "7-Zip File Manager",
+      "type": "app",
+      "path": "C:\\Program Files\\7-Zip\\7zFM.exe"
+    }
+  ],
   "ui": { "recommended": true }
 }
