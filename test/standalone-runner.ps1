@@ -38,7 +38,7 @@ function Invoke-Step {
         Log "READY: $Name"
     }
     catch {
-        $script:Failures += "$Name: $($_.Exception.Message)"
+        $script:Failures += "${Name}: $($_.Exception.Message)"
         Write-StepState $Name 'FAILED'
         Log "FAILED: $Name - $($_.Exception.Message)"
     }
