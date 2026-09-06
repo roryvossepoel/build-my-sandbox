@@ -79,12 +79,8 @@ async function setCheckbox(key: string, value: boolean) {
 
 async function importConfiguration(file: File) {
   let parsed: unknown;
-  try {
-    parsed = JSON.parse(await file.text());
-  } catch {
-    showConfigNotice('That file is not valid JSON.', 'warning');
-    return;
-  }
+  try { parsed = JSON.parse(await file.text()); }
+  catch { showConfigNotice('That file is not valid JSON.', 'warning'); return; }
 
   if (!parsed || typeof parsed !== 'object') {
     showConfigNotice('That file is not a Windows Sandbox Builder configuration.', 'warning');
@@ -109,10 +105,7 @@ async function importConfiguration(file: File) {
   for (const id of desiredApps) {
     if (selectedAppIds().includes(id)) continue;
     const addButton = document.querySelector<HTMLButtonElement>(`[data-app-add="${CSS.escape(id)}"]`);
-    if (!addButton) {
-      unknown.push(id);
-      continue;
-    }
+    if (!addButton) { unknown.push(id); continue; }
     addButton.click();
     await waitForRender();
   }
@@ -218,15 +211,6 @@ function ensureDependencyOnlyTools() {
   });
 }
 
-function toggleHelp(forceOpen?: boolean) {
-  const details = document.querySelector<HTMLDetailsElement>('.wsb-walkthrough');
-  if (!details) return;
-  details.open = forceOpen ?? !details.open;
-  const button = document.querySelector<HTMLButtonElement>('[data-nav-help]');
-  button?.classList.toggle('active', details.open);
-  if (details.open) details.querySelector<HTMLElement>('.wsb-walkthrough-panel')?.focus();
-}
-
 function enhanceProductShell() {
   ensureAdvancedVisible();
   ensureConfigActions();
@@ -240,8 +224,6 @@ function enhanceProductShell() {
     nav.className = 'wsb-product-nav';
     nav.setAttribute('aria-label', 'Product navigation');
     nav.innerHTML = `
-      <button type="button" data-nav-help>Help</button>
-      <a href="./learn.html">Learn</a>
       <a href="./faq.html">FAQ</a>
       <a class="wsb-github-icon" href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer" aria-label="Build My Sandbox on GitHub" title="GitHub">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.22c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.59-.29-5.31-1.29-5.31-5.75 0-1.27.45-2.31 1.2-3.12-.12-.3-.52-1.48.11-3.08 0 0 .98-.31 3.16 1.19A10.9 10.9 0 0 1 12 6c.98 0 1.96.13 2.88.38 2.18-1.5 3.16-1.19 3.16-1.19.63 1.6.23 2.78.11 3.08.75.81 1.2 1.85 1.2 3.12 0 4.47-2.73 5.45-5.33 5.74.42.36.79 1.08.79 2.18v3.24c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
@@ -249,19 +231,6 @@ function enhanceProductShell() {
     `;
     if (existingGithub) existingGithub.hidden = true;
     actions.appendChild(nav);
-    nav.querySelector<HTMLButtonElement>('[data-nav-help]')?.addEventListener('click', () => toggleHelp());
-  }
-
-  const details = document.querySelector<HTMLDetailsElement>('.wsb-walkthrough');
-  const close = document.querySelector<HTMLButtonElement>('[data-help-close]');
-  if (details && close && !close.dataset.bound) {
-    close.dataset.bound = 'true';
-    close.addEventListener('click', () => toggleHelp(false));
-  }
-
-  if (window.location.hash === '#help') {
-    toggleHelp(true);
-    history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
   }
 }
 
