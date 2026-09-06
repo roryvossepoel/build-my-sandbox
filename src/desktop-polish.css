@@ -29,10 +29,48 @@
     box-shadow: inset 0 0 0 1px rgba(222, 181, 88, .12);
   }
 
+  .bms-settings-frame {
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px solid #e6e0f2;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(248,246,255,.78));
+  }
+
+  .bms-settings-frame .quick-settings {
+    margin-top: 0;
+  }
+
   .advanced-drawer {
+    margin-top: 16px;
+    padding: 0 !important;
     border: none !important;
-    background: linear-gradient(135deg, rgba(255,255,255,.78), rgba(246,244,255,.72));
-    box-shadow: none;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .bms-settings-frame .bms-extra-options {
+    margin-top: 14px;
+  }
+
+  .bms-settings-frame .bms-host-sharing {
+    padding-top: 14px;
+  }
+
+  .bms-fixes-wrapper {
+    margin-top: 16px;
+  }
+
+  .bms-fixes-standalone {
+    padding: 16px;
+    border: 1px solid #eadfd7;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,252,248,.92), rgba(255,247,242,.78));
+  }
+
+  .bms-fixes-standalone.bms-option-section {
+    border-top: 1px solid #eadfd7;
   }
 
   .advanced-option,
