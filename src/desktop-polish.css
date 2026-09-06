@@ -1,36 +1,256 @@
 /* Desktop polish: reduce visual noise without shrinking readable text. */
 @media (min-width: 1000px) {
+  .playground-topbar {
+    min-height: 68px;
+  }
+
+  .playground-shell {
+    width: min(1820px, calc(100% - 24px));
+  }
+
+  .hero-playground {
+    min-height: 390px;
+    gap: 34px;
+    padding-top: 28px;
+    padding-bottom: 26px;
+  }
+
+  .hero-copy h1 {
+    margin: 8px 0 14px;
+    max-width: 700px;
+    font-size: clamp(44px, 4.6vw, 64px);
+    line-height: .98;
+  }
+
+  .hero-copy p {
+    max-width: 640px;
+    font-size: 16px;
+    line-height: 1.58;
+  }
+
+  .hero-actions {
+    margin-top: 20px;
+  }
+
+  .hero-actions button {
+    padding: 11px 16px;
+    border-radius: 13px;
+  }
+
+  .sandbox-illustration {
+    min-height: 330px;
+    border-radius: 30px;
+  }
+
+  .sun {
+    top: 30px;
+    right: 38px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .sandpit {
+    bottom: 22px;
+    width: 70%;
+    height: 145px;
+    border-width: 11px;
+    border-radius: 31px 31px 24px 24px;
+  }
+
+  .sandpit strong {
+    top: 41px;
+    font-size: 21px;
+  }
+
+  .bucket {
+    font-size: 42px;
+  }
+
+  .spade {
+    font-size: 33px;
+  }
+
+  .floating-tool {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    font-size: 12px;
+  }
+
   .preset-strip {
-    grid-template-columns: 220px 1fr;
-    gap: 18px;
-    margin-bottom: 26px;
-    padding: 15px 17px;
-    border-radius: 20px;
+    grid-template-columns: 205px 1fr;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding: 13px 15px;
+    border-radius: 18px;
     box-shadow: 0 8px 22px rgba(76, 59, 34, .035);
   }
 
   .preset-pills {
-    gap: 8px;
+    gap: 7px;
   }
 
   .preset-pill {
-    padding: 10px 12px;
-    border-radius: 13px;
+    padding: 9px 11px;
+    border-radius: 12px;
+  }
+
+  .builder-playground {
+    gap: 16px;
   }
 
   .toybox-card,
   .sandbox-stage-card,
-  .build-card,
-  .review-playground {
+  .build-card {
+    padding: 20px;
+    border-radius: 23px;
     box-shadow: 0 12px 30px rgba(70, 56, 34, .045);
   }
 
+  .play-section-title {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .play-section-title h2,
+  .build-card .play-section-title h2 {
+    font-size: 27px;
+  }
+
+  .play-section-title p {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .step-bubble {
+    flex-basis: 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+
+  .toybox-search-wrap {
+    min-height: 48px;
+    margin-bottom: 14px;
+    padding: 10px 13px;
+  }
+
+  .toybox-categories {
+    max-height: 860px;
+  }
+
+  .toy-grid {
+    gap: 8px;
+  }
+
+  .toy-card {
+    grid-template-columns: 46px 1fr 30px;
+    gap: 11px;
+    min-height: 70px;
+    padding: 10px 12px;
+    border-radius: 15px;
+  }
+
+  .toy-icon,
+  .sandbox-tool-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+  }
+
+  .toy-copy strong,
+  .sandbox-tool strong {
+    font-size: 14px;
+  }
+
   .sandbox-dropzone {
+    min-height: 470px;
+    padding: 18px;
+    border-radius: 25px;
     box-shadow: inset 0 0 0 1px rgba(222, 181, 88, .12);
   }
 
+  .sandbox-tools {
+    gap: 8px;
+  }
+
+  .sandbox-tool {
+    grid-template-columns: 48px 1fr 28px;
+    gap: 10px;
+    min-height: 70px;
+    padding: 10px 12px;
+    border-radius: 15px;
+  }
+
+  .sandbox-tool button,
+  .toy-add {
+    width: 28px;
+    height: 28px;
+  }
+
+  .quick-settings {
+    gap: 9px;
+    margin-top: 14px;
+  }
+
+  .quick-card {
+    min-height: 76px;
+    padding: 11px 13px;
+    border-radius: 15px;
+  }
+
+  .quick-icon {
+    font-size: 24px;
+  }
+
+  .quick-card strong {
+    font-size: 14px;
+  }
+
+  .build-stats {
+    padding: 13px 0;
+  }
+
+  .build-stats > div {
+    padding: 7px 0;
+    border-bottom-color: rgba(231, 223, 210, .72);
+  }
+
+  .sandbox-name {
+    padding: 13px 0 15px;
+  }
+
+  .sandbox-name strong {
+    margin-top: 5px;
+    font-size: 23px;
+  }
+
+  .sandbox-name p {
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .ready-card {
+    margin: 14px 0;
+    padding: 12px 13px;
+  }
+
+  .big-play-button,
+  .bundle-play-button {
+    padding: 13px;
+  }
+
+  .review-playground {
+    margin-top: 20px;
+    padding: 22px;
+    border-radius: 23px;
+    background: rgba(255,255,255,.9);
+    box-shadow: 0 12px 30px rgba(70, 56, 34, .045);
+  }
+
   .bms-settings-frame {
-    margin-top: 16px;
+    margin-top: 14px;
     padding: 0;
     border: none;
     border-radius: 0;
@@ -42,9 +262,9 @@
     margin-top: 0;
   }
 
-  /* Give the four settings groups a little more breathing room. */
+  /* Keep the settings groups clearly separated, but still compact. */
   .advanced-drawer {
-    margin-top: 24px;
+    margin-top: 20px;
     padding: 0 !important;
     border: none !important;
     border-radius: 0 !important;
@@ -53,15 +273,15 @@
   }
 
   .bms-settings-frame .bms-extra-options {
-    margin-top: 24px;
+    margin-top: 20px;
   }
 
   .bms-settings-frame .bms-host-sharing {
-    padding-top: 24px;
+    padding-top: 20px;
   }
 
   .bms-fixes-wrapper {
-    margin-top: 24px;
+    margin-top: 20px;
   }
 
   .bms-fixes-standalone {
@@ -73,7 +293,7 @@
   }
 
   .bms-fixes-standalone.bms-option-section {
-    padding-top: 24px;
+    padding-top: 20px;
     border-top: 1px dashed #e7e1ef;
   }
 
@@ -84,10 +304,19 @@
     box-shadow: none;
   }
 
+  .advanced-option {
+    min-height: 66px;
+    padding: 11px !important;
+  }
+
   .advanced-option:hover,
   .bms-option-card:hover {
     border-color: #d8d1ee;
     background: rgba(255,255,255,.92);
+  }
+
+  .bms-option-card {
+    padding: 13px;
   }
 
   .bms-option-card.enabled {
@@ -100,21 +329,10 @@
     border-top-color: #e7e1ef;
   }
 
-  .dependency-shelf {
-    box-shadow: none;
-  }
-
+  .dependency-shelf,
   .ready-card,
   .bms-options-summary,
   .wsb-config-actions {
     box-shadow: none;
-  }
-
-  .build-stats > div {
-    border-bottom-color: rgba(231, 223, 210, .72);
-  }
-
-  .review-playground {
-    background: rgba(255,255,255,.9);
   }
 }
