@@ -35,6 +35,12 @@ export interface AppManifest {
     value: string;
   };
   actions?: AppAction[];
+  ui?: {
+    icon?: string;
+    badge?: string;
+    recommended?: boolean;
+    dependencyOnly?: boolean;
+  };
 }
 
 export interface SandboxProfile {
