@@ -152,15 +152,23 @@ function updateBuildSummary() {
 
   updateAdvancedBuildStats();
 
+  const enabledFixes = fixes.filter((fix) => readFlag(fix.key));
   let summary = buildCard.querySelector<HTMLElement>('.bms-options-summary');
+
+  if (!enabledFixes.length) {
+    summary?.remove();
+    return;
+  }
+
   if (!summary) {
     summary = document.createElement('div');
     summary.className = 'bms-options-summary';
     buildCard.querySelector('.build-stats')?.insertAdjacentElement('afterend', summary);
   }
 
-  const fixCount = fixes.filter((fix) => readFlag(fix.key)).length;
-  summary.innerHTML = `<span>🩹 Fixes <strong>${fixCount || 'None'}</strong></span>`;
+  summary.innerHTML = enabledFixes
+    .map((fix) => `<span>${fix.icon} <strong>${fix.title}</strong></span>`)
+    .join('');
 }
 
 function ensureFaqLinks() {
