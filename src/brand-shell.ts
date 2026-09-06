@@ -1,5 +1,7 @@
 export {};
 
+const repositoryUrl = 'https://github.com/roryvossepoel/build-my-sandbox';
+
 function applyBrand() {
   document.title = 'Build My Sandbox — Windows Sandbox Builder';
 
@@ -10,6 +12,10 @@ function applyBrand() {
 
   const headerTitle = document.querySelector<HTMLElement>('.playground-topbar .brand strong');
   if (headerTitle && headerTitle.textContent !== 'Build My Sandbox') headerTitle.textContent = 'Build My Sandbox';
+
+  document.querySelectorAll<HTMLAnchorElement>('a[href*="windows-sandbox-builder"], a[href*="build-my-sandbox"]').forEach((link) => {
+    if (link.href.includes('github.com/roryvossepoel/')) link.href = repositoryUrl;
+  });
 
   const footerTitle = document.querySelector<HTMLElement>('.wsb-footer-brand strong');
   if (footerTitle && footerTitle.textContent !== 'Build My Sandbox') footerTitle.textContent = 'Build My Sandbox';
