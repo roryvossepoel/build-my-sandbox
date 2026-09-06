@@ -18,5 +18,8 @@
     "type": "registry",
     "value": "Microsoft EdgeUpdate WebView2 client pv"
   },
-  "ui": { "badge": "dependency" }
+  "ui": {
+    "badge": "dependency",
+    "dependencyOnly": true
+  }
 }
