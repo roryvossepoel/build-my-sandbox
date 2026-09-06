@@ -14,8 +14,23 @@ function applyBrand() {
   if (headerTitle && headerTitle.textContent !== 'Build My Sandbox') headerTitle.textContent = 'Build My Sandbox';
 
   const hero = document.querySelector<HTMLElement>('.sandbox-illustration');
-  if (hero && !hero.querySelector('.bms-hero-image')) {
-    hero.innerHTML = '<img class="bms-hero-image" src="./hero-sandbox.webp" alt="Build My Sandbox illustration" />';
+  if (hero) {
+    if (!hero.querySelector('.bms-hero-image')) {
+      hero.innerHTML = '<img class="bms-hero-image" src="./hero-sandbox.webp" alt="Build My Sandbox illustration" />';
+    }
+
+    hero.style.setProperty('background', 'none', 'important');
+    hero.style.setProperty('min-height', '0');
+    hero.style.setProperty('aspect-ratio', '1672 / 941');
+
+    const image = hero.querySelector<HTMLImageElement>('.bms-hero-image');
+    if (image) {
+      image.style.setProperty('display', 'block', 'important');
+      image.style.setProperty('width', '100%');
+      image.style.setProperty('height', '100%');
+      image.style.setProperty('object-fit', 'cover');
+      image.style.setProperty('border-radius', 'inherit');
+    }
   }
 
   document.querySelectorAll<HTMLAnchorElement>('a[href*="windows-sandbox-builder"], a[href*="build-my-sandbox"]').forEach((link) => {
