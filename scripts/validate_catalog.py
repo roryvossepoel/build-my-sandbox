@@ -35,4 +35,12 @@ for app_id, path in app_ids.items():
         if dependency not in app_ids:
             raise SystemExit(f"{path}: unknown dependency {dependency}")
 
+    dependency_only = data.get("ui", {}).get("dependencyOnly", False)
+    actions = data.get("actions", [])
+    if not dependency_only and not actions:
+        raise SystemExit(
+            f"{path}: selectable tool has no actions; add at least one launch/folder action "
+            "or mark ui.dependencyOnly=true"
+        )
+
 print(f"Validated {len(app_ids)} app manifests and {len(list(PROFILES_DIR.glob('*.json')))} profiles.")
