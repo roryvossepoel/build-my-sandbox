@@ -51,12 +51,13 @@
     box-shadow: none !important;
   }
 
+  /* Keep the section rhythm identical around both dashed dividers. */
   .bms-settings-frame .bms-extra-options {
-    margin-top: 14px;
+    margin-top: 16px;
   }
 
   .bms-settings-frame .bms-host-sharing {
-    padding-top: 14px;
+    padding-top: 16px;
   }
 
   .bms-fixes-wrapper {
@@ -72,6 +73,7 @@
   }
 
   .bms-fixes-standalone.bms-option-section {
+    padding-top: 16px;
     border-top: 1px dashed #e7e1ef;
   }
 
