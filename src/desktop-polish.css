@@ -114,7 +114,8 @@
 
   .play-section-title h2,
   .build-card .play-section-title h2 {
-    font-size: 27px;
+    font-size: 24px;
+    line-height: 1.06;
   }
 
   .play-section-title p {
