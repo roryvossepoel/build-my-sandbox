@@ -42,8 +42,9 @@
     margin-top: 0;
   }
 
+  /* Give the four settings groups a little more breathing room. */
   .advanced-drawer {
-    margin-top: 16px;
+    margin-top: 24px;
     padding: 0 !important;
     border: none !important;
     border-radius: 0 !important;
@@ -51,17 +52,16 @@
     box-shadow: none !important;
   }
 
-  /* Keep the section rhythm identical around both dashed dividers. */
   .bms-settings-frame .bms-extra-options {
-    margin-top: 16px;
+    margin-top: 24px;
   }
 
   .bms-settings-frame .bms-host-sharing {
-    padding-top: 16px;
+    padding-top: 24px;
   }
 
   .bms-fixes-wrapper {
-    margin-top: 16px;
+    margin-top: 24px;
   }
 
   .bms-fixes-standalone {
@@ -73,7 +73,7 @@
   }
 
   .bms-fixes-standalone.bms-option-section {
-    padding-top: 16px;
+    padding-top: 24px;
     border-top: 1px dashed #e7e1ef;
   }
 
