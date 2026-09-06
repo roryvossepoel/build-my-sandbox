@@ -1,74 +1,86 @@
-# Windows Sandbox Builder
+# Build My Sandbox
 
-Build reproducible, disposable Windows environments from a simple configuration.
+**Build a Windows playground worth playing in.**
 
-**Windows Sandbox Builder** is an open-source project for generating Windows Sandbox (`.wsb`) configurations and PowerShell bootstrap scripts. The goal is simple: choose the Sandbox settings and tools you need, generate the files, and launch a clean environment built for that purpose.
+Build My Sandbox is an open-source, browser-based builder for Windows Sandbox. Pick the tools and Sandbox features you need, inspect the generated `.wsb` and PowerShell, then download a ready-to-use Sandbox configuration or a complete bundle.
 
-> **Project status:** early development / v0.1 foundation.
+Website: https://buildmysandbox.com/
 
-## Vision
+## What it does
 
-The public website will provide a friendly client-side builder:
+1. Start empty or choose a preset.
+2. Pick tools from the Toy Box.
+3. Configure Windows Sandbox features such as memory, networking, clipboard, vGPU and host-folder sharing.
+4. Optionally enable targeted Sandbox fixes when a host needs them.
+5. Review the generated WSB and PowerShell before launch.
+6. Download a `.wsb` file or the complete bundle.
 
-1. Choose a preset or start from scratch.
-2. Configure Windows Sandbox settings.
-3. Select applications and useful Windows tweaks.
-4. Review dependencies and the generated configuration.
-5. Download a `.wsb` file or a complete bundle.
+The core generator runs client-side. No account, database or application backend is required.
 
-No account, database, or backend should be required for the core generator.
+## Tooling experience
 
-## Planned presets
+Generated Sandboxes include a Build My Sandbox provisioning window that shows progress per tool and fix. Supported tools can also expose launch actions that become shortcuts in the Sandbox Start menu and actions in the provisioning UI.
 
-- **Minimal** — a clean Sandbox with only the selected Windows settings.
-- **App Packaging** — tools for installer inspection, packaging and troubleshooting.
-- **Sandbox Elite** — the full Modern Workplace troubleshooting toolbox and reference implementation.
+Examples include:
+
+- launch an installed or portable application;
+- open a tool folder;
+- launch PowerShell as administrator;
+- open the Build My Sandbox log in CMTrace;
+- open PsExec Command Prompt / PowerShell / SYSTEM sessions.
+
+## Windows Sandbox knowledge
+
+The website FAQ includes Windows Sandbox basics, troubleshooting notes and links to the official Microsoft Learn documentation. Microsoft documentation remains the source of truth for Windows Sandbox behavior and supported configuration settings.
 
 ## Repository structure
 
 ```text
-windows-sandbox-builder/
+build-my-sandbox/
 ├── apps/               # Declarative application manifests
 ├── profiles/           # Reusable Sandbox presets
 ├── schemas/            # JSON schemas for manifests and profiles
 ├── templates/          # WSB and PowerShell templates
-├── src/                # Generator / future website source
-├── docs/               # Documentation and FAQ
-├── examples/           # Working examples and reference implementations
-└── .github/workflows/  # Validation and CI
+├── src/                # Website, generator and provisioning UI
+├── docs/               # Additional documentation
+├── examples/           # Reference examples
+└── .github/workflows/  # Validation and GitHub Pages deployment
 ```
 
 ## Design principles
 
 - **Windows Sandbox as code** — configurations should be repeatable and shareable.
-- **Apps are data** — adding an app should normally mean adding a manifest, not changing the UI.
+- **Apps are data** — adding a tool should normally mean adding or updating a manifest rather than changing the UI.
 - **Dependencies are explicit** — for example CMTrace Open can declare WebView2 as a dependency.
 - **Client-side generation** — generated configurations stay in the browser unless the user chooses to download or share them.
-- **Readable output** — generated `.wsb` and PowerShell should remain understandable and editable.
-- **Safe defaults** — networking, clipboard, mapped folders and other host-integration features should be clearly visible to the user.
+- **Readable output** — generated `.wsb` and PowerShell remain inspectable and editable.
+- **Useful after provisioning** — tools should expose sensible launch actions or shortcuts when possible.
+- **Safe defaults** — networking, clipboard, mapped folders and other host-integration features are visible and intentional.
 
-## Initial application catalog
+## Application catalog
 
-The first catalog is based on the tools used in the Sandbox Elite reference environment, including:
+The catalog currently includes tools such as:
 
 - 7-Zip
 - Notepad++
 - PowerShell 7
 - Visual Studio Code
+- Google Chrome
+- Mozilla Firefox
 - Process Explorer
 - Process Monitor
 - PsTools / PsExec
-- Regshot
+- RegShot
 - UninstallView
 - IconsExtract
-- Orca
+- Orca MSI Editor
 - CMTrace Classic
 - CMTrace Open
-- Microsoft Edge WebView2 Runtime (dependency)
+- Microsoft Edge WebView2 Runtime (dependency only)
 
 ## Contributing
 
-Contributions will be welcome for new app manifests, presets, documentation, validation improvements and generator features. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributions are welcome for app manifests, launch actions, presets, documentation, validation improvements and generator features. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Security
 
