@@ -1,5 +1,23 @@
 /* Desktop polish: reduce visual noise without shrinking readable text. */
 @media (min-width: 1000px) {
+  .preset-strip {
+    grid-template-columns: 220px 1fr;
+    gap: 18px;
+    margin-bottom: 26px;
+    padding: 15px 17px;
+    border-radius: 20px;
+    box-shadow: 0 8px 22px rgba(76, 59, 34, .035);
+  }
+
+  .preset-pills {
+    gap: 8px;
+  }
+
+  .preset-pill {
+    padding: 10px 12px;
+    border-radius: 13px;
+  }
+
   .toybox-card,
   .sandbox-stage-card,
   .build-card,
