@@ -13,6 +13,11 @@ function applyBrand() {
   const headerTitle = document.querySelector<HTMLElement>('.playground-topbar .brand strong');
   if (headerTitle && headerTitle.textContent !== 'Build My Sandbox') headerTitle.textContent = 'Build My Sandbox';
 
+  const hero = document.querySelector<HTMLElement>('.sandbox-illustration');
+  if (hero && !hero.querySelector('.bms-hero-image')) {
+    hero.innerHTML = '<img class="bms-hero-image" src="./hero-sandbox.webp" alt="Build My Sandbox illustration" />';
+  }
+
   document.querySelectorAll<HTMLAnchorElement>('a[href*="windows-sandbox-builder"], a[href*="build-my-sandbox"]').forEach((link) => {
     if (link.href.includes('github.com/roryvossepoel/')) link.href = repositoryUrl;
   });
