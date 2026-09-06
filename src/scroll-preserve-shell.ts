@@ -7,7 +7,14 @@ type ScrollSnapshot = {
 };
 
 let pending: ScrollSnapshot | null = null;
-let restoreQueued = false;
+let suppressBuilderScroll = false;
+
+const nativeScrollIntoView = Element.prototype.scrollIntoView;
+
+Element.prototype.scrollIntoView = function scrollIntoView(options?: boolean | ScrollIntoViewOptions) {
+  if (suppressBuilderScroll && this instanceof HTMLElement && this.id === 'builder-zone') return;
+  nativeScrollIntoView.call(this, options as ScrollIntoViewOptions);
+};
 
 function captureScroll() {
   const toybox = document.querySelector<HTMLElement>('.toybox-categories');
@@ -16,28 +23,23 @@ function captureScroll() {
     pageY: window.scrollY,
     toyboxTop: toybox?.scrollTop ?? 0,
   };
+  suppressBuilderScroll = true;
 }
 
 function restoreScroll() {
-  restoreQueued = false;
-  if (!pending) return;
+  if (!pending) {
+    suppressBuilderScroll = false;
+    return;
+  }
 
   const snapshot = pending;
   pending = null;
 
-  // main.ts rerenders synchronously in the same event task. A microtask runs
-  // after those handlers have finished, but before the browser paints the new
-  // frame. Restoring here prevents the Toy Box/page from visibly jumping and
-  // then snapping back a frame later.
   window.scrollTo({ left: snapshot.pageX, top: snapshot.pageY, behavior: 'auto' });
   const toybox = document.querySelector<HTMLElement>('.toybox-categories');
   if (toybox) toybox.scrollTop = snapshot.toyboxTop;
-}
 
-function queueRestore() {
-  if (restoreQueued) return;
-  restoreQueued = true;
-  queueMicrotask(restoreScroll);
+  suppressBuilderScroll = false;
 }
 
 function isBuilderMutationTarget(target: EventTarget | null) {
@@ -52,21 +54,25 @@ function isBuilderMutationTarget(target: EventTarget | null) {
   );
 }
 
+function preserveForMutation() {
+  captureScroll();
+  // main.ts handles these interactions synchronously. Restore immediately after
+  // that handler finishes, before the browser gets a chance to paint.
+  queueMicrotask(restoreScroll);
+}
+
 document.addEventListener('click', (event) => {
   if (!isBuilderMutationTarget(event.target)) return;
-  captureScroll();
-  queueRestore();
+  preserveForMutation();
 }, true);
 
 document.addEventListener('change', (event) => {
   if (!isBuilderMutationTarget(event.target)) return;
-  captureScroll();
-  queueRestore();
+  preserveForMutation();
 }, true);
 
 document.addEventListener('drop', (event) => {
   const element = event.target instanceof Element ? event.target : null;
   if (!element?.closest('#sandbox-dropzone')) return;
-  captureScroll();
-  queueRestore();
+  preserveForMutation();
 }, true);
