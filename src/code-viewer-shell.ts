@@ -3,8 +3,6 @@ export {};
 import Prism from 'prismjs';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-powershell';
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
 function activeLanguage(): 'markup' | 'powershell' | null {
   const active = document.querySelector<HTMLButtonElement>('.playful-tabs [data-tab].active');
@@ -26,10 +24,10 @@ function copyText(text: string, button: HTMLButtonElement) {
   });
 }
 
-function resetCodeScroll(pre: HTMLPreElement) {
-  pre.scrollLeft = 0;
+function resetCodeScroll(scroller: HTMLElement) {
+  scroller.scrollLeft = 0;
   requestAnimationFrame(() => {
-    pre.scrollLeft = 0;
+    scroller.scrollLeft = 0;
   });
 }
 
@@ -43,9 +41,11 @@ function enhanceCodeViewer() {
   if (!preview || !pre || !code || pre.closest('.bms-code-viewer')) return;
 
   const source = code.textContent ?? '';
-  pre.classList.add('line-numbers', `language-${language}`);
+  const lines = source.split(/\r?\n/);
+  const grammar = Prism.languages[language];
   code.className = `language-${language}`;
-  Prism.highlightElement(code);
+  code.innerHTML = Prism.highlight(source, grammar, language);
+  pre.className = `language-${language}`;
 
   const viewer = document.createElement('div');
   viewer.className = 'bms-code-viewer';
@@ -55,7 +55,7 @@ function enhanceCodeViewer() {
   toolbar.innerHTML = `
     <div class="bms-code-language">
       <span>${language === 'markup' ? 'WSB · XML' : 'PowerShell'}</span>
-      <small>${source.split(/\r?\n/).length} lines</small>
+      <small>${lines.length} lines</small>
     </div>
     <button type="button" class="bms-copy-code">Copy</button>
   `;
@@ -64,10 +64,20 @@ function enhanceCodeViewer() {
     copyText(source, event.currentTarget as HTMLButtonElement);
   });
 
+  const body = document.createElement('div');
+  body.className = 'bms-code-body';
+
+  const gutter = document.createElement('div');
+  gutter.className = 'bms-code-gutter';
+  gutter.setAttribute('aria-hidden', 'true');
+  gutter.innerHTML = lines.map((_, index) => `<span>${index + 1}</span>`).join('');
+
   pre.replaceWith(viewer);
   viewer.appendChild(toolbar);
-  viewer.appendChild(pre);
-  resetCodeScroll(pre);
+  viewer.appendChild(body);
+  body.appendChild(gutter);
+  body.appendChild(pre);
+  resetCodeScroll(body);
 }
 
 enhanceCodeViewer();
@@ -81,7 +91,7 @@ document.addEventListener('click', (event) => {
   const target = event.target as HTMLElement | null;
   if (!target?.closest('.playful-tabs [data-tab]')) return;
   requestAnimationFrame(() => {
-    const pre = document.querySelector<HTMLPreElement>('.bms-code-viewer pre');
-    if (pre) resetCodeScroll(pre);
+    const body = document.querySelector<HTMLElement>('.bms-code-body');
+    if (body) resetCodeScroll(body);
   });
 });
