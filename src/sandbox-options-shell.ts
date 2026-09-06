@@ -25,6 +25,14 @@ const fixes: OptionDefinition[] = [
   },
 ];
 
+const advancedSummaryOptions = [
+  { key: 'vGpu', icon: '🎮', label: 'vGPU' },
+  { key: 'audioInput', icon: '🎙️', label: 'Audio input' },
+  { key: 'videoInput', icon: '📷', label: 'Video input' },
+  { key: 'printerRedirection', icon: '🖨️', label: 'Printers' },
+  { key: 'protectedClient', icon: '🛡️', label: 'Protected client' },
+] as const;
+
 function readFlag(key: string): boolean {
   try { return localStorage.getItem(key) === 'true'; } catch { return false; }
 }
@@ -113,9 +121,28 @@ function bindOptions(root: HTMLElement) {
   });
 }
 
+function updateAdvancedBuildStats() {
+  const stats = document.querySelector<HTMLElement>('.build-card .build-stats');
+  if (!stats) return;
+
+  stats.querySelectorAll('.bms-advanced-stat').forEach((row) => row.remove());
+
+  for (const option of advancedSummaryOptions) {
+    const input = document.querySelector<HTMLInputElement>(`[data-setting="${option.key}"]`);
+    if (!input?.checked) continue;
+
+    const row = document.createElement('div');
+    row.className = 'bms-advanced-stat';
+    row.innerHTML = `<span>${option.icon} ${option.label}</span><strong>On</strong>`;
+    stats.appendChild(row);
+  }
+}
+
 function updateBuildSummary() {
   const buildCard = document.querySelector<HTMLElement>('.build-card');
   if (!buildCard) return;
+
+  updateAdvancedBuildStats();
 
   let summary = buildCard.querySelector<HTMLElement>('.bms-options-summary');
   if (!summary) {
