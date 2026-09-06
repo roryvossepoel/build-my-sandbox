@@ -110,7 +110,6 @@ function summaryMarkup(selectedApps: AppManifest[]) {
 
 function render() {
   const { selectedApps, runner, wsb } = artifactSet();
-  const resolvedIds = new Set(selectedApps.map((app) => app.id));
   const categories = [...new Set(apps.map((app) => app.category))];
   const dependencyApps = selectedApps.filter((app) => !profile.apps.includes(app.id));
 
@@ -296,7 +295,6 @@ function wireEvents() {
     button.addEventListener('click', () => {
       advancedMode = button.dataset.mode === 'advanced';
       render();
-      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
     });
   });
 
@@ -328,7 +326,6 @@ function wireEvents() {
       if (!id) return;
       if (profile.apps.includes(id)) removeApp(id); else addApp(id);
       render();
-      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
     });
   });
 
@@ -354,7 +351,6 @@ function wireEvents() {
     if (!id) return;
     addApp(id);
     render();
-    document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
   });
 
   document.querySelectorAll<HTMLButtonElement>('[data-app-remove]').forEach((button) => {
@@ -363,14 +359,12 @@ function wireEvents() {
       if (!id) return;
       removeApp(id);
       render();
-      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
     });
   });
 
   document.querySelector<HTMLSelectElement>('#memory')?.addEventListener('change', (event) => {
     profile.sandbox.memoryMB = Number((event.currentTarget as HTMLSelectElement).value);
     render();
-    document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
   });
 
   document.querySelectorAll<HTMLInputElement>('[data-setting]').forEach((input) => {
@@ -378,7 +372,6 @@ function wireEvents() {
       const key = input.dataset.setting as keyof SandboxProfile['sandbox'];
       (profile.sandbox[key] as boolean | undefined) = input.checked;
       render();
-      document.querySelector('#builder-zone')?.scrollIntoView({ block: 'start' });
     });
   });
 
