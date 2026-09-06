@@ -18,5 +18,17 @@
     "type": "file",
     "value": "C:\\SandboxToolbox\\Tools\\UninstallView\\UninstallView.exe"
   },
+  "actions": [
+    {
+      "name": "UninstallView",
+      "type": "app",
+      "path": "C:\\SandboxToolbox\\Tools\\UninstallView\\UninstallView.exe"
+    },
+    {
+      "name": "Open UninstallView folder",
+      "type": "folder",
+      "path": "C:\\SandboxToolbox\\Tools\\UninstallView"
+    }
+  ],
   "ui": { "recommended": true }
 }
