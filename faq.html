@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Build My Sandbox FAQ and troubleshooting." />
+  <meta name="description" content="Build My Sandbox FAQ, Windows Sandbox resources and troubleshooting." />
   <meta name="theme-color" content="#fffaf2" />
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./src/site-nav.css" />
@@ -14,12 +14,9 @@
   <header class="bms-site-topbar">
     <a class="bms-site-brand" href="./">
       <img src="./favicon.svg" alt="" />
-      <span class="bms-site-brand-copy"><strong>Build My Sandbox</strong><small>FAQ & troubleshooting</small></span>
+      <span class="bms-site-brand-copy"><strong>Build My Sandbox</strong><small>FAQ & Windows Sandbox</small></span>
     </a>
     <nav class="bms-site-nav" aria-label="Product navigation">
-      <a href="./">Builder</a>
-      <a href="./#help">Help</a>
-      <a href="./learn.html">Learn</a>
       <a class="active" href="./faq.html">FAQ</a>
       <a class="bms-github-icon" href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer" aria-label="Build My Sandbox on GitHub" title="GitHub">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.22c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.59-.29-5.31-1.29-5.31-5.75 0-1.27.45-2.31 1.2-3.12-.12-.3-.52-1.48.11-3.08 0 0 .98-.31 3.16 1.19A10.9 10.9 0 0 1 12 6c.98 0 1.96.13 2.88.38 2.18-1.5 3.16-1.19 3.16-1.19.63 1.6.23 2.78.11 3.08.75.81 1.2 1.85 1.2 3.12 0 4.47-2.73 5.45-5.33 5.74.42.36.79 1.08.79 2.18v3.24c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
@@ -29,13 +26,13 @@
 
   <main class="faq-shell">
     <section class="faq-hero">
-      <span>HELP · FIX · PLAY</span>
+      <span>HELP · LEARN · FIX</span>
       <h1>Sandbox questions?<br><em>Dig in.</em></h1>
       <p>Short answers about Windows Sandbox, Build My Sandbox, dependencies, host sharing and the optional fixes.</p>
     </section>
 
     <section class="faq-grid">
-      <article class="faq-card"><span class="faq-icon">🏖️</span><div><h2>What is Windows Sandbox?</h2><p>Windows Sandbox is a lightweight, isolated and disposable Windows environment. Software, files and state inside it are discarded when you close the Sandbox.</p><a href="./learn.html">Learn Windows Sandbox ↗</a><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer">Microsoft documentation ↗</a></div></article>
+      <article class="faq-card"><span class="faq-icon">🏖️</span><div><h2>What is Windows Sandbox?</h2><p>Windows Sandbox is a lightweight, isolated and disposable Windows environment. Software, files and state inside it are discarded when you close the Sandbox.</p><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer">Microsoft documentation ↗</a></div></article>
       <article class="faq-card"><span class="faq-icon">🪟</span><div><h2>How do I install Windows Sandbox?</h2><p>On a supported Windows edition, open <strong>Turn Windows features on or off</strong>, enable <strong>Windows Sandbox</strong> and restart if prompted.</p><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer">Installation guide ↗</a></div></article>
       <article class="faq-card"><span class="faq-icon">🧩</span><div><h2>Why are some tools added automatically?</h2><p>Some applications need another component to run. Those components are dependencies. CMTrace Open, for example, requires Microsoft Edge WebView2 Runtime, so WebView2 is added automatically rather than being selectable as a normal tool.</p></div></article>
       <article class="faq-card"><span class="faq-icon">📂</span><div><h2>Can I access my host Downloads folder?</h2><p>Yes. Enable <strong>Map host Downloads</strong> in the advanced sandbox options. Build My Sandbox maps <code>C:\Users\%username%\Downloads</code> into Windows Sandbox. The mapping is read-only by default. You can separately enable writes when you need to copy files back to the host.</p><p class="faq-note">Writable mappings expose host files to processes running in the Sandbox, so only enable write access when you need it.</p></div></article>
@@ -47,8 +44,24 @@
       <article class="faq-card"><span class="faq-icon">🧰</span><div><h2>What happens if one tool fails?</h2><p>Provisioning isolates installation steps. A failed item is shown as Failed while the remaining tools continue. You can inspect the generated PowerShell before launch to see exactly what will run.</p></div></article>
       <article class="faq-card"><span class="faq-icon">➕</span><div><h2>Can I request another tool?</h2><p>Yes. Use <strong>Request a tool</strong> below the Toy Box search field. It opens a GitHub issue form. Requests are reviewed before anything is added to the catalog.</p><a href="https://github.com/roryvossepoel/build-my-sandbox/issues/new?template=tool-request.yml" target="_blank" rel="noreferrer">Request a tool ↗</a></div></article>
     </section>
+
+    <section class="faq-docs">
+      <div class="faq-docs-heading">
+        <span>OFFICIAL DOCUMENTATION</span>
+        <h2>Go deeper with Microsoft Learn</h2>
+        <p>These are the primary references worth bookmarking. Build My Sandbox links to them rather than duplicating Microsoft's documentation.</p>
+      </div>
+      <div class="faq-docs-grid">
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer"><span>Overview</span><strong>Windows Sandbox</strong><small>Concepts, capabilities, use cases and security notes.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer"><span>Setup</span><strong>Install Windows Sandbox</strong><small>Prerequisites and installation guidance.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file" target="_blank" rel="noreferrer"><span>Configuration</span><strong>Use .wsb files</strong><small>All supported configuration settings and examples.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-faq" target="_blank" rel="noreferrer"><span>Reference</span><strong>Windows Sandbox FAQ</strong><small>Common questions about concepts and usage.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-cli" target="_blank" rel="noreferrer"><span>Automation</span><strong>Windows Sandbox CLI</strong><small>Start, list and manage Sandbox sessions from the command line.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/client-management/mdm/policy-csp-windowssandbox" target="_blank" rel="noreferrer"><span>Management</span><strong>WindowsSandbox Policy CSP</strong><small>Device-management controls for Sandbox capabilities.</small><b>↗</b></a>
+      </div>
+    </section>
   </main>
 
-  <footer class="faq-footer"><span>© 2026 Build My Sandbox</span><span><a href="./learn.html">Learn Windows Sandbox</a> · <a href="./">Back to the playground ↑</a></span></footer>
+  <footer class="faq-footer"><span>© 2026 Build My Sandbox</span><a href="./">Back to the playground ↑</a></footer>
 </body>
 </html>
