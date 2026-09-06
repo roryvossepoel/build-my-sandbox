@@ -45,17 +45,25 @@ function makeSwitch(key: string, checked: boolean, disabled = false) {
   return `<input type="checkbox" data-bms-option="${key}" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''}><span class="switch"></span>`;
 }
 
-function ensureOptionsUi() {
+function ensureSettingsFrame() {
+  const quick = document.querySelector<HTMLElement>('.quick-settings');
   const drawer = document.querySelector<HTMLElement>('.advanced-drawer');
-  if (!drawer || drawer.querySelector('.bms-extra-options')) return;
+  if (!quick || !drawer) return null;
 
-  const downloadsEnabled = readFlag('bms.map.hostDownloads');
-  const downloadsWrite = readFlag('bms.map.hostDownloadsWrite');
+  let frame = document.querySelector<HTMLElement>('.bms-settings-frame');
+  if (!frame) {
+    frame = document.createElement('div');
+    frame.className = 'bms-settings-frame';
+    quick.parentElement?.insertBefore(frame, quick);
+    frame.appendChild(quick);
+    frame.appendChild(drawer);
+  }
+  return frame;
+}
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'bms-extra-options';
-  wrapper.innerHTML = `
-    <section class="bms-option-section">
+function hostSharingMarkup(downloadsEnabled: boolean, downloadsWrite: boolean) {
+  return `
+    <section class="bms-option-section bms-host-sharing">
       <div class="bms-option-heading">
         <div><span>📂 HOST SHARING</span><strong>Bring your Downloads folder into the sandbox.</strong></div>
         <small>Off by default.</small>
@@ -73,8 +81,12 @@ function ensureOptionsUi() {
         </label>
       </div>
     </section>
+  `;
+}
 
-    <section class="bms-option-section bms-fixes" id="optional-fixes">
+function fixesMarkup() {
+  return `
+    <section class="bms-option-section bms-fixes bms-fixes-standalone" id="optional-fixes">
       <div class="bms-option-heading">
         <div><span>🩹 OPTIONAL FIXES</span><strong>Only use these when your Sandbox needs a little help.</strong></div>
         <a href="./faq.html#fixes">What do these do? ↗</a>
@@ -89,9 +101,32 @@ function ensureOptionsUi() {
       </div>
     </section>
   `;
+}
 
-  drawer.appendChild(wrapper);
-  bindOptions(wrapper);
+function ensureOptionsUi() {
+  const drawer = document.querySelector<HTMLElement>('.advanced-drawer');
+  const frame = ensureSettingsFrame();
+  if (!drawer || !frame) return;
+
+  if (!drawer.querySelector('.bms-extra-options')) {
+    const downloadsEnabled = readFlag('bms.map.hostDownloads');
+    const downloadsWrite = readFlag('bms.map.hostDownloadsWrite');
+    const wrapper = document.createElement('div');
+    wrapper.className = 'bms-extra-options';
+    wrapper.innerHTML = hostSharingMarkup(downloadsEnabled, downloadsWrite);
+    drawer.appendChild(wrapper);
+    bindOptions(wrapper);
+  }
+
+  let fixesSection = document.querySelector<HTMLElement>('.bms-fixes-standalone');
+  if (!fixesSection) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'bms-fixes-wrapper';
+    wrapper.innerHTML = fixesMarkup();
+    frame.insertAdjacentElement('afterend', wrapper);
+    fixesSection = wrapper.querySelector<HTMLElement>('.bms-fixes-standalone');
+    bindOptions(wrapper);
+  }
 }
 
 function bindOptions(root: HTMLElement) {
@@ -103,7 +138,8 @@ function bindOptions(root: HTMLElement) {
       input.closest('.bms-option-card')?.classList.toggle('enabled', input.checked);
 
       if (key === 'bms.map.hostDownloads') {
-        const writeInput = root.querySelector<HTMLInputElement>('[data-bms-option="bms.map.hostDownloadsWrite"]');
+        const scope = input.closest('.bms-option-section') ?? root;
+        const writeInput = scope.querySelector<HTMLInputElement>('[data-bms-option="bms.map.hostDownloadsWrite"]');
         const writeCard = writeInput?.closest('.bms-option-card');
         if (writeInput) {
           writeInput.disabled = !input.checked;
