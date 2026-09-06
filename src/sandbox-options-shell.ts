@@ -166,9 +166,10 @@ function updateBuildSummary() {
     buildCard.querySelector('.build-stats')?.insertAdjacentElement('afterend', summary);
   }
 
-  summary.innerHTML = enabledFixes
-    .map((fix) => `<span>${fix.icon} <strong>${fix.title}</strong></span>`)
-    .join('');
+  summary.innerHTML = `
+    <span class="bms-fixes-summary-label">🩹 <strong>Fixes</strong></span>
+    ${enabledFixes.map((fix) => `<span class="bms-fix-summary-item">${fix.icon} <strong>${fix.title}</strong></span>`).join('')}
+  `;
 }
 
 function ensureFaqLinks() {
