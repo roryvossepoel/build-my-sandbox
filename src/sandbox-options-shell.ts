@@ -125,7 +125,7 @@ function updateAdvancedBuildStats() {
   const stats = document.querySelector<HTMLElement>('.build-card .build-stats');
   if (!stats) return;
 
-  stats.querySelectorAll('.bms-advanced-stat').forEach((row) => row.remove());
+  stats.querySelectorAll('.bms-advanced-stat, .bms-host-sharing-stat').forEach((row) => row.remove());
 
   for (const option of advancedSummaryOptions) {
     const input = document.querySelector<HTMLInputElement>(`[data-setting="${option.key}"]`);
@@ -135,6 +135,14 @@ function updateAdvancedBuildStats() {
     row.className = 'bms-advanced-stat';
     row.innerHTML = `<span>${option.icon} ${option.label}</span><strong>On</strong>`;
     stats.appendChild(row);
+  }
+
+  if (readFlag('bms.map.hostDownloads')) {
+    const hostRow = document.createElement('div');
+    hostRow.className = 'bms-host-sharing-stat';
+    const access = readFlag('bms.map.hostDownloadsWrite') ? 'Read / write' : 'Read-only';
+    hostRow.innerHTML = `<span>📂 Host Downloads</span><strong>${access}</strong>`;
+    stats.appendChild(hostRow);
   }
 }
 
@@ -152,8 +160,7 @@ function updateBuildSummary() {
   }
 
   const fixCount = fixes.filter((fix) => readFlag(fix.key)).length;
-  const downloads = readFlag('bms.map.hostDownloads');
-  summary.innerHTML = `<span>🩹 Fixes <strong>${fixCount || 'None'}</strong></span><span>📂 Host Downloads <strong>${downloads ? (readFlag('bms.map.hostDownloadsWrite') ? 'Read / write' : 'Read-only') : 'Off'}</strong></span>`;
+  summary.innerHTML = `<span>🩹 Fixes <strong>${fixCount || 'None'}</strong></span>`;
 }
 
 function ensureFaqLinks() {
