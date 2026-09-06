@@ -30,7 +30,7 @@
   }
 
   .advanced-drawer {
-    border-color: #e5e0f5;
+    border: none !important;
     background: linear-gradient(135deg, rgba(255,255,255,.78), rgba(246,244,255,.72));
     box-shadow: none;
   }
