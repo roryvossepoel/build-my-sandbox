@@ -15,13 +15,14 @@ function applyBrand() {
 
   const hero = document.querySelector<HTMLElement>('.sandbox-illustration');
   if (hero) {
-    if (!hero.querySelector('.bms-hero-image')) {
-      hero.innerHTML = '<img class="bms-hero-image" src="./hero-sandbox.webp" alt="Build My Sandbox illustration" />';
+    const existing = hero.querySelector<HTMLImageElement>('.bms-hero-image');
+    if (!existing || !existing.src.endsWith('/hero-sandbox.jpg')) {
+      hero.innerHTML = '<img class="bms-hero-image" src="./hero-sandbox.jpg" alt="Build My Sandbox illustration" />';
     }
 
     hero.style.setProperty('background', 'none', 'important');
     hero.style.setProperty('min-height', '0');
-    hero.style.setProperty('aspect-ratio', '1672 / 941');
+    hero.style.setProperty('aspect-ratio', '16 / 9');
 
     const image = hero.querySelector<HTMLImageElement>('.bms-hero-image');
     if (image) {
