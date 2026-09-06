@@ -88,7 +88,8 @@
       "properties": {
         "icon": { "type": "string" },
         "badge": { "type": "string" },
-        "recommended": { "type": "boolean" }
+        "recommended": { "type": "boolean" },
+        "dependencyOnly": { "type": "boolean", "default": false }
       }
     }
   }
