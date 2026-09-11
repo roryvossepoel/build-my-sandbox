@@ -1,0 +1,43 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "firefox",
+  "name": "Mozilla Firefox",
+  "description": "Mozilla Firefox browser for testing websites, browser behavior and web-based applications inside Windows Sandbox.",
+  "publisher": "Mozilla",
+  "homepage": "https://www.mozilla.org/firefox/",
+  "category": "development",
+  "architectures": ["x64"],
+  "dependencies": [],
+  "install": {
+    "type": "msi",
+    "url": "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US",
+    "fileName": "Firefox-latest-x64.msi",
+    "silentArgs": "/qn /norestart",
+    "postInstall": [
+      "New-Item -Path 'HKLM:\\SOFTWARE\\Policies\\Mozilla\\Firefox' -Force | Out-Null",
+      "New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Mozilla\\Firefox' -Name 'OverrideFirstRunPage' -PropertyType String -Value '' -Force | Out-Null",
+      "New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Mozilla\\Firefox' -Name 'OverridePostUpdatePage' -PropertyType String -Value '' -Force | Out-Null",
+      "New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Mozilla\\Firefox' -Name 'DontCheckDefaultBrowser' -PropertyType DWord -Value 1 -Force | Out-Null"
+    ]
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+  },
+  "actions": [
+    {
+      "name": "Mozilla Firefox",
+      "type": "app",
+      "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+      "uiLabel": "Start"
+    },
+    {
+      "name": "Mozilla Firefox - Private",
+      "type": "app",
+      "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+      "arguments": "-private-window",
+      "uiLabel": "Private"
+    }
+  ],
+  "ui": { "recommended": false }
+}

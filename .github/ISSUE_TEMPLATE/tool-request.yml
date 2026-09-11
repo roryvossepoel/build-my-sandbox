@@ -1,0 +1,96 @@
+name: Tool request
+description: Suggest a new tool for Windows Sandbox Builder
+title: "[Tool request] "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a tool for Windows Sandbox Builder.
+
+        Please provide the official source whenever possible. Requests are reviewed before anything is added to the catalog.
+
+  - type: input
+    id: name
+    attributes:
+      label: Tool name
+      placeholder: e.g. Autoruns
+    validations:
+      required: true
+
+  - type: input
+    id: homepage
+    attributes:
+      label: Official website or project page
+      placeholder: https://...
+    validations:
+      required: true
+
+  - type: input
+    id: download
+    attributes:
+      label: Official download URL
+      description: Prefer an official vendor, Microsoft, GitHub release or other trusted source.
+      placeholder: https://...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Architecture
+      multiple: true
+      options:
+        - x64
+        - ARM64
+        - x86
+        - Unknown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install_type
+    attributes:
+      label: Package type
+      options:
+        - EXE
+        - MSI
+        - ZIP / portable
+        - Script
+        - Unknown
+    validations:
+      required: true
+
+  - type: input
+    id: silent_args
+    attributes:
+      label: Silent install arguments
+      description: Leave blank if unknown or if the tool is portable.
+      placeholder: e.g. /S or /qn /norestart
+    validations:
+      required: false
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why should this tool be included?
+      placeholder: What does it add to a disposable Windows Sandbox workflow?
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional notes
+      description: Dependencies, licensing notes, special install behavior, detection hints, etc.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: source
+    attributes:
+      label: Source check
+      options:
+        - label: I have linked the official project/vendor source where possible.
+          required: true

@@ -1,0 +1,120 @@
+/* Responsive hardening for the builder itself, independent of viewport width. */
+
+.builder-playground,
+.toybox-card,
+.sandbox-stage-card,
+.build-card,
+.quick-settings,
+.quick-card,
+.advanced-drawer,
+.advanced-grid,
+.advanced-option {
+  min-width: 0;
+}
+
+/* Let the middle card react to its own actual width instead of only the viewport. */
+.sandbox-stage-card {
+  container-type: inline-size;
+  overflow: hidden;
+}
+
+.quick-settings {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.quick-card {
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.quick-card > span:nth-child(2),
+.advanced-option > div {
+  min-width: 0;
+}
+
+.quick-card strong,
+.quick-card small,
+.advanced-option strong,
+.advanced-option small {
+  overflow-wrap: anywhere;
+}
+
+.quick-card select {
+  max-width: 92px;
+}
+
+.advanced-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.advanced-option {
+  width: 100%;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+/* At this card width, three quick-setting cards simply no longer fit comfortably. */
+@container (max-width: 760px) {
+  .quick-settings {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quick-settings > .quick-card:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@container (max-width: 560px) {
+  .quick-settings,
+  .advanced-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-settings > .quick-card:first-child {
+    grid-column: auto;
+  }
+
+  .advanced-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .advanced-heading > small {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+/* Collapse the overall builder a little sooner, before the center column becomes cramped. */
+@media (max-width: 1120px) {
+  .builder-playground {
+    grid-template-columns: 1fr;
+  }
+
+  .toybox-card,
+  .sandbox-stage-card,
+  .build-card {
+    grid-column: 1;
+  }
+
+  .build-card {
+    position: static;
+  }
+
+  .toybox-categories {
+    max-height: 620px;
+  }
+}
+
+@media (max-width: 700px) {
+  .quick-settings,
+  .advanced-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-settings > .quick-card:first-child {
+    grid-column: auto;
+  }
+}

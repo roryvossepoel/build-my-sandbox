@@ -1,0 +1,27 @@
+/* Make automatically resolved dependencies explicit without presenting them as selectable tools. */
+.dependency-shelf.dependency-auto {
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid #cfc8ff;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f8f6ff, #f2f8ff);
+  color: #59657b;
+  box-shadow: 0 7px 18px rgba(94, 86, 190, .07);
+}
+
+.dependency-shelf.dependency-auto > span:first-child {
+  color: #665bc9;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.dependency-shelf.dependency-auto .dependency-chip {
+  border: 1px solid #bdb4f5;
+  background: #fff;
+  color: #5549b8;
+  font-size: 11px;
+  font-weight: 850;
+}

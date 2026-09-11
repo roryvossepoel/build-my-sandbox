@@ -1,0 +1,95 @@
+name: Bug report
+description: Report a problem with the builder, generated Sandbox, provisioning or Toolbox.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Build My Sandbox. Please remove secrets, credentials and sensitive host paths from logs or generated output before posting them.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Where did the problem occur?
+      options:
+        - Website / builder
+        - Generated .WSB
+        - Provisioning / installation
+        - Build My Sandbox Toolbox
+        - Tool action / launch button
+        - Import / export
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected instead.
+      placeholder: Tell us what happened and what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the selected tools and Sandbox options when they matter.
+      placeholder: |
+        1. Select ...
+        2. Enable ...
+        3. Build and start the Sandbox
+        4. Observe ...
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      description: Edition, version/build and architecture if known.
+      placeholder: "Windows 11 25H2, build 26200.x, ARM64"
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      description: Browser used to build/download the Sandbox, when relevant.
+      placeholder: "Microsoft Edge 152"
+
+  - type: textarea
+    id: tools
+    attributes:
+      label: Selected tools
+      description: List the tools involved in the build or issue.
+      placeholder: "Google Chrome, PowerShell 7, PsExec"
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Relevant BuildMySandbox.log output
+      description: Paste only the relevant lines and redact sensitive information.
+      render: text
+
+  - type: textarea
+    id: generated
+    attributes:
+      label: Relevant generated WSB or PowerShell
+      description: Optional. Include only the smallest useful excerpt and redact sensitive information.
+      render: powershell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I reproduced the issue with a newly generated Sandbox where practical.
+          required: true
+        - label: I removed credentials, secrets and sensitive host information from anything pasted above.
+          required: true

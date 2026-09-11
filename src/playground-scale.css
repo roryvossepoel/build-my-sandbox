@@ -1,0 +1,473 @@
+/* Larger, more tactile playground layout */
+
+/* Presets are still available through the Sandbox Elite hero shortcut, but the strip is out of the way. */
+.preset-strip { display: none !important; }
+
+.playground-shell {
+  width: min(1760px, calc(100% - 48px));
+}
+
+.hero-playground {
+  min-height: 480px;
+  padding-bottom: 42px;
+}
+
+.builder-playground {
+  grid-template-columns: minmax(350px, .9fr) minmax(680px, 1.65fr) minmax(320px, .82fr);
+  gap: 24px;
+}
+
+.toybox-card,
+.sandbox-stage-card,
+.build-card {
+  padding: 26px;
+  border-radius: 30px;
+}
+
+.play-section-title {
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.play-section-title h2 {
+  margin-top: 4px;
+  font-size: 27px;
+  line-height: 1.08;
+}
+
+.play-section-title p {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.mini-kicker {
+  font-size: 11px;
+  letter-spacing: .16em;
+}
+
+.step-bubble {
+  flex-basis: 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.toybox-search-wrap {
+  min-height: 52px;
+  gap: 10px;
+  margin-bottom: 22px;
+  padding: 12px 14px;
+  border-radius: 15px;
+}
+
+.toybox-search-wrap span {
+  font-size: 18px;
+}
+
+.toybox-search-wrap input {
+  font-size: 13px;
+}
+
+.toybox-categories {
+  max-height: 920px;
+  padding-right: 7px;
+}
+
+.toy-category + .toy-category {
+  margin-top: 27px;
+}
+
+.toy-category h3 {
+  margin-bottom: 12px;
+  font-size: 11px;
+  letter-spacing: .055em;
+}
+
+.toy-grid {
+  gap: 10px;
+}
+
+.toy-card {
+  grid-template-columns: 48px 1fr 30px;
+  gap: 12px;
+  min-height: 76px;
+  padding: 12px 13px;
+  border-radius: 17px;
+}
+
+.toy-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.toy-copy strong {
+  font-size: 13px;
+}
+
+.toy-copy small {
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+.toy-add {
+  width: 29px;
+  height: 29px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.sandbox-dropzone {
+  min-height: 485px;
+  padding: 27px;
+  border-width: 3px;
+  border-radius: 32px;
+}
+
+.empty-bucket {
+  margin-bottom: 16px;
+  font-size: 62px;
+}
+
+.empty-sandbox strong {
+  font-size: 22px;
+}
+
+.empty-sandbox span {
+  max-width: 360px;
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sandbox-tools {
+  gap: 13px;
+}
+
+.sandbox-tool {
+  grid-template-columns: 52px 1fr 30px;
+  gap: 12px;
+  min-height: 78px;
+  padding: 13px;
+  border-radius: 18px;
+}
+
+.sandbox-tool-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  font-size: 12px;
+}
+
+.sandbox-tool strong {
+  font-size: 13px;
+}
+
+.sandbox-tool small {
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+.sandbox-tool button {
+  width: 29px;
+  height: 29px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.dependency-shelf {
+  gap: 8px;
+  margin-top: 14px;
+  padding: 13px 15px;
+  border-radius: 15px;
+  font-size: 11px;
+}
+
+.dependency-chip {
+  padding: 6px 9px;
+}
+
+.quick-settings {
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.quick-card {
+  min-height: 84px;
+  gap: 11px;
+  padding: 14px;
+  border-radius: 18px;
+}
+
+.quick-icon {
+  font-size: 25px;
+}
+
+.quick-card strong {
+  font-size: 12px;
+}
+
+.quick-card small {
+  margin-top: 4px;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.quick-card select {
+  min-width: 74px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+.switch {
+  flex-basis: 46px;
+  width: 46px;
+  height: 25px;
+}
+
+.switch::after {
+  width: 19px;
+  height: 19px;
+}
+
+.toggle-setting input:checked + .switch::after {
+  left: 24px;
+}
+
+.advanced-drawer {
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 21px;
+}
+
+.advanced-heading {
+  margin-bottom: 16px;
+}
+
+.advanced-heading span {
+  font-size: 10px;
+}
+
+.advanced-heading strong {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.advanced-heading > small {
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.advanced-grid {
+  gap: 10px;
+}
+
+.advanced-option {
+  gap: 10px;
+  min-height: 70px;
+  padding: 12px;
+  border-radius: 15px;
+}
+
+.advanced-option > span:first-child {
+  font-size: 21px;
+}
+
+.advanced-option strong {
+  font-size: 11px;
+}
+
+.advanced-option small {
+  margin-top: 3px;
+  font-size: 9px;
+}
+
+.build-card {
+  top: 102px;
+}
+
+.compact-title {
+  margin-bottom: 18px;
+}
+
+.sandbox-name {
+  padding: 18px 0 21px;
+}
+
+.sandbox-name > span {
+  font-size: 10px;
+}
+
+.sandbox-name strong {
+  margin-top: 8px;
+  font-size: 23px;
+}
+
+.sandbox-name p {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.build-stats {
+  padding: 17px 0;
+}
+
+.build-stats > div {
+  padding: 10px 0;
+}
+
+.build-stats span,
+.build-stats strong {
+  font-size: 11px;
+}
+
+.ready-card {
+  gap: 12px;
+  margin: 18px 0;
+  padding: 14px;
+  border-radius: 17px;
+}
+
+.ready-card > span {
+  width: 34px;
+  height: 34px;
+  font-size: 16px;
+}
+
+.ready-card strong {
+  font-size: 11px;
+}
+
+.ready-card small {
+  margin-top: 4px;
+  font-size: 9px;
+}
+
+.big-play-button,
+.bundle-play-button {
+  min-height: 50px;
+  padding: 14px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.bundle-play-button {
+  margin-top: 10px;
+}
+
+.build-card .bundle-note {
+  display: block;
+  margin-top: 11px;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.review-playground {
+  margin-top: 28px;
+  padding: 28px;
+  border-radius: 30px;
+}
+
+.playful-tabs {
+  padding: 5px;
+  border-radius: 13px;
+}
+
+.playful-tabs button {
+  padding: 10px 15px;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+.playful-preview {
+  min-height: 320px;
+  border-radius: 18px;
+}
+
+.playful-preview pre {
+  padding: 23px;
+  font-size: 12px;
+}
+
+.playful-summary .summary-card {
+  padding: 18px;
+}
+
+.playful-summary .summary-card span {
+  font-size: 11px;
+}
+
+.playful-summary .summary-card strong {
+  font-size: 15px;
+}
+
+.mode-switch button {
+  padding: 10px 14px;
+  font-size: 12px;
+}
+
+.playground-topbar .brand strong {
+  font-size: 16px;
+}
+
+.playground-topbar .brand small {
+  font-size: 12px;
+}
+
+@media (max-width: 1450px) {
+  .builder-playground {
+    grid-template-columns: 340px minmax(600px, 1fr);
+  }
+
+  .build-card {
+    position: static;
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1050px) {
+  .playground-shell {
+    width: min(100% - 30px, 980px);
+  }
+
+  .builder-playground {
+    grid-template-columns: 1fr;
+  }
+
+  .toybox-categories {
+    max-height: none;
+  }
+
+  .build-card {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .playground-shell {
+    width: min(100% - 20px, 680px);
+  }
+
+  .toybox-card,
+  .sandbox-stage-card,
+  .build-card,
+  .review-playground {
+    padding: 20px;
+  }
+
+  .sandbox-dropzone {
+    min-height: 390px;
+    padding: 18px;
+  }
+
+  .sandbox-tools,
+  .quick-settings,
+  .advanced-grid {
+    grid-template-columns: 1fr;
+  }
+}

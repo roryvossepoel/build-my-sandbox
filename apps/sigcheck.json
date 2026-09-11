@@ -1,0 +1,31 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "sigcheck",
+  "name": "Sigcheck",
+  "description": "Inspect file versions, timestamps, hashes and digital signature details from the command line.",
+  "publisher": "Microsoft Sysinternals",
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/sigcheck",
+  "category": "troubleshooting",
+  "architectures": ["x64", "arm64", "x86"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://download.sysinternals.com/files/Sigcheck.zip",
+    "fileName": "Sigcheck.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\Sigcheck"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\Sigcheck\\sigcheck64.exe"
+  },
+  "actions": [
+    {
+      "name": "Sigcheck - Command Prompt",
+      "type": "command",
+      "command": "cmd.exe",
+      "arguments": "/k \"cd /d C:\\SandboxToolbox\\Tools\\Sigcheck && echo Try: sigcheck64.exe -accepteula -h -i -nobanner ^<file^>\"",
+      "uiLabel": "Start"
+    }
+  ],
+  "ui": { "recommended": true }
+}

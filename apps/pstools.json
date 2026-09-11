@@ -1,0 +1,40 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "pstools",
+  "name": "PsExec",
+  "description": "Microsoft Sysinternals PsExec, delivered from the PsTools package, for launching processes interactively or as SYSTEM.",
+  "publisher": "Microsoft Sysinternals",
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/pstools",
+  "category": "troubleshooting",
+  "architectures": ["x64", "arm64"],
+  "dependencies": [],
+  "install": {
+    "type": "zip",
+    "url": "https://download.sysinternals.com/files/PSTools.zip",
+    "fileName": "PSTools.zip",
+    "extractTo": "C:\\SandboxToolbox\\Tools\\PsTools"
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe"
+  },
+  "actions": [
+    {
+      "name": "PsExec - SYSTEM Command Prompt",
+      "type": "command",
+      "command": "C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe",
+      "arguments": "-accepteula -s -i cmd.exe",
+      "elevated": true,
+      "uiLabel": "CMD as SYSTEM"
+    },
+    {
+      "name": "PsExec - SYSTEM PowerShell 5",
+      "type": "command",
+      "command": "C:\\SandboxToolbox\\Tools\\PsTools\\PsExec64.exe",
+      "arguments": "-accepteula -s -i powershell.exe -NoExit",
+      "elevated": true,
+      "uiLabel": "PowerShell 5 as SYSTEM"
+    }
+  ],
+  "ui": { "recommended": true }
+}

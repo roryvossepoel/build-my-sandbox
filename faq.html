@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Build My Sandbox FAQ, Windows Sandbox resources, security context and troubleshooting." />
+  <meta name="theme-color" content="#fffaf2" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://buildmysandbox.com/faq.html" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./src/site-nav.css" />
+  <link rel="stylesheet" href="./src/faq.css" />
+  <link rel="stylesheet" href="./src/product-shell.css" />
+  <link rel="stylesheet" href="./src/share.css" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Build My Sandbox" />
+  <meta property="og:title" content="FAQ — Build My Sandbox" />
+  <meta property="og:description" content="Windows Sandbox guidance, security context, troubleshooting and how Build My Sandbox works." />
+  <meta property="og:url" content="https://buildmysandbox.com/faq.html" />
+  <title>FAQ — Build My Sandbox</title>
+</head>
+<body>
+  <header class="bms-site-topbar">
+    <a class="bms-site-brand" href="./">
+      <img src="./favicon.svg" alt="" />
+      <span class="bms-site-brand-copy"><strong>Build My Sandbox</strong><small>Build a Windows playground worth playing in.</small></span>
+    </a>
+    <nav class="bms-site-nav wsb-product-nav" aria-label="Product navigation">
+      <a class="active" href="./faq.html">FAQ</a>
+      <a class="wsb-github-icon bms-github-icon" href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer" aria-label="Build My Sandbox on GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.22c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.59-.29-5.31-1.29-5.31-5.75 0-1.27.45-2.31 1.2-3.12-.12-.3-.52-1.48.11-3.08 0 0 .98-.31 3.16 1.19A10.9 10.9 0 0 1 12 6c.98 0 1.96.13 2.88.38 2.18-1.5 3.16-1.19 3.16-1.19.63 1.6.23 2.78.11 3.08.75.81 1.2 1.85 1.2 3.12 0 4.47-2.73 5.45-5.33 5.74.42.36.79 1.08.79 2.18v3.24c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <main class="faq-shell">
+    <section class="faq-hero">
+      <span>HELP · LEARN · FIX</span>
+      <h1>Sandbox questions?<br><em>Dig in.</em></h1>
+      <p>Short answers about Windows Sandbox, Build My Sandbox, dependencies, host sharing and the optional fixes.</p>
+    </section>
+
+    <section class="faq-section">
+      <div class="faq-section-heading">
+        <span>ABOUT BUILD MY SANDBOX</span>
+        <h2>Made for fun. Useful is a nice bonus.</h2>
+      </div>
+      <div class="faq-grid">
+        <article class="faq-card faq-card-wide faq-about-card"><span class="faq-icon">🏖️</span><div><h2>Why does Build My Sandbox exist?</h2><p>Mostly because it was fun to build. Build My Sandbox started as a vibe-coded side project to play with Windows Sandbox, experiment with some useful options and put this lightweight Windows feature a little more in the spotlight.</p><p>If it saves you a few minutes, helps you test something faster or gives you ideas for your own sandbox, even better. Either way: have fun with it.</p></div></article>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="faq-section-heading">
+        <span>GETTING STARTED</span>
+        <h2>What you need and how the builder works</h2>
+        <p>Start here if you are new to Windows Sandbox or want to know what Build My Sandbox actually generates.</p>
+      </div>
+      <div class="faq-grid">
+        <article class="faq-card"><span class="faq-icon">🏖️</span><div><h2>What is Windows Sandbox?</h2><p>Windows Sandbox is a lightweight, isolated and disposable Windows environment. Software, files and state inside it are discarded when you close the Sandbox.</p><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer">Microsoft documentation ↗</a></div></article>
+        <article class="faq-card"><span class="faq-icon">✅</span><div><h2>What do I need to use Windows Sandbox?</h2><p>You need a supported Windows edition such as Pro, Enterprise or Education, hardware virtualization enabled and the Windows Sandbox feature installed. Microsoft lists at least 4 GB RAM, 1 GB free disk space and two CPU cores as the minimums, with more recommended for a smoother experience.</p><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer">Check the prerequisites ↗</a></div></article>
+        <article class="faq-card"><span class="faq-icon">🪟</span><div><h2>How do I install Windows Sandbox?</h2><p>Open <strong>Turn Windows features on or off</strong>, enable <strong>Windows Sandbox</strong> and restart if prompted.</p><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer">Installation guide ↗</a></div></article>
+        <article class="faq-card"><span class="faq-icon">🧱</span><div><h2>How does Build My Sandbox work?</h2><p>Pick the tools you want, adjust the Sandbox settings and Build My Sandbox generates the <code>.wsb</code> configuration and PowerShell bootstrap directly in your browser. You can inspect both before downloading the .WSB or the complete bundle.</p></div></article>
+        <article class="faq-card"><span class="faq-icon">🧩</span><div><h2>Why are some tools added automatically?</h2><p>Some applications need another component to run. Those components are dependencies. CMTrace Open, for example, requires Microsoft Edge WebView2 Runtime, so WebView2 is added automatically rather than being selectable as a normal tool.</p></div></article>
+        <article class="faq-card"><span class="faq-icon">🌐</span><div><h2>Why is networking required?</h2><p>Build My Sandbox downloads the selected tools when the Sandbox starts, so the generated configuration keeps networking enabled. The builder therefore treats networking as a required setting instead of an optional switch.</p></div></article>
+        <article class="faq-card"><span class="faq-icon">📂</span><div><h2>Can I access my host Downloads folder?</h2><p>Yes. Enable <strong>Map host Downloads</strong>. Build My Sandbox maps your host Downloads folder into Windows Sandbox. The mapping is read-only by default, and write access is a separate opt-in.</p><p class="faq-note">Only enable write access when you actually need files created in the Sandbox to be written back to the host.</p></div></article>
+        <article class="faq-card"><span class="faq-icon">🎨</span><div><h2>What is the provisioning window?</h2><p>Generated Sandboxes open a small status window while provisioning runs. Each selected tool and optional fix shows Pending, Installing, Ready or Failed, so you can immediately see what is happening.</p></div></article>
+        <article class="faq-card faq-card-wide faq-toolbox-card"><span class="faq-icon">🧰</span><div><h2>What is the Build My Sandbox Toolbox?</h2><p>The provisioning window becomes your Toolbox once the sandbox is ready. It keeps the final status of every selected tool and optional fix visible and gives you direct launch actions for tools where that is useful.</p><p>Actions are intentionally contextual. A normal application can get a simple <strong>Start</strong> button, browsers can expose useful launch modes and tools such as PsExec can provide SYSTEM shortcuts. Dependencies and runtimes such as Microsoft Edge WebView2 Runtime are shown for transparency, but do not get a launch button when there is nothing useful to start.</p><div class="faq-toolbox-features"><span>Live provisioning status</span><span>Ready / Failed feedback</span><span>Direct tool actions</span><span>Context-aware SYSTEM actions</span><span>Dependencies stay visible</span></div><p class="faq-note">If a provisioning step fails, the Toolbox keeps going with the remaining items and surfaces the first useful failure message at the top. Failed applications get a <strong>Retry</strong> action so you can rerun that provisioning step without rebuilding the whole Sandbox. You can reopen the Toolbox later using the <strong>Build My Sandbox Toolbox</strong> shortcut on the Sandbox desktop.</p><figure class="faq-toolbox-shot"><img src="./toolbox-preview.svg" loading="lazy" alt="Build My Sandbox Toolbox inside Windows Sandbox showing Ready states, Chrome launch actions, PsExec SYSTEM actions, WebView2 Runtime and CMTrace Open." /><figcaption>The Toolbox after a successful provisioning run.</figcaption></figure></div></article>
+        <article class="faq-card"><span class="faq-icon">➕</span><div><h2>Can I request another tool?</h2><p>Yes. Use <strong>Request a tool</strong> below the Toy Box search field. It opens a GitHub issue form. Requests are reviewed before anything is added to the catalog.</p><a href="https://github.com/roryvossepoel/build-my-sandbox/issues/new?template=tool-request.yml" target="_blank" rel="noreferrer">Request a tool ↗</a></div></article>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="faq-section-heading">
+        <span>TROUBLESHOOTING & FIXES</span>
+        <h2>If the sandbox needs a little help</h2>
+        <p>The optional fixes are targeted workarounds. They are off by default and only run when you explicitly enable them.</p>
+      </div>
+      <div class="faq-grid">
+        <article class="faq-card"><span class="faq-icon">🩹</span><div><h2>What are the optional fixes?</h2><p>They are small workarounds for specific problems that can occur in some Windows Sandbox environments. They are not general recommendations and should only be enabled when the matching issue is actually present.</p></div></article>
+        <article class="faq-card"><span class="faq-icon">🧰</span><div><h2>What happens if one tool fails?</h2><p>Provisioning isolates installation steps. A failed item is shown as Failed while the remaining tools continue. You can inspect the generated PowerShell before launch to see exactly what will run.</p></div></article>
+        <article id="dns-fix" class="faq-card faq-fix-card"><span class="faq-icon">🌐</span><div><h2>DNS recovery</h2><p><strong>Use this when:</strong> the Sandbox has IP connectivity but DNS resolution is broken and downloads fail.</p><p>The fix checks whether <code>www.microsoft.com</code> resolves. If DNS is broken, Build My Sandbox first tries the Windows networking PowerShell cmdlets to set <code>8.8.8.8</code>. If those cmdlets fail, it falls back to <code>netsh</code>, then waits until name resolution works before provisioning continues.</p><p class="faq-note">Azure's <code>168.63.129.16</code> address is not a general public DNS resolver; it is intended for Azure virtual-network platform services, so Build My Sandbox does not use it here.</p></div></article>
+        <article id="app-control-fix" class="faq-card faq-fix-card"><span class="faq-icon">⚡</span><div><h2>App Control performance fix</h2><p><strong>Use this when:</strong> installations inside Windows Sandbox become extremely slow while App Control / Smart App Control is active.</p><p>The fix sets <code>VerifiedAndReputablePolicyState</code> to <code>0</code> inside the disposable Sandbox and calls <code>CiTool.exe -r</code> to refresh Code Integrity before provisioning applications.</p><p class="faq-warning"><strong>Sandbox only.</strong> This deliberately reduces an application-control protection inside the disposable test environment. Do not copy this workaround to normal managed endpoints.</p></div></article>
+        <article class="faq-card faq-card-wide"><span class="faq-icon">🛠️</span><div><h2>What if Windows Sandbox itself does not start?</h2><p>Build My Sandbox can generate the configuration, but Windows Sandbox still has to work correctly on the host. Check that the Windows Sandbox feature is installed, virtualization is available and no policy is blocking the required settings. Microsoft also documents common errors such as invalid <code>.wsb</code> files, missing Hyper-V support and Store or network update issues.</p><a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-troubleshoot" target="_blank" rel="noreferrer">Microsoft troubleshooting guide ↗</a></div></article>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="faq-section-heading">
+        <span>PRIVACY & SECURITY</span>
+        <h2>What happens in your browser stays in your browser</h2>
+      </div>
+      <div class="faq-grid">
+        <article class="faq-card"><span class="faq-icon">🔒</span><div><h2>Does Build My Sandbox upload my configuration?</h2><p>No. The core builder generates the .WSB, PowerShell and bundle locally in your browser. No account or application backend is required.</p></div></article>
+        <article class="faq-card faq-card-wide faq-disclaimer"><span class="faq-icon">⚖️</span><div><h2>Disclaimer & responsible use</h2><p>Build My Sandbox and its generated output are provided <strong>as-is, without warranties</strong>. Generated <code>.wsb</code> files and PowerShell scripts can download, install or execute third-party software inside Windows Sandbox. Always review the generated configuration and scripts before using them.</p><p>Third-party software, download locations and external services are maintained by their respective vendors and can change without notice. Build My Sandbox does not control those packages or services.</p><p class="faq-note"><strong>Host sharing matters.</strong> Enabling writable host-folder mappings can expose host files to processes running inside the Sandbox. Only enable write access when you actually need it.</p><p>Use Build My Sandbox and its generated output at your own risk. Build My Sandbox is an independent open-source project and is not affiliated with or endorsed by Microsoft.</p><a href="https://github.com/roryvossepoel/build-my-sandbox/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT License ↗</a></div></article>
+        <article class="faq-card faq-card-wide"><span class="faq-icon">🛡️</span><div><h2>Why can a web filter or security product flag Build My Sandbox?</h2><p>Build My Sandbox is a developer and IT administration tool that generates Windows Sandbox (<code>.wsb</code>) configurations and PowerShell bootstrap scripts. Generated scripts can download and install selected software <strong>inside Windows Sandbox</strong>. Those characteristics can resemble behavior that automated reputation systems inspect cautiously, so a new or low-reputation domain may occasionally be classified incorrectly.</p><p>The builder itself is open source and runs client-side in your browser. It does not require an account, database or application backend. You can inspect the generated WSB and PowerShell before using them, and the application manifests and generation logic are public on GitHub.</p><p class="faq-note">If a security product blocks the site, do not bypass the warning blindly. Ask the provider or your administrator to review the classification and use the public source code and this FAQ as context.</p><a href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer">Review the source code on GitHub ↗</a></div></article>
+      </div>
+    </section>
+
+    <section class="faq-docs">
+      <div class="faq-docs-heading">
+        <span>OFFICIAL DOCUMENTATION</span>
+        <h2>Go deeper with Microsoft Learn</h2>
+        <p>These are the primary references worth bookmarking. Build My Sandbox links to them rather than duplicating Microsoft's documentation.</p>
+      </div>
+      <div class="faq-docs-grid">
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer"><span>Overview</span><strong>Windows Sandbox</strong><small>Concepts, capabilities, use cases and security notes.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer"><span>Setup</span><strong>Install Windows Sandbox</strong><small>Prerequisites and installation guidance.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file" target="_blank" rel="noreferrer"><span>Configuration</span><strong>Use .wsb files</strong><small>All supported configuration settings and examples.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-faq" target="_blank" rel="noreferrer"><span>Reference</span><strong>Windows Sandbox FAQ</strong><small>Common questions about concepts and usage.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-cli" target="_blank" rel="noreferrer"><span>Automation</span><strong>Windows Sandbox CLI</strong><small>Start, list and manage Sandbox sessions from the command line.</small><b>↗</b></a>
+        <a href="https://learn.microsoft.com/windows/client-management/mdm/policy-csp-windowssandbox" target="_blank" rel="noreferrer"><span>Management</span><strong>WindowsSandbox Policy CSP</strong><small>Device-management controls for Sandbox capabilities.</small><b>↗</b></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wsb-site-footer">
+    <div class="wsb-footer-inner">
+      <div class="wsb-footer-grid">
+        <section>
+          <div class="wsb-footer-brand">
+            <span class="wsb-footer-logo" aria-hidden="true"><img src="./favicon.svg" alt="" /></span>
+            <div><strong>Build My Sandbox</strong><span>Pick · Drop · Build · Play</span></div>
+          </div>
+          <p class="wsb-footer-copy">An open-source, client-side Windows Sandbox configuration generator. Pick the tools you need, inspect exactly what will run and export a ready-to-use .WSB and PowerShell bootstrap without an account or application backend.</p>
+        </section>
+        <section class="wsb-footer-column">
+          <h3>Build My Sandbox</h3>
+          <a href="./#builder-zone">Build a sandbox</a>
+          <a href="./faq.html">FAQ & Windows Sandbox</a>
+          <a href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </section>
+        <section class="wsb-footer-column">
+          <h3>What you get</h3>
+          <span>Drag & drop tool selection</span>
+          <span>Automatic dependencies</span>
+          <span>Live WSB & PowerShell preview</span>
+          <span>.WSB and full bundle export</span>
+        </section>
+        <section class="wsb-footer-column wsb-footer-sandbox-info">
+          <h3>Windows Sandbox</h3>
+          <p>Microsoft's lightweight disposable Windows environment for testing apps and files in isolation.</p>
+          <span><strong>Install:</strong> Windows Features → Windows Sandbox → OK.</span>
+          <a href="./faq.html">FAQ, basics & fixes ↗</a>
+          <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer">Official Microsoft docs ↗</a>
+        </section>
+      </div>
+      <div class="wsb-footer-bottom">
+        <span>© 2026 Build My Sandbox</span>
+        <span class="wsb-footer-legal">Open source · <a href="https://github.com/roryvossepoel/build-my-sandbox/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT licensed</a> · Provided as-is · Not affiliated with Microsoft</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/share-shell.ts"></script>
+</body>
+</html>

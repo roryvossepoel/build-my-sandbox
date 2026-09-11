@@ -1,0 +1,42 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "google-chrome",
+  "name": "Google Chrome",
+  "description": "Google Chrome browser for testing websites, browser behavior and web-based applications inside Windows Sandbox.",
+  "publisher": "Google",
+  "homepage": "https://chromeenterprise.google/download/",
+  "category": "development",
+  "architectures": ["x64", "arm64"],
+  "dependencies": [],
+  "install": {
+    "type": "script",
+    "url": "https://buildmysandbox.com/installers/install-google-chrome.ps1",
+    "fileName": "install-google-chrome.ps1",
+    "postInstall": [
+      "New-Item -Path 'HKLM:\\SOFTWARE\\Policies\\Google\\Chrome' -Force | Out-Null",
+      "New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Google\\Chrome' -Name 'PromotionsEnabled' -PropertyType DWord -Value 0 -Force | Out-Null",
+      "New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Google\\Chrome' -Name 'DefaultBrowserSettingEnabled' -PropertyType DWord -Value 0 -Force | Out-Null",
+      "New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Google\\Chrome' -Name 'ProfilePickerOnStartupAvailability' -PropertyType DWord -Value 1 -Force | Out-Null"
+    ]
+  },
+  "detection": {
+    "type": "file",
+    "value": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "actions": [
+    {
+      "name": "Google Chrome",
+      "type": "app",
+      "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "uiLabel": "Start"
+    },
+    {
+      "name": "Google Chrome - Incognito",
+      "type": "app",
+      "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "arguments": "--incognito",
+      "uiLabel": "Incognito"
+    }
+  ],
+  "ui": { "recommended": false }
+}

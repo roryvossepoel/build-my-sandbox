@@ -1,0 +1,259 @@
+export {};
+
+type OptionDefinition = {
+  key: string;
+  title: string;
+  description: string;
+  note: string;
+  icon: string;
+};
+
+const fixes: OptionDefinition[] = [
+  {
+    key: 'bms.fix.dnsRecovery',
+    title: 'DNS recovery',
+    description: 'Repair DNS only when name resolution is broken.',
+    note: 'Microsoft probe first · PowerShell first · netsh fallback · 8.8.8.8',
+    icon: '🌐',
+  },
+  {
+    key: 'bms.fix.disableSmartAppControl',
+    title: 'App Control performance fix',
+    description: 'Disable Smart App Control in this disposable Sandbox before installing tools.',
+    note: 'Sandbox only · refreshes Code Integrity with CiTool.exe -r',
+    icon: '⚡',
+  },
+];
+
+const advancedSummaryOptions = [
+  { key: 'vGpu', icon: '🎮', label: 'vGPU' },
+  { key: 'audioInput', icon: '🎙️', label: 'Audio input' },
+  { key: 'videoInput', icon: '📷', label: 'Video input' },
+  { key: 'printerRedirection', icon: '🖨️', label: 'Printers' },
+  { key: 'protectedClient', icon: '🛡️', label: 'Protected client' },
+] as const;
+
+function initializeSessionDefaults() {
+  try {
+    localStorage.setItem('bms.map.hostDownloads', 'false');
+    localStorage.setItem('bms.map.hostDownloadsWrite', 'false');
+    localStorage.setItem('bms.fix.dnsRecovery', 'false');
+    localStorage.setItem('bms.fix.disableSmartAppControl', 'false');
+  } catch { }
+}
+
+initializeSessionDefaults();
+
+function readFlag(key: string): boolean {
+  try { return localStorage.getItem(key) === 'true'; } catch { return false; }
+}
+
+function writeFlag(key: string, value: boolean) {
+  try { localStorage.setItem(key, value ? 'true' : 'false'); } catch { }
+}
+
+function makeSwitch(key: string, checked: boolean, disabled = false) {
+  return `<input type="checkbox" data-bms-option="${key}" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''}><span class="switch"></span>`;
+}
+
+function ensureSettingsFrame() {
+  const quick = document.querySelector<HTMLElement>('.quick-settings');
+  const drawer = document.querySelector<HTMLElement>('.advanced-drawer');
+  if (!quick || !drawer) return null;
+
+  let frame = document.querySelector<HTMLElement>('.bms-settings-frame');
+  if (!frame) {
+    frame = document.createElement('div');
+    frame.className = 'bms-settings-frame';
+    quick.parentElement?.insertBefore(frame, quick);
+    frame.appendChild(quick);
+    frame.appendChild(drawer);
+  }
+  return frame;
+}
+
+function hostSharingMarkup(downloadsEnabled: boolean, downloadsWrite: boolean) {
+  return `
+    <section class="bms-option-section bms-host-sharing">
+      <div class="bms-option-heading">
+        <div><span>📂 HOST SHARING</span><strong>Bring your Downloads folder into the sandbox.</strong></div>
+      </div>
+      <div class="bms-option-grid">
+        <label class="bms-option-card ${downloadsEnabled ? 'enabled' : ''}">
+          <span class="bms-option-icon">📥</span>
+          <span class="bms-option-copy"><strong>Map host Downloads</strong><small>Maps <code>%USERPROFILE%\\Downloads</code> to <code>Downloads\\Host Downloads</code> inside Windows Sandbox.</small><em>Read-only when enabled</em></span>
+          ${makeSwitch('bms.map.hostDownloads', downloadsEnabled)}
+        </label>
+        <label class="bms-option-card ${downloadsWrite ? 'enabled' : ''} ${downloadsEnabled ? '' : 'disabled'}">
+          <span class="bms-option-icon write">✍️</span>
+          <span class="bms-option-copy"><strong>Allow writes to Downloads</strong><small>Lets files created in the Sandbox be written back to your host Downloads folder.</small><em>Enable only when you actually need it</em></span>
+          ${makeSwitch('bms.map.hostDownloadsWrite', downloadsWrite, !downloadsEnabled)}
+        </label>
+      </div>
+    </section>
+  `;
+}
+
+function fixesMarkup() {
+  return `
+    <section class="bms-option-section bms-fixes bms-fixes-standalone" id="optional-fixes">
+      <div class="bms-option-heading">
+        <div><span>🩹 OPTIONAL FIXES</span><strong>Only use these when your Sandbox needs a little help.</strong></div>
+        <a href="./faq.html#fixes">What do these do? ↗</a>
+      </div>
+      <div class="bms-option-grid">
+        ${fixes.map((fix) => `
+          <label class="bms-option-card ${readFlag(fix.key) ? 'enabled' : ''}">
+            <span class="bms-option-icon">${fix.icon}</span>
+            <span class="bms-option-copy"><strong>${fix.title}</strong><small>${fix.description}</small><em>${fix.note}</em></span>
+            ${makeSwitch(fix.key, readFlag(fix.key))}
+          </label>`).join('')}
+      </div>
+    </section>
+  `;
+}
+
+function ensureOptionsUi() {
+  const drawer = document.querySelector<HTMLElement>('.advanced-drawer');
+  const frame = ensureSettingsFrame();
+  if (!drawer || !frame) return;
+
+  if (!drawer.querySelector('.bms-extra-options')) {
+    const downloadsEnabled = readFlag('bms.map.hostDownloads');
+    const downloadsWrite = readFlag('bms.map.hostDownloadsWrite');
+    const wrapper = document.createElement('div');
+    wrapper.className = 'bms-extra-options';
+    wrapper.innerHTML = hostSharingMarkup(downloadsEnabled, downloadsWrite);
+    drawer.appendChild(wrapper);
+    bindOptions(wrapper);
+  }
+
+  let fixesSection = document.querySelector<HTMLElement>('.bms-fixes-standalone');
+  if (!fixesSection) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'bms-fixes-wrapper';
+    wrapper.innerHTML = fixesMarkup();
+    frame.insertAdjacentElement('afterend', wrapper);
+    fixesSection = wrapper.querySelector<HTMLElement>('.bms-fixes-standalone');
+    bindOptions(wrapper);
+  }
+}
+
+function bindOptions(root: HTMLElement) {
+  root.querySelectorAll<HTMLInputElement>('[data-bms-option]').forEach((input) => {
+    input.addEventListener('change', () => {
+      const key = input.dataset.bmsOption;
+      if (!key) return;
+      writeFlag(key, input.checked);
+      input.closest('.bms-option-card')?.classList.toggle('enabled', input.checked);
+
+      if (key === 'bms.map.hostDownloads') {
+        const scope = input.closest('.bms-option-section') ?? root;
+        const writeInput = scope.querySelector<HTMLInputElement>('[data-bms-option="bms.map.hostDownloadsWrite"]');
+        const writeCard = writeInput?.closest('.bms-option-card');
+        if (writeInput) {
+          writeInput.disabled = !input.checked;
+          if (!input.checked) {
+            writeInput.checked = false;
+            writeFlag('bms.map.hostDownloadsWrite', false);
+            writeCard?.classList.remove('enabled');
+          }
+        }
+        writeCard?.classList.toggle('disabled', !input.checked);
+      }
+
+      updateBuildSummary();
+    });
+  });
+}
+
+function updateAdvancedBuildStats() {
+  const stats = document.querySelector<HTMLElement>('.build-card .build-stats');
+  if (!stats) return;
+
+  stats.querySelectorAll('.bms-quick-stat, .bms-advanced-stat, .bms-host-sharing-stat').forEach((row) => row.remove());
+
+  const clipboardInput = document.querySelector<HTMLInputElement>('[data-setting="clipboard"]');
+  if (clipboardInput?.checked) {
+    const clipboardRow = document.createElement('div');
+    clipboardRow.className = 'bms-quick-stat';
+    clipboardRow.innerHTML = '<span>📋 Clipboard</span><strong>On</strong>';
+    stats.appendChild(clipboardRow);
+  }
+
+  for (const option of advancedSummaryOptions) {
+    const input = document.querySelector<HTMLInputElement>(`[data-setting="${option.key}"]`);
+    if (!input?.checked) continue;
+
+    const row = document.createElement('div');
+    row.className = 'bms-advanced-stat';
+    row.innerHTML = `<span>${option.icon} ${option.label}</span><strong>On</strong>`;
+    stats.appendChild(row);
+  }
+
+  if (readFlag('bms.map.hostDownloads')) {
+    const hostRow = document.createElement('div');
+    hostRow.className = 'bms-host-sharing-stat';
+    const access = readFlag('bms.map.hostDownloadsWrite') ? 'Read / write' : 'Read-only';
+    hostRow.innerHTML = `<span>📂 Host Downloads</span><strong>${access}</strong>`;
+    stats.appendChild(hostRow);
+  }
+}
+
+function updateBuildSummary() {
+  const buildCard = document.querySelector<HTMLElement>('.build-card');
+  if (!buildCard) return;
+
+  updateAdvancedBuildStats();
+
+  const enabledFixes = fixes.filter((fix) => readFlag(fix.key));
+  let summary = buildCard.querySelector<HTMLElement>('.bms-options-summary');
+
+  if (!enabledFixes.length) {
+    summary?.remove();
+    return;
+  }
+
+  if (!summary) {
+    summary = document.createElement('div');
+    summary.className = 'bms-options-summary';
+    buildCard.querySelector('.build-stats')?.insertAdjacentElement('afterend', summary);
+  }
+
+  summary.innerHTML = `
+    <span class="bms-fixes-summary-label">🩹 <strong>Fixes</strong></span>
+    ${enabledFixes.map((fix) => `<span class="bms-fix-summary-item">${fix.icon} <strong>${fix.title}</strong></span>`).join('')}
+  `;
+}
+
+function ensureFaqLinks() {
+  const nav = document.querySelector<HTMLElement>('.wsb-product-nav');
+  if (nav && ![...nav.querySelectorAll('a')].some((link) => link.getAttribute('href') === './faq.html')) {
+    const faq = document.createElement('a');
+    faq.href = './faq.html';
+    faq.textContent = 'FAQ';
+    const github = [...nav.querySelectorAll('a')].find((link) => link.textContent?.includes('GitHub'));
+    if (github) nav.insertBefore(faq, github); else nav.appendChild(faq);
+  }
+
+  const footerColumn = [...document.querySelectorAll<HTMLElement>('.wsb-footer-column')]
+    .find((column) => column.querySelector('h3')?.textContent === 'Builder');
+  if (footerColumn && ![...footerColumn.querySelectorAll('a')].some((link) => link.getAttribute('href') === './faq.html')) {
+    const faq = document.createElement('a');
+    faq.href = './faq.html';
+    faq.textContent = 'FAQ & fixes';
+    const github = [...footerColumn.querySelectorAll('a')].find((link) => link.textContent?.includes('GitHub'));
+    if (github) footerColumn.insertBefore(faq, github); else footerColumn.appendChild(faq);
+  }
+}
+
+function enhanceOptions() {
+  ensureOptionsUi();
+  ensureFaqLinks();
+  updateBuildSummary();
+}
+
+enhanceOptions();
+
+const appRoot = document.querySelector('#app');
+if (appRoot) new MutationObserver(() => enhanceOptions()).observe(appRoot, { childList: true });

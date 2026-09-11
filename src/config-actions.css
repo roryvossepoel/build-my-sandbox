@@ -1,0 +1,194 @@
+/* Configuration import/export actions belong with the generated outputs. */
+.wsb-config-actions {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed #e6ddcf;
+}
+
+.wsb-config-actions-heading strong,
+.wsb-config-actions-heading span {
+  display: block;
+}
+
+.wsb-config-actions-heading strong {
+  color: #344159;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.wsb-config-actions-heading span {
+  margin-top: 4px;
+  color: #8992a1;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.wsb-config-actions-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.wsb-config-actions-buttons button {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  min-height: 66px;
+  padding: 10px 11px;
+  border: 1px solid #ded6c9;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(72, 58, 38, .03);
+  color: #4a5870;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: border-color .16s ease, background .16s ease, color .16s ease, transform .16s ease, box-shadow .16s ease;
+}
+
+.wsb-config-action-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  flex: 0 0 38px;
+}
+
+.wsb-config-action-icon::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+button[data-card-import] .wsb-config-action-icon {
+  background: #f1eeff;
+  color: #7063e7;
+}
+
+button[data-card-import] .wsb-config-action-icon::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M11 16V7.8L8.4 10.4 7 9l5-5 5 5-1.4 1.4L13 7.8V16h-2Zm-5 4a2 2 0 0 1-2-2v-4h2v4h12v-4h2v4a2 2 0 0 1-2 2H6Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M11 16V7.8L8.4 10.4 7 9l5-5 5 5-1.4 1.4L13 7.8V16h-2Zm-5 4a2 2 0 0 1-2-2v-4h2v4h12v-4h2v4a2 2 0 0 1-2 2H6Z'/%3E%3C/svg%3E");
+}
+
+button[data-card-export] .wsb-config-action-icon {
+  background: #eaf9f3;
+  color: #3fae8b;
+}
+
+button[data-card-export] .wsb-config-action-icon::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M11 4h2v8.2l2.6-2.6L17 11l-5 5-5-5 1.4-1.4 2.6 2.6V4Zm-5 16a2 2 0 0 1-2-2v-4h2v4h12v-4h2v4a2 2 0 0 1-2 2H6Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M11 4h2v8.2l2.6-2.6L17 11l-5 5-5-5 1.4-1.4 2.6 2.6V4Zm-5 16a2 2 0 0 1-2-2v-4h2v4h12v-4h2v4a2 2 0 0 1-2 2H6Z'/%3E%3C/svg%3E");
+}
+
+.wsb-config-action-copy {
+  display: block;
+  min-width: 0;
+}
+
+.wsb-config-action-copy strong,
+.wsb-config-action-copy small {
+  display: block;
+}
+
+.wsb-config-action-copy strong {
+  color: #46536a;
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.wsb-config-action-copy small {
+  margin-top: 4px;
+  color: #969daa;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.wsb-config-actions-buttons button:hover {
+  transform: translateY(-1px);
+  border-color: #c9c0f1;
+  background: #faf9ff;
+  box-shadow: 0 9px 20px rgba(77, 65, 145, .07);
+}
+
+.wsb-config-actions-buttons button[data-card-export]:hover {
+  border-color: #bfe2d5;
+  background: #f6fcfa;
+}
+
+.wsb-config-actions-buttons button:focus-visible {
+  outline: 3px solid rgba(111, 99, 231, .18);
+  outline-offset: 2px;
+}
+
+.wsb-config-actions-buttons button:active {
+  transform: translateY(0);
+}
+
+/* Small contribution path directly under the Toy Box search field. */
+.wsb-tool-request {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -8px 2px 18px;
+  padding: 0 4px;
+  color: #8a92a0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.wsb-tool-request a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #675be0;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wsb-tool-request a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Header now contains only product help and GitHub. */
+.wsb-product-nav {
+  padding: 4px;
+}
+
+.wsb-product-nav button,
+.wsb-product-nav a {
+  min-height: 38px;
+  padding-inline: 14px;
+  font-size: 12px;
+}
+
+@media (max-width: 520px) {
+  .wsb-config-actions-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .wsb-tool-request {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+}

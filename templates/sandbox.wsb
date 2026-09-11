@@ -1,0 +1,10 @@
+<Configuration>
+  <MemoryInMB>{{MEMORY_MB}}</MemoryInMB>
+  <Networking>{{NETWORKING}}</Networking>
+  <ClipboardRedirection>{{CLIPBOARD}}</ClipboardRedirection>
+  <VGpu>{{VGPU}}</VGpu>
+{{MAPPED_FOLDERS}}
+  <LogonCommand>
+    <Command>powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File C:\SandboxBuilder\runner.ps1</Command>
+  </LogonCommand>
+</Configuration>

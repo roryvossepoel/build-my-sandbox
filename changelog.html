@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Build My Sandbox changelog: meaningful feature additions, tool updates and other changes worth knowing about." />
+  <meta name="theme-color" content="#fffaf2" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://buildmysandbox.com/changelog.html" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./src/site-nav.css" />
+  <link rel="stylesheet" href="./src/product-shell.css" />
+  <link rel="stylesheet" href="./src/share.css" />
+  <link rel="stylesheet" href="./src/changelog.css" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Build My Sandbox" />
+  <meta property="og:title" content="Changelog — Build My Sandbox" />
+  <meta property="og:description" content="The useful changes: new tools, app updates and meaningful Build My Sandbox features." />
+  <meta property="og:url" content="https://buildmysandbox.com/changelog.html" />
+  <title>Changelog — Build My Sandbox</title>
+</head>
+<body>
+  <header class="bms-site-topbar">
+    <a class="bms-site-brand" href="./">
+      <img src="./favicon.svg" alt="" />
+      <span class="bms-site-brand-copy"><strong>Build My Sandbox</strong><small>Build a Windows playground worth playing in.</small></span>
+    </a>
+    <nav class="bms-site-nav wsb-product-nav" aria-label="Product navigation">
+      <a href="./faq.html">FAQ</a>
+      <a class="wsb-github-icon bms-github-icon" href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer" aria-label="Build My Sandbox on GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.22c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.59-.29-5.31-1.29-5.31-5.75 0-1.27.45-2.31 1.2-3.12-.12-.3-.52-1.48.11-3.08 0 0 .98-.31 3.16 1.19A10.9 10.9 0 0 1 12 6c.98 0 1.96.13 2.88.38 2.18-1.5 3.16-1.19 3.16-1.19.63 1.6.23 2.78.11 3.08.75.81 1.2 1.85 1.2 3.12 0 4.47-2.73 5.45-5.33 5.74.42.36.79 1.08.79 2.18v3.24c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <main class="change-shell">
+    <section class="change-hero">
+      <span>BUILD · TUNE · SHIP</span>
+      <h1>What changed?<br><em>The useful bits.</em></h1>
+      <p>A human-sized changelog for new tools, app updates and meaningful features. Tiny visual tweaks and every internal commit intentionally stay out of here.</p>
+    </section>
+
+    <section class="change-list" aria-label="Build My Sandbox changelog">
+      <article class="change-release latest">
+        <aside class="change-date"><time datetime="2026-09-11">11 Sep 2026</time><span>Latest</span></aside>
+        <div class="change-card">
+          <div class="change-heading"><span>V1.0.0 · FIRST PUBLIC RELEASE</span><h2>Build My Sandbox is ready to play</h2></div>
+          <div class="change-items">
+            <div><b>🧰</b><p><strong>Toolbox workflow</strong><span>Provisioning now has a polished live Toolbox with Pending, Installing, Ready and Failed states, direct launch actions, readable failure feedback and per-tool Retry.</span></p></div>
+            <div><b>🧬</b><p><strong>x64 + ARM64 awareness</strong><span>Architecture-specific packages can adapt automatically. Google Chrome now installs the native Enterprise MSI on both x64 and ARM64 Windows Sandbox hosts.</span></p></div>
+            <div><b>🌐</b><p><strong>Browsers ready for testing</strong><span>Chrome and Firefox receive Sandbox-friendly policies that suppress first-run, default-browser and promotional flows while keeping private browsing actions one click away.</span></p></div>
+            <div><b>🛠️</b><p><strong>Tool actions that make sense</strong><span>Apps get focused Start/Open actions, PsExec exposes SYSTEM shells, and PowerShell 7 can launch as SYSTEM when PsExec is part of the same build.</span></p></div>
+            <div><b>✅</b><p><strong>Release hardening</strong><span>Reproducible npm installs, automated catalog checks, production builds, internal link and anchor validation, security guidance and a Bug Report issue form are now part of the public project.</span></p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="change-release">
+        <aside class="change-date"><time datetime="2026-09-09">9 Sep 2026</time></aside>
+        <div class="change-card">
+          <div class="change-heading"><span>FEATURES + APPS</span><h2>Safer builds, better inspection</h2></div>
+          <div class="change-items">
+            <div><b>🔎</b><p><strong>Tool details</strong><span>Each catalog item now exposes its publisher, download host, install method, architecture, dependencies and public manifest.</span></p></div>
+            <div><b>🧸</b><p><strong>Tool limit</strong><span>Builds are capped at 20 selected tools, with a heads-up from 15 onward. Automatically added dependencies do not count toward the limit.</span></p></div>
+            <div><b>🧾</b><p><strong>Source inspector</strong><span>WSB and PowerShell previews are collapsible, syntax highlighted and scrollable, with stable line numbers and optional word wrap.</span></p></div>
+            <div><b>🔗</b><p><strong>Share menu</strong><span>Copy a link or share Build My Sandbox through the native share sheet, X, Bluesky, LinkedIn or email.</span></p></div>
+            <div><b>🛡️</b><p><strong>Safer defaults</strong><span>Networking stays required for downloads. Clipboard, host Downloads sharing and optional fixes start disabled unless you choose them.</span></p></div>
+          </div>
+          <div class="change-apps">
+            <span>APP UPDATES</span>
+            <div><strong>7-Zip <i>26.03</i></strong><strong>Notepad++ <i>8.9.8</i></strong><strong>PowerShell 7 <i>7.6.6</i></strong></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="change-release">
+        <aside class="change-date"><time datetime="2026-09-06">6 Sep 2026</time></aside>
+        <div class="change-card">
+          <div class="change-heading"><span>TOOLBOX</span><h2>Tools became ready to use after provisioning</h2></div>
+          <div class="change-items compact">
+            <div><b>🚀</b><p><strong>Launch actions</strong><span>Selected tools can create useful shortcuts and launch actions after provisioning, including admin variants and direct links to useful folders or logs.</span></p></div>
+            <div><b>🧰</b><p><strong>Packaging fixes</strong><span>VS Code portable setup and Orca installation were hardened for a cleaner Sandbox experience.</span></p></div>
+            <div><b>📖</b><p><strong>Windows Sandbox guidance</strong><span>Documentation and learning links were expanded so the builder also helps explain the platform it is built on.</span></p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="change-release">
+        <aside class="change-date"><time datetime="2026-09-05">5 Sep 2026</time></aside>
+        <div class="change-card">
+          <div class="change-heading"><span>SANDBOX CAPABILITIES</span><h2>Host sharing, optional fixes and provisioning status</h2></div>
+          <div class="change-items compact">
+            <div><b>📂</b><p><strong>Host Downloads</strong><span>Your host Downloads folder can be mapped into Windows Sandbox as read-only, with write access as a separate opt-in.</span></p></div>
+            <div><b>🩹</b><p><strong>Optional fixes</strong><span>DNS recovery and the App Control performance workaround became selectable only when a Sandbox needs them.</span></p></div>
+            <div><b>🎨</b><p><strong>Provisioning window</strong><span>A small status UI shows Pending, Installing, Ready or Failed while the generated Sandbox prepares your selected tools.</span></p></div>
+            <div><b>💻</b><p><strong>Code inspection</strong><span>Generated WSB and PowerShell gained syntax highlighting so you can review what will run before launch.</span></p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="change-release">
+        <aside class="change-date"><time datetime="2026-09-01">1 Sep 2026</time></aside>
+        <div class="change-card">
+          <div class="change-heading"><span>BUILDER + CATALOG</span><h2>Save setups and grow the Toy Box</h2></div>
+          <div class="change-items compact">
+            <div><b>💾</b><p><strong>Import & export</strong><span>Sandbox setups can be saved as a configuration file and loaded again later.</span></p></div>
+            <div><b>➕</b><p><strong>Request a tool</strong><span>A GitHub-backed request flow makes it easy to suggest another tool for the catalog.</span></p></div>
+            <div><b>🌐</b><p><strong>Browsers added</strong><span>Google Chrome and Mozilla Firefox joined the selectable tool catalog.</span></p></div>
+            <div><b>🔏</b><p><strong>Sigcheck added</strong><span>Microsoft Sysinternals Sigcheck joined the troubleshooting toolbox.</span></p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="change-release origin">
+        <aside class="change-date"><time datetime="2026-08-16">16 Aug 2026</time></aside>
+        <div class="change-card">
+          <div class="change-heading"><span>PROJECT FOUNDATION</span><h2>The sandbox started filling with toys</h2></div>
+          <div class="change-items compact">
+            <div><b>🏖️</b><p><strong>First builder foundation</strong><span>Client-side WSB and PowerShell generation, app manifests and automatic dependency resolution formed the core of Build My Sandbox.</span></p></div>
+            <div><b>🧩</b><p><strong>Initial tool catalog</strong><span>The first collection included Windows troubleshooting, packaging and developer utilities such as Process Explorer, PowerShell 7, VS Code, 7-Zip, Notepad++, CMTrace and more.</span></p></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="change-github">
+      <div><span>WANT EVERY NUT AND BOLT?</span><h2>The full history lives on GitHub.</h2><p>This page deliberately skips pixel polish, refactors and other small implementation details.</p></div>
+      <a href="https://github.com/roryvossepoel/build-my-sandbox/commits/dev-history/" target="_blank" rel="noreferrer">Browse development history ↗</a>
+    </section>
+  </main>
+
+  <footer class="wsb-site-footer">
+    <div class="wsb-footer-inner">
+      <div class="wsb-footer-grid">
+        <section>
+          <div class="wsb-footer-brand">
+            <span class="wsb-footer-logo" aria-hidden="true"><img src="./favicon.svg" alt="" /></span>
+            <div><strong>Build My Sandbox</strong><span>Pick · Drop · Build · Play</span></div>
+          </div>
+          <p class="wsb-footer-copy">An open-source, client-side Windows Sandbox configuration generator. Pick the tools you need, inspect exactly what will run and export a ready-to-use .WSB and PowerShell bootstrap without an account or application backend.</p>
+        </section>
+        <section class="wsb-footer-column">
+          <h3>Build My Sandbox</h3>
+          <a href="./#builder-zone">Build a sandbox</a>
+          <a href="./faq.html">FAQ & Windows Sandbox</a>
+          <a href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </section>
+        <section class="wsb-footer-column">
+          <h3>What you get</h3>
+          <span>Drag & drop tool selection</span>
+          <span>Automatic dependencies</span>
+          <span>Live WSB & PowerShell preview</span>
+          <span>.WSB and full bundle export</span>
+        </section>
+        <section class="wsb-footer-column wsb-footer-sandbox-info">
+          <h3>Windows Sandbox</h3>
+          <p>Microsoft's lightweight disposable Windows environment for testing apps and files in isolation.</p>
+          <span><strong>Install:</strong> Windows Features → Windows Sandbox → OK.</span>
+          <a href="./faq.html">FAQ, basics & fixes ↗</a>
+          <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer">Official Microsoft docs ↗</a>
+        </section>
+      </div>
+      <div class="wsb-footer-bottom">
+        <span>© 2026 Build My Sandbox</span>
+        <span class="wsb-footer-legal">Open source · <a href="https://github.com/roryvossepoel/build-my-sandbox/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT licensed</a> · Provided as-is · Not affiliated with Microsoft</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/share-shell.ts"></script>
+</body>
+</html>

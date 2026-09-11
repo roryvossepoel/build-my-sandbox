@@ -1,0 +1,27 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "sandbox-elite",
+  "name": "My Sandbox",
+  "description": "Start empty, pick your own tools and build the Windows Sandbox you actually need.",
+  "sandbox": {
+    "memoryMB": 8192,
+    "networking": true,
+    "clipboard": false,
+    "vGpu": false,
+    "audioInput": false,
+    "videoInput": false,
+    "printerRedirection": false,
+    "protectedClient": false
+  },
+  "features": {
+    "toolbox": false,
+    "hideBootstrapConsole": true,
+    "desktopShortcuts": true,
+    "systemShortcuts": true,
+    "edgeManagedFavorites": false,
+    "hideEdgeFirstRun": true,
+    "customWallpaper": false
+  },
+  "apps": [],
+  "mappedFolders": []
+}

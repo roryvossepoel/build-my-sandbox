@@ -1,0 +1,25 @@
+{
+  "$schema": "../schemas/app.schema.json",
+  "id": "webview2",
+  "name": "Microsoft Edge WebView2 Runtime",
+  "description": "Evergreen WebView2 Runtime used by applications that embed Edge web content.",
+  "publisher": "Microsoft",
+  "homepage": "https://developer.microsoft.com/microsoft-edge/webview2/",
+  "category": "runtime",
+  "architectures": ["x64", "arm64"],
+  "dependencies": [],
+  "install": {
+    "type": "exe",
+    "url": "https://go.microsoft.com/fwlink/p/?LinkId=2124703",
+    "fileName": "MicrosoftEdgeWebview2Setup.exe",
+    "silentArgs": "/silent /install"
+  },
+  "detection": {
+    "type": "command",
+    "value": "$keys = @('HKLM:\\SOFTWARE\\WOW6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}', 'HKCU:\\Software\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}'); $found = $false; foreach ($key in $keys) { if (Test-Path -LiteralPath $key) { $pv = (Get-ItemProperty -LiteralPath $key -Name pv -ErrorAction SilentlyContinue).pv; if ($pv -and $pv -ne '0.0.0.0') { $found = $true; break } } }; if ($found) { exit 0 } else { exit 1 }"
+  },
+  "ui": {
+    "badge": "dependency",
+    "dependencyOnly": true
+  }
+}

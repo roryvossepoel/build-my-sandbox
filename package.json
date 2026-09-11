@@ -1,0 +1,23 @@
+{
+  "name": "build-my-sandbox",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "pako": "^2.1.0",
+    "prismjs": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/pako": "^2.0.3",
+    "@types/prismjs": "^1.26.5",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.2"
+  }
+}

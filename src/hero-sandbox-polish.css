@@ -1,0 +1,108 @@
+/* Give the hero sandbox more depth and a friendlier toy-like finish. */
+.sandbox-illustration {
+  background:
+    radial-gradient(circle at 15% 19%, rgba(255,255,255,.46) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 78% 24%, rgba(255,255,255,.34) 0 1.5px, transparent 2px),
+    linear-gradient(180deg, #dff4ff 0 58%, #fae8b7 58% 100%);
+}
+
+.sandbox-illustration::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 16% 95%, rgba(225, 177, 77, .12) 0 12%, transparent 12.5%),
+    radial-gradient(ellipse at 76% 108%, rgba(225, 177, 77, .10) 0 17%, transparent 17.5%);
+}
+
+.sandpit {
+  bottom: 30px;
+  height: 176px;
+  border: 0;
+  border-radius: 38px 38px 30px 30px;
+  background: linear-gradient(180deg, #efbd59 0%, #dda446 100%);
+  box-shadow:
+    0 20px 30px rgba(139, 96, 31, .18),
+    0 4px 0 rgba(255,255,255,.28) inset;
+  isolation: isolate;
+}
+
+/* Recessed sand surface. */
+.sandpit::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: 13px 13px 27px;
+  border-radius: 27px 27px 22px 22px;
+  background:
+    radial-gradient(circle at 12% 28%, rgba(255,255,255,.54) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 32% 67%, rgba(185,128,38,.15) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 61% 29%, rgba(255,255,255,.35) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 83% 72%, rgba(185,128,38,.14) 0 2px, transparent 2.5px),
+    radial-gradient(ellipse at 23% 105%, rgba(216,164,65,.26) 0 23%, transparent 23.5%),
+    radial-gradient(ellipse at 70% 110%, rgba(216,164,65,.22) 0 28%, transparent 28.5%),
+    linear-gradient(180deg, #f9df9d 0%, #f3cf7c 100%);
+  box-shadow:
+    0 5px 10px rgba(132, 91, 26, .13) inset,
+    0 -6px 14px rgba(255,255,255,.19) inset;
+}
+
+/* Chunkier front lip, like a real plastic/wood sandbox. */
+.sandpit::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 13px;
+  right: 13px;
+  bottom: 10px;
+  height: 22px;
+  border-radius: 0 0 19px 19px;
+  background: linear-gradient(180deg, rgba(226,164,67,.72), #d99e3f);
+  box-shadow: 0 -2px 0 rgba(255,255,255,.14) inset;
+}
+
+.sandpit strong {
+  z-index: 3;
+  top: 47px;
+  color: rgba(126, 88, 31, .56);
+  font-size: 25px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.25);
+}
+
+.bucket,
+.spade {
+  z-index: 4;
+  filter: drop-shadow(0 7px 7px rgba(108, 75, 24, .16));
+}
+
+.bucket {
+  left: 13%;
+  bottom: 28px;
+  font-size: 51px;
+}
+
+.spade {
+  right: 11%;
+  bottom: 31px;
+  font-size: 40px;
+}
+
+/* Gentle motion makes the playground feel alive without being distracting. */
+.floating-tool {
+  animation: sandboxToolFloat 4.6s ease-in-out infinite;
+}
+.tool-two { animation-delay: -.9s; }
+.tool-three { animation-delay: -1.8s; }
+
+@keyframes sandboxToolFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-tool { animation: none; }
+}

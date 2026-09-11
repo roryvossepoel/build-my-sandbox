@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Open-source, client-side builder for Microsoft Windows Sandbox configurations. Generate and inspect WSB and PowerShell files directly in your browser." />
+    <meta name="theme-color" content="#fffaf2" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://buildmysandbox.com/" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Build My Sandbox" />
+    <meta property="og:title" content="Build My Sandbox — Windows Sandbox Builder" />
+    <meta property="og:description" content="Open-source, client-side builder for Microsoft Windows Sandbox configurations. Generate and inspect WSB and PowerShell files in your browser." />
+    <meta property="og:url" content="https://buildmysandbox.com/" />
+    <meta property="og:image" content="https://buildmysandbox.com/hero-sandbox.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Build My Sandbox",
+      "url": "https://buildmysandbox.com/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Windows",
+      "description": "Open-source browser-based builder for Microsoft Windows Sandbox configurations. Generates inspectable WSB and PowerShell files client-side.",
+      "isAccessibleForFree": true,
+      "softwareHelp": "https://buildmysandbox.com/faq.html",
+      "sameAs": [
+        "https://github.com/roryvossepoel/build-my-sandbox"
+      ]
+    }
+    </script>
+
+    <title>Build My Sandbox — Windows Sandbox Builder</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <details class="wsb-walkthrough">
+      <summary>Help</summary>
+      <div class="wsb-walkthrough-panel" tabindex="-1">
+        <button type="button" class="wsb-help-close" data-help-close aria-label="Close help">×</button>
+        <span>Quick tour</span>
+        <h3>Build a sandbox in four moves</h3>
+        <p>No preset needed. Start empty and build exactly what you want.</p>
+        <div class="wsb-walkthrough-steps">
+          <div class="wsb-walkthrough-step"><b>1</b><div><strong>Pick a tool</strong><small>Browse or search the Toy Box.</small></div></div>
+          <div class="wsb-walkthrough-step"><b>2</b><div><strong>Drop it in</strong><small>Drag tools into My Sandbox, or just click +.</small></div></div>
+          <div class="wsb-walkthrough-step"><b>3</b><div><strong>Tune the sandbox</strong><small>Choose memory and the optional Sandbox capabilities you need.</small></div></div>
+          <div class="wsb-walkthrough-step"><b>4</b><div><strong>Build & play</strong><small>Inspect the output, then download your .WSB or the full bundle.</small></div></div>
+        </div>
+        <div class="wsb-help-about">
+          <span>Windows Sandbox</span>
+          <h4>What is it?</h4>
+          <p>A lightweight, isolated and disposable Windows desktop for safely testing apps, files and tools. Close it and its software, files and state are removed.</p>
+          <h4>How do I install it?</h4>
+          <p>On a supported Windows edition, open <strong>Turn Windows features on or off</strong>, enable <strong>Windows Sandbox</strong> and restart if prompted.</p>
+          <a href="./faq.html">Windows Sandbox FAQ & guides ↗</a>
+          <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noreferrer">Microsoft installation guide ↗</a>
+        </div>
+      </div>
+    </details>
+
+    <footer class="wsb-site-footer">
+      <div class="wsb-footer-inner">
+        <div class="wsb-footer-grid">
+          <section>
+            <div class="wsb-footer-brand">
+              <span class="wsb-footer-logo" aria-hidden="true"><img src="./favicon.svg" alt="" /></span>
+              <div><strong>Build My Sandbox</strong><span>Pick · Drop · Build · Play</span></div>
+            </div>
+            <p class="wsb-footer-copy">An open-source, client-side Windows Sandbox configuration generator. Pick the tools you need, inspect exactly what will run and export a ready-to-use .WSB and PowerShell bootstrap without an account or application backend.</p>
+          </section>
+          <section class="wsb-footer-column">
+            <h3>Build My Sandbox</h3>
+            <a href="#builder-zone">Build a sandbox</a>
+            <a href="./faq.html">FAQ & Windows Sandbox</a>
+            <a href="https://github.com/roryvossepoel/build-my-sandbox" target="_blank" rel="noreferrer">GitHub ↗</a>
+          </section>
+          <section class="wsb-footer-column">
+            <h3>What you get</h3>
+            <span>Drag & drop tool selection</span>
+            <span>Automatic dependencies</span>
+            <span>Live WSB & PowerShell preview</span>
+            <span>.WSB and full bundle export</span>
+          </section>
+          <section class="wsb-footer-column wsb-footer-sandbox-info">
+            <h3>Windows Sandbox</h3>
+            <p>Microsoft's lightweight disposable Windows environment for testing apps and files in isolation.</p>
+            <span><strong>Install:</strong> Windows Features → Windows Sandbox → OK.</span>
+            <a href="./faq.html">FAQ, basics & fixes ↗</a>
+            <a href="https://learn.microsoft.com/windows/security/application-security/application-isolation/windows-sandbox/" target="_blank" rel="noreferrer">Official Microsoft docs ↗</a>
+          </section>
+        </div>
+        <div class="wsb-footer-bottom">
+          <span>© 2026 Build My Sandbox</span>
+          <span class="wsb-footer-legal">Open source · <a href="https://github.com/roryvossepoel/build-my-sandbox/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT licensed</a> · Provided as-is · Not affiliated with Microsoft</span>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/help-shell.ts"></script>
+    <script type="module" src="/src/tool-catalog-shell.ts"></script>
+    <script type="module" src="/src/toybox-scroll-shell.ts"></script>
+    <script type="module" src="/src/share-shell.ts"></script>
+    <script type="module" src="/src/brand-shell.ts"></script>
+    <script type="module" src="/src/review-summary-shell.ts"></script>
+    <script type="module" src="/src/sandbox-options-shell.ts"></script>
+    <script type="module" src="/src/network-required-shell.ts"></script>
+    <script type="module" src="/src/settings-unify-shell.ts"></script>
+    <script type="module" src="/src/code-viewer-shell.ts"></script>
+    <link rel="stylesheet" href="/src/playground-scale.css" />
+    <link rel="stylesheet" href="/src/playground-scale-v2.css" />
+    <link rel="stylesheet" href="/src/summary-scale.css" />
+    <link rel="stylesheet" href="/src/product-shell.css" />
+    <link rel="stylesheet" href="/src/config-actions.css" />
+    <link rel="stylesheet" href="/src/toybox-flat.css" />
+    <link rel="stylesheet" href="/src/tool-catalog.css" />
+    <link rel="stylesheet" href="/src/hero-sandbox-polish.css" />
+    <link rel="stylesheet" href="/src/brand-unify.css" />
+    <link rel="stylesheet" href="/src/dependency-ui.css" />
+    <link rel="stylesheet" href="/src/review-summary-polish.css" />
+    <link rel="stylesheet" href="/src/responsive-builder.css" />
+    <link rel="stylesheet" href="/src/sandbox-options.css" />
+    <link rel="stylesheet" href="/src/code-viewer.css" />
+    <link rel="stylesheet" href="/src/desktop-polish.css" />
+    <link rel="stylesheet" href="/src/settings-unify.css" />
+  </body>
+</html>
